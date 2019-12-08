@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
 import argparse
 import os
 import re
+import colorsys
 
 using_color = "The color in hex value in formate of #RRGGBB  or #RGB. For example :#00ff00 or #0f0 make a  green version of your pic"
 
@@ -50,8 +51,29 @@ def _on_args_parsed(args):
     recolor(filename, r, g, b)
 
 
-def recolor(filename, r, g, b):
+def recolor(filename, red, green, blue):
     bar_filename, ext = os.path.splitext(filename)
-    color = r+g+b
+    # src_h, src_s, src_v = colorsys.rgb_to_hsv(0, 152/255, 1)
+    dst_h, dst_s, dst_v = colorsys.rgb_to_hsv(
+        int(red, base=16)/255, int(green, base=16)/255, int(blue, base=16)/255)
+    # print(dst_h, dst_s, dst_v)
+    color = f"{red}{green}{blue}"
     new_filename = f"{bar_filename}_{color}{ext}"
     print(f"{filename} + #{color} -> {new_filename}")
+    img = Image.open(filename).convert('RGB')
+    width = img.width
+    height = img.height
+    px = img.load()
+
+    img_new = Image.new('RGB', (width, height))
+    px_new = img_new.load()
+
+    for y in range(0, height):
+        for x in range(0, width):
+            r, g, b = px[x, y]
+            h, s, v = colorsys.rgb_to_hsv(r/255, g/255, b/255)
+            rn, gn, bn = colorsys.hsv_to_rgb(dst_h, s, v)
+            px_new[x, y] = (int(255*rn), int(255*gn), int(255*bn))
+
+    img_new.show()
+    # img.save(new_filename, 'PNG')
