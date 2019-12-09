@@ -18,13 +18,16 @@ color6_re = re.compile(
 
 def create_cmd_parser(subparsers):
     parser_recolor = subparsers.add_parser(
-        'recolor', help='recolor a pic file')
+        'recolor', help='recolor a pic')
     parser_recolor.add_argument("--file",
                                 "-f",
                                 help="the file to be recolor")
     parser_recolor.add_argument("--color",
                                 "-c",
                                 help=using_color)
+    parser_recolor.add_argument("--outfile",
+                                "-o",
+                                help="Optional the output file")
     parser_recolor.set_defaults(on_args_parsed=_on_args_parsed)
 
 
@@ -58,7 +61,7 @@ def recolor(filename, red, green, blue):
         int(red, base=16)/255, int(green, base=16)/255, int(blue, base=16)/255)
     # print(dst_h, dst_s, dst_v)
     color = f"{red}{green}{blue}"
-    new_filename = f"{bar_filename}_{color}{ext}"
+    new_filename = f"{bar_filename}_0x{color}{ext}"
     print(f"{filename} + #{color} -> {new_filename}")
     img = Image.open(filename).convert('RGB')
     width = img.width
@@ -75,5 +78,4 @@ def recolor(filename, red, green, blue):
             rn, gn, bn = colorsys.hsv_to_rgb(dst_h, s, v)
             px_new[x, y] = (int(255*rn), int(255*gn), int(255*bn))
 
-    img_new.show()
-    # img.save(new_filename, 'PNG')
+    img_new.save(new_filename, 'PNG')

@@ -9,7 +9,7 @@ using_color = "The color in hex value in formate of #RRGGBB  or #RGB. For exampl
 
 def create_cmd_parser(subparsers):
     parser_recolor = subparsers.add_parser(
-        'frosted', help='make a pic file frosted glass like')
+        'frosted', help='frosted glass on a pic')
     parser_recolor.add_argument("--file",
                                 "-f",
                                 help="the file to be frosted")
