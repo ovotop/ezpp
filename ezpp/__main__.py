@@ -7,10 +7,11 @@ import argparse
 import recolor
 import resize
 import frosted
-
+import sys
 
 # https://docs.python.org/3/library/argparse.html#sub-commands
 if __name__ == "__main__":
+
     parser = argparse.ArgumentParser(
         prog="ezpp",
         usage="ezpp [-h] subcommand{recolor,resize} ...",
@@ -24,5 +25,10 @@ if __name__ == "__main__":
     frosted.create_cmd_parser(subparsers)
     recolor.create_cmd_parser(subparsers)
     resize.create_cmd_parser(subparsers)
+
+    if len(sys.argv) < 2:
+        parser.print_help()
+        exit(2)
+
     args = parser.parse_args()
     args.on_args_parsed(args)
