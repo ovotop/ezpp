@@ -30,27 +30,23 @@ class Application(tk.Frame):
 
     def create_widgets_controls(self, root):
         self.blur = 10
+        self.mode = 3
         self.sblur = ttk.Scale(root, orient='horizontal',
                                length=600, from_=1.0, to=100.0, command=self.update_blur)
         # pack(side='top', ipadx=10, ipady=10, anchor='center')
         self.lbBlur = ttk.Label(root, text='Blur:')
         self.lbMode = ttk.Label(root, text='Mode:')
         self.rbModeNone = ttk.Radiobutton(
-            root, text='None', variable='phone', value=None, command=self.update_modeNone)
-
+            root, text='None', value=0, command=self.update_modeNone)
+        self.mode = tk.StringVar()
         self.rbMode3 = ttk.Radiobutton(
-            root, text='3', variable='phone', value=3, command=self.update_mode3)
+            root, text='3', value=3, command=self.update_mode3)
 
         self.rbMode5 = ttk.Radiobutton(
-            root, text='5', variable='phone', value=5, command=self.update_mode5)
-
-        self.btStart = ttk.Button(root, text="start", command=self.frosted)
+            root, text='5', value=5, command=self.update_mode5)
 
         self.lbBlur.grid(row=0, column=0, ipadx=10, ipady=10)
         self.sblur.grid(row=0, column=1, columnspan=3, ipadx=10, ipady=10)
-        self.btStart.grid(row=0, column=4, rowspan=2,
-                          sticky='we', padx=30, pady=30)
-
         self.lbMode.grid(row=1, column=0)
         self.rbModeNone.grid(row=1, column=1)
         self.rbMode3.grid(row=1, column=2)
