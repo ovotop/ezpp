@@ -3,6 +3,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter
 import argparse
 import os
 import re
+from frosted_editer import frosted_editer
 
 using_color = "The color in hex value in formate of #RRGGBB  or #RGB. For example :#00ff00 or #0f0 make a  green version of your pic"
 
@@ -13,6 +14,10 @@ def create_cmd_parser(subparsers):
     parser_recolor.add_argument("--file",
                                 "-f",
                                 help="the file to be frosted")
+    parser_recolor.add_argument("--editer",
+                                "-e",
+                                action='store_true',
+                                help="frosted pic in a editer window")
     parser_recolor.set_defaults(on_args_parsed=_on_args_parsed)
 
 
@@ -25,7 +30,11 @@ def repeat2(str_tobe_repeat):
 def _on_args_parsed(args):
     params = vars(args)
     filename = params['file']
-    frosted(filename)
+    editer = params['editer']
+    if editer:
+        frosted_editer(filename)
+    else:
+        frosted(filename)
 
 
 def frosted(filename):
