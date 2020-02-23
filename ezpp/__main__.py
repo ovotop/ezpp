@@ -4,14 +4,15 @@ import sys
 import os
 import getopt
 import argparse
-import recolor
-import resize
-import frosted
+from . import recolor
+from . import resize
+from . import frosted
 import sys
 
 # https://docs.python.org/3/library/argparse.html#sub-commands
-if __name__ == "__main__":
 
+
+def main():
     parser = argparse.ArgumentParser(
         prog="ezpp",
         usage="ezpp [-h] subcommand{recolor,resize} ...",
@@ -32,3 +33,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     args.on_args_parsed(args)
+
+
+if __name__ == "__main__":
+    main()

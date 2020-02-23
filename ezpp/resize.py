@@ -68,4 +68,7 @@ def _on_size_parsed(infile, outfile, size):
 
 
 def resize(filename, width, height, outputfile):
-    print(f"{filename} -> {outputfile}")
+    # print(f"{os.path.abspath(filename)} ->({width}, {height}) -> {os.path.abspath(outputfile)}")
+    img = Image.open(os.path.abspath(filename))
+    img_tobe_scale = img.resize((int(width), int(height)), Image.ANTIALIAS)
+    img_tobe_scale.save(os.path.abspath(outputfile), 'PNG')

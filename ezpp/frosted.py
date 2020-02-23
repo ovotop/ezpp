@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter
 import argparse
 import os
 import re
-from frosted_editer import frosted_editer
+from . import frosted_editer
 
 using_color = "The color in hex value in formate of #RRGGBB  or #RGB. For example :#00ff00 or #0f0 make a  green version of your pic"
 

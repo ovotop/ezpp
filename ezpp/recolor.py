@@ -25,9 +25,9 @@ def create_cmd_parser(subparsers):
     parser_recolor.add_argument("--color",
                                 "-c",
                                 help=using_color)
-    parser_recolor.add_argument("--outfile",
-                                "-o",
-                                help="Optional the output file")
+    # parser_recolor.add_argument("--outfile",
+    #                             "-o",
+    #                             help="Optional the output file")
     parser_recolor.set_defaults(on_args_parsed=_on_args_parsed)
 
 
