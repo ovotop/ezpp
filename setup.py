@@ -14,7 +14,7 @@ import setuptools
 
 setuptools.setup(
     name="ezpp",
-    version="0.0.1",
+    version="0.0.2",
     keywords=("pip", "ezpp"),
     description="Tool to make zhike logos",
     long_description="Tool to make zhike logos",
