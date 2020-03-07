@@ -63,19 +63,19 @@ def recolor(filename, red, green, blue):
     color = f"{red}{green}{blue}"
     new_filename = f"{bar_filename}_0x{color}{ext}"
     print(f"{filename} + #{color} -> {new_filename}")
-    img = Image.open(filename).convert('RGB')
+    img = Image.open(filename).convert('RGBA')
     width = img.width
     height = img.height
     px = img.load()
 
-    img_new = Image.new('RGB', (width, height))
+    img_new = Image.new('RGBA', (width, height))
     px_new = img_new.load()
 
     for y in range(0, height):
         for x in range(0, width):
-            r, g, b = px[x, y]
+            r, g, b, a = px[x, y]
             h, s, v = colorsys.rgb_to_hsv(r/255, g/255, b/255)
             rn, gn, bn = colorsys.hsv_to_rgb(dst_h, s, v)
-            px_new[x, y] = (int(255*rn), int(255*gn), int(255*bn))
+            px_new[x, y] = (int(255*rn), int(255*gn), int(255*bn), a)
 
     img_new.save(new_filename, 'PNG')
