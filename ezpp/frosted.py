@@ -3,21 +3,17 @@ from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter
 import argparse
 import os
 import re
-from . import frosted_editer
-
-using_color = "The color in hex value in formate of #RRGGBB  or #RGB. For example :#00ff00 or #0f0 make a  green version of your pic"
 
 
 def create_cmd_parser(subparsers):
     parser_recolor = subparsers.add_parser(
         'frosted', help='frosted glass on a pic')
-    parser_recolor.add_argument("--file",
-                                "-f",
+    parser_recolor.add_argument("-f",
+                                "--file",
                                 help="the file to be frosted")
-    parser_recolor.add_argument("--editer",
-                                "-e",
-                                action='store_true',
-                                help="frosted pic in a editer window")
+    parser_recolor.add_argument("-s",
+                                "--size",
+                                help="size of frosted range, default 10, recommonded [3,20]")
     parser_recolor.set_defaults(on_args_parsed=_on_args_parsed)
 
 
@@ -30,19 +26,30 @@ def repeat2(str_tobe_repeat):
 def _on_args_parsed(args):
     params = vars(args)
     filename = params['file']
-    editer = params['editer']
-    if editer:
-        frosted_editer(filename)
+    size = int(params['size'])
+    mode = 5
+    if size:
+        if size > 5:
+            mode = 5
+        elif size > 3:
+            mode = 3
+        else:
+            mode = 0
+
+        frosted(filename, size, mode)
     else:
         frosted(filename)
 
 
-def frosted(filename):
+def frosted(filename, blurSize=10, mode=5):
     bar_filename, ext = os.path.splitext(filename)
     new_filename = f"{bar_filename}_frosted{ext}"
     print(f"{filename} frosted -> {new_filename}")
     img = Image.open(filename)
-    img = img.filter(ImageFilter.GaussianBlur(10))
-    img = img.filter(ImageFilter.ModeFilter(5))
+    img = img.filter(ImageFilter.GaussianBlur(blurSize))
+
+    if mode > 0:
+        img = img.filter(ImageFilter.ModeFilter(mode))
+
     img.show()
     img.save(new_filename, 'PNG')
