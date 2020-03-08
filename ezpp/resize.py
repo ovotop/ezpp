@@ -52,9 +52,15 @@ def _on_args_parsed(args):
 
 
 def _on_app_parsed(infile, outfile):
-    width = 192
-    height = 192
-    resize(infile, width, height, outfile)
+    new_width = 192
+    new_height = 192
+    img = Image.open(os.path.abspath(infile))
+    (origin_w, origin_h) = img.size
+    if origin_h != 1024 or origin_w != 1024:
+        print("Input file should be 1024x1024 picture !")
+        return
+
+    _resize(infile, outfile, origin_w, origin_h, new_width, new_height, img)
 
 
 def _on_size_parsed(infile, outfile, size):
@@ -71,6 +77,10 @@ def _on_size_parsed(infile, outfile, size):
         new_width = int(origin_w * width)
         new_height = int(origin_h * height)
 
+    _resize(infile, outfile, origin_w, origin_h, new_width, new_height, img)
+
+
+def _resize(infile, outfile, origin_w, origin_h, new_width, new_height, img):
     bar_filename, ext = os.path.splitext(infile)
     filename_new = outfile if outfile else f"{bar_filename}_{new_width}x{new_height}{ext}"
 
