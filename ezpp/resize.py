@@ -3,6 +3,7 @@
 import argparse
 import re
 import os
+import shutil
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
 # readlines, writelines, readstr, readjson, list_by_ext
 from ezutils.files import readjson
@@ -59,8 +60,6 @@ def _on_args_parsed(args):
 
 def _on_app_parsed(infile, outfile):
 
-    new_width = 192
-    new_height = 192
     img = Image.open(os.path.abspath(infile))
     (origin_w, origin_h) = img.size
     if origin_h != 1024 or origin_w != 1024:
@@ -79,16 +78,16 @@ def _on_app_parsed(infile, outfile):
         filename = cfg.get("filename")
         size = cfg.get("size")
         print(f"[{index+1}/{count}]--------- RESIZE ----------")
-        _resize(infile, outfile, origin_w, origin_h,
-                new_width, new_height, img)
+        _resize(infile, f"{output_dir}/{filename}", origin_w, origin_h,
+                size, size, img)
         index += 1
 
     index = 0
     count = len(copy_cfgs)
     for cfg in copy_cfgs:
         print(f"[{index+1}/{count}]--------- COPY ----------")
-        print(f"from: {cfg_dir}/{cfg.get('from')}")
-        print(f"to:   {output_dir}/{cfg.get('to')}")
+        _copy(os.path.abspath(f"{cfg_dir}/{cfg.get('from')}"),
+              os.path.abspath(f"{output_dir}/{cfg.get('to')}"))
         index += 1
 
 
@@ -126,9 +125,22 @@ def _resize(infile, outfile, origin_w, origin_h, new_width, new_height, img):
     print(f"from:   {os.path.abspath(infile)}")
     print(f"to:     {os.path.abspath(filename_new)}")
 
+    out_dir, filename = os.path.split(filename_new)
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+
     img_tobe_scale = img.resize(
         (int(new_width), int(new_height)), Image.ANTIALIAS)
     img_tobe_scale.save(os.path.abspath(filename_new), 'PNG')
+
+
+def _copy(src_file, dst_file):
+    print(f"from:    {src_file}")
+    print(f"copy to: {dst_file}")
+    out_dir, filename = os.path.split(dst_file)
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+    shutil.copy(src_file, dst_file)
 
 
 def _parse_wh_from_size(size):
