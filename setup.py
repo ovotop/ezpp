@@ -14,10 +14,10 @@ import setuptools
 
 setuptools.setup(
     name="ezpp",
-    version="0.0.2",
+    version="0.0.3",
     keywords=("pip", "ezpp"),
-    description="Tool to make zhike logos",
-    long_description="Tool to make zhike logos",
+    description="Easy to process picturse",
+    long_description="Easy to process picturse",
     license="MIT Licence",
 
     url="https://github.com/caojianfeng/ezpp",
