@@ -4,6 +4,8 @@ import argparse
 import re
 import os
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
+# readlines, writelines, readstr, readjson, list_by_ext
+from ezutils.files import readjson
 
 re_wh = re.compile(r'^([0-9]+)x([0-9]+)$')
 re_size = re.compile(r'^([0-9]+)$')
@@ -14,6 +16,10 @@ size_using = """
 (2) SIZE OF SQUARE For example : 128 means a 128x128 size ;
 (3) PERCENT For example : 25%% ;
 """
+
+
+def brother_path(filename): return os.path.join(
+    os.path.dirname(__file__), filename)
 
 
 def create_cmd_parser(subparsers):
@@ -52,6 +58,7 @@ def _on_args_parsed(args):
 
 
 def _on_app_parsed(infile, outfile):
+
     new_width = 192
     new_height = 192
     img = Image.open(os.path.abspath(infile))
@@ -60,7 +67,38 @@ def _on_app_parsed(infile, outfile):
         print("Input file should be 1024x1024 picture !")
         return
 
-    _resize(infile, outfile, origin_w, origin_h, new_width, new_height, img)
+    cfg_dir = brother_path('resize_cfg')
+    cfg_file = f"{cfg_dir}/app_icon.json"
+    resize_cfgs, copy_cfgs = _get_icon_sizes_from_cfg(cfg_file)
+
+    output_dir = outfile or f"{infile}.out"
+
+    index = 0
+    count = len(resize_cfgs)
+    for cfg in resize_cfgs:
+        filename = cfg.get("filename")
+        size = cfg.get("size")
+        print(f"[{index+1}/{count}]--------- RESIZE ----------")
+        _resize(infile, outfile, origin_w, origin_h,
+                new_width, new_height, img)
+        index += 1
+
+    index = 0
+    count = len(copy_cfgs)
+    for cfg in copy_cfgs:
+        print(f"[{index+1}/{count}]--------- COPY ----------")
+        print(f"from: {cfg_dir}/{cfg.get('from')}")
+        print(f"to:   {output_dir}/{cfg.get('to')}")
+        index += 1
+
+
+def _get_icon_sizes_from_cfg(cfg_file):
+    cfgs = readjson(cfg_file)
+    # print(cfgs)
+
+    icons_cfg = cfgs['icons']
+    copies_cfg = cfgs['copies']
+    return icons_cfg, copies_cfg
 
 
 def _on_size_parsed(infile, outfile, size):

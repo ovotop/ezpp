@@ -1,102 +1,106 @@
 {
-    "ios": [
+    "icons": [
         {
             "size": "40",
-            "filename": "AppIcon.appiconset/Icon-App-20x20@2x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-20x20@2x.png"
         },
         {
             "size": "60",
-            "filename": "AppIcon.appiconset/Icon-App-20x20@3x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-20x20@3x.png"
         },
         {
             "size": "29",
-            "filename": "AppIcon.appiconset/Icon-App-29x29@1x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-29x29@1x.png"
         },
         {
             "size": "58",
-            "filename": "AppIcon.appiconset/Icon-App-29x29@2x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-29x29@2x.png"
         },
         {
             "size": "87",
-            "filename": "AppIcon.appiconset/Icon-App-29x29@3x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-29x29@3x.png"
         },
         {
             "size": "80",
-            "filename": "AppIcon.appiconset/Icon-App-40x40@2x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-40x40@2x.png"
         },
         {
             "size": "120",
-            "filename": "AppIcon.appiconset/Icon-App-40x40@3x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-40x40@3x.png"
         },
         {
             "size": "120",
-            "filename": "AppIcon.appiconset/Icon-App-60x60@2x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-60x60@2x.png"
         },
         {
             "size": "180",
-            "filename": "AppIcon.appiconset/Icon-App-60x60@3x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-60x60@3x.png"
         },
         {
             "size": "20",
-            "filename": "AppIcon.appiconset/Icon-App-20x20@1x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-20x20@1x.png"
         },
         {
             "size": "40",
-            "filename": "AppIcon.appiconset/Icon-App-20x20@2x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-20x20@2x.png"
         },
         {
             "size": "29",
-            "filename": "AppIcon.appiconset/Icon-App-29x29@1x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-29x29@1x.png"
         },
         {
             "size": "58",
-            "filename": "AppIcon.appiconset/Icon-App-29x29@2x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-29x29@2x.png"
         },
         {
             "size": "40",
-            "filename": "AppIcon.appiconset/Icon-App-40x40@1x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-40x40@1x.png"
         },
         {
             "size": "80",
-            "filename": "AppIcon.appiconset/Icon-App-40x40@2x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-40x40@2x.png"
         },
         {
             "size": "76",
-            "filename": "AppIcon.appiconset/Icon-App-76x76@1x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-76x76@1x.png"
         },
         {
             "size": "152",
-            "filename": "AppIcon.appiconset/Icon-App-76x76@2x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-76x76@2x.png"
         },
         {
             "size": "167",
-            "filename": "AppIcon.appiconset/Icon-App-83.5x83.5@2x.png"
+            "filename": "ios/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png"
         },
         {
             "size": "1024",
-            "filename": "AppIcon.appiconset/Icon-App-1024x1024@1x.png"
-        }
-    ],
-    "android": [
+            "filename": "ios/AppIcon.appiconset/Icon-App-1024x1024@1x.png"
+        },
         {
-            "filename": "res/mipmap-mdpi/ic_launcher.png",
+            "filename": "android/res/mipmap-mdpi/ic_launcher.png",
             "size": 48
         },
         {
-            "filename": "res/mipmap-hdpi/ic_launcher.png",
+            "filename": "android/res/mipmap-hdpi/ic_launcher.png",
             "size": 72
         },
         {
-            "filename": "res/mipmap-xdpi/ic_launcher.png",
+            "filename": "android/res/mipmap-xdpi/ic_launcher.png",
             "size": 96
         },
         {
-            "filename": "res/mipmap-xxdpi/ic_launcher.png",
+            "filename": "android/res/mipmap-xxdpi/ic_launcher.png",
             "size": 144
         },
         {
-            "filename": "res/mipmap-xxxdpi/ic_launcher.png",
+            "filename": "android/res/mipmap-xxxdpi/ic_launcher.png",
             "size": 192
+        }
+    ],
+    "copies": [
+        {
+            "from": "Contents.json",
+            "to": "ios/AppIcon.appiconset/Contents.json"
         }
     ]
 }

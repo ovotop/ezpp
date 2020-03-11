@@ -27,10 +27,10 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     include_package_data=True,
     package_data={
-        'ezpp': ['ZhenyanGB.ttf'],
+        'ezpp': ['ZhenyanGB.ttf', 'resize_cfg/app_icon.json', 'resize_cfg/Contents.json'],
     },
     platforms="any",
-    install_requires=["Pillow"],
+    install_requires=["Pillow", "ezutils"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
