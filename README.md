@@ -18,10 +18,10 @@ $ezpp caojianfeng$ ezpp recolor -f docs/icon.png -c '#ff0000'
 ```
 #### Output
 ```text
-docs/logo_256x256.png + #00ff00 -> docs/logo_256x256_0x3399ff.png
+docs/icon.png + #ff0000 -> docs/icon_0xff0000.png
 ```
 #### Result:
-|Before|After|
+|Before|After recolor -c #ff0000 |
 |:---:|:---:|
 |![A icon before recolor](docs/icon.png)|![A icon after recolor](docs/icon_0xff0000.png)|
 
@@ -35,7 +35,7 @@ docs/logo_256x256.png + #3399ff -> docs/logo_blue.png
 ```
 
 Result:
-|Before|After|
+|Before|After #recolor -c #3399ff|
 |:---:|:---:|
 |![picture before recolor](docs/logo_256x256.png)|![picture after recolor](docs/logo_blue.png)|
 
@@ -53,7 +53,7 @@ from:   /Volumes/user/cjf/w/ezpp/docs/logo_256x256.png
 to:     /Volumes/user/cjf/w/ezpp/docs/logo_64.png
 ```
 #### Result:
-|Before|After|
+|Before|After resize -s 64|
 |:---:|:---:|
 |![A icon before recolor](docs/logo_256x256.png)|![A icon after recolor](docs/logo_64.png)|
 
@@ -70,7 +70,7 @@ from:   /Volumes/user/cjf/w/ezpp/docs/lego_mc.jpg
 to:     /Volumes/user/cjf/w/ezpp/docs/lego_mc_160x90.jpg
 ```
 #### Result:
-|Before|After|
+|Before|After resize -s 160x90|
 |:---:|:---:|
 |![A picture before resize](docs/lego_mc.jpg)|![A picture after resize](docs/lego_mc_160x90.jpg)|
 
@@ -88,7 +88,7 @@ from:   /Volumes/user/cjf/w/ezpp/docs/lego_mc.jpg
 to:     /Volumes/user/cjf/w/ezpp/docs/lego_mc_35x24.jpg
 ```
 #### Result:
-|Before|After -s 12.5%|After -s 25%|
+|Before|After resize -s 12.5%|After resize -s 25%|
 |:---:|:---:|:---:|
 |![A picture before resize](docs/lego_mc.jpg)|![A picture after resize](docs/lego_mc_35x24.jpg)|![A picture after resize](docs/lego_mc_71x49.jpg)|
 
@@ -181,7 +181,7 @@ ezpp frosted -f docs/lego_mc.jpg
 docs/lego_mc.jpg frosted(size = 10) -> docs/lego_mc_frosted.jpg
 ```
 #### Result:
-|Before|After|
+|Before|After frosted default(-s 10)|
 |:---:|:---:|
 |![A icon before frosted]( docs/lego_mc.jpg)|![A icon after defult frosted](docs/lego_mc_frosted_default.jpg)|
 
@@ -200,7 +200,7 @@ $ ezpp frosted -f docs/lego_mc.jpg  -s 5
 docs/lego_mc.jpg frosted(size = 5) -> docs/lego_mc_frosted.jpg
 ```
 #### Result:
-|Before|After -s 5| default -s 10|
+|Before|After frosted(-s 5)|After frosted(-s 10) default|
 |:---:|:---:|:---:|
 |![A icon before frosted]( docs/lego_mc.jpg)|![A icon after frosted](docs/lego_mc_frosted_s5.jpg)|![A icon after defult frosted](docs/lego_mc_frosted_default.jpg)|
 
