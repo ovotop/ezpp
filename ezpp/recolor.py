@@ -25,9 +25,9 @@ def create_cmd_parser(subparsers):
     parser_recolor.add_argument("--color",
                                 "-c",
                                 help=using_color)
-    # parser_recolor.add_argument("--outfile",
-    #                             "-o",
-    #                             help="Optional the output file")
+    parser_recolor.add_argument("--outfile",
+                                "-o",
+                                help="Optional the output file")
     parser_recolor.set_defaults(on_args_parsed=_on_args_parsed)
 
 
@@ -40,6 +40,7 @@ def repeat2(str_tobe_repeat):
 def _on_args_parsed(args):
     params = vars(args)
     filename = params['file']
+    outfile = params['outfile']
     color = params['color']
 
     if not is_color_re.match(color):
@@ -51,17 +52,17 @@ def _on_args_parsed(args):
     r = repeat2(color_m.group(1))
     g = repeat2(color_m.group(2))
     b = repeat2(color_m.group(3))
-    recolor(filename, r, g, b)
+    recolor(filename, outfile, r, g, b)
 
 
-def recolor(filename, red, green, blue):
+def recolor(filename, outfile, red, green, blue):
     bar_filename, ext = os.path.splitext(filename)
     # src_h, src_s, src_v = colorsys.rgb_to_hsv(0, 152/255, 1)
     dst_h, dst_s, dst_v = colorsys.rgb_to_hsv(
         int(red, base=16)/255, int(green, base=16)/255, int(blue, base=16)/255)
     # print(dst_h, dst_s, dst_v)
     color = f"{red}{green}{blue}"
-    new_filename = f"{bar_filename}_0x{color}{ext}"
+    new_filename = outfile if outfile else f"{bar_filename}_0x{color}{ext}"
     print(f"{filename} + #{color} -> {new_filename}")
     img = Image.open(filename).convert('RGBA')
     width = img.width
