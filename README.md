@@ -1,11 +1,5 @@
 
-# What is ezpp
-
-![](docs/logo_256x256.png)
-
-Ezpp is a commandline tool to process your pictures.
-
-ezpp = Easy Process Pictures
+![](docs/slogan.png)
 
 # What ezpp can
 
