@@ -26,7 +26,11 @@ def repeat2(str_tobe_repeat):
 def _on_args_parsed(args):
     params = vars(args)
     filename = params['file']
-    size = int(params['size'])
+    sizeStr = params['size']
+    if not sizeStr:
+        sizeStr = '10'
+
+    size = int(sizeStr)
     mode = 5
     if size:
         if size > 5:
@@ -44,7 +48,7 @@ def _on_args_parsed(args):
 def frosted(filename, blurSize=10, mode=5):
     bar_filename, ext = os.path.splitext(filename)
     new_filename = f"{bar_filename}_frosted{ext}"
-    print(f"{filename} frosted -> {new_filename}")
+    print(f"{filename} frosted(size = {blurSize}) -> {new_filename}")
     img = Image.open(filename)
     img = img.filter(ImageFilter.GaussianBlur(blurSize))
 

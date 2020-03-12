@@ -10,7 +10,7 @@ from ezutils.files import readjson
 
 re_wh = re.compile(r'^([0-9]+)x([0-9]+)$')
 re_size = re.compile(r'^([0-9]+)$')
-re_percent = re.compile(r'^([0-9]+)%$')
+re_percent = re.compile(r'^([0-9|.]+)%$')
 
 size_using = """
 (1) WIDTH AND HEIGHT For example :300x400 ;
@@ -126,7 +126,7 @@ def _resize(infile, outfile, origin_w, origin_h, new_width, new_height, img):
     print(f"to:     {os.path.abspath(filename_new)}")
 
     out_dir, filename = os.path.split(filename_new)
-    if not os.path.exists(out_dir):
+    if len(out_dir) > 0 and not os.path.exists(out_dir):
         os.makedirs(out_dir)
 
     img_tobe_scale = img.resize(
@@ -138,7 +138,7 @@ def _copy(src_file, dst_file):
     print(f"from:    {src_file}")
     print(f"copy to: {dst_file}")
     out_dir, filename = os.path.split(dst_file)
-    if not os.path.exists(out_dir):
+    if len(out_dir) > 0 and not os.path.exists(out_dir):
         os.makedirs(out_dir)
     shutil.copy(src_file, dst_file)
 
