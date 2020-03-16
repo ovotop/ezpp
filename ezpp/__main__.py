@@ -4,9 +4,10 @@ import sys
 import os
 import getopt
 import argparse
+from . import refmt
+from . import frosted
 from . import recolor
 from . import resize
-from . import frosted
 import sys
 
 # https://docs.python.org/3/library/argparse.html#sub-commands
@@ -23,9 +24,11 @@ def main():
         dest='subcommands',
         description='ezpp [subcommand] [options]',
         help='subcommand using:ezpp [subcommand] -h')
+    
     frosted.create_cmd_parser(subparsers)
     recolor.create_cmd_parser(subparsers)
     resize.create_cmd_parser(subparsers)
+    refmt.create_cmd_parser(subparsers)
 
     if len(sys.argv) < 2:
         parser.print_help()

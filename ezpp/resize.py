@@ -48,7 +48,7 @@ def create_cmd_parser(subparsers):
 def _on_args_parsed(args):
     params = vars(args)
     app = params['app']
-    infile = params['file']
+    infile = params['infile']
     outfile = params['outfile']
     size = params['size']
 

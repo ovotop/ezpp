@@ -39,7 +39,7 @@ def repeat2(str_tobe_repeat):
 
 def _on_args_parsed(args):
     params = vars(args)
-    filename = params['file']
+    filename = params['infile']
     outfile = params['outfile']
     color = params['color']
 
