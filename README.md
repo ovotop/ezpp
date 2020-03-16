@@ -14,7 +14,7 @@
 
 #### Call from terminal:
 ```text
-$ezpp caojianfeng$ ezpp recolor -f docs/icon.png -c '#ff0000'
+$ezpp caojianfeng$ ezpp recolor -i docs/icon.png -c '#ff0000'
 ```
 #### Output
 ```text
@@ -27,7 +27,7 @@ docs/icon.png + #ff0000 -> docs/icon_0xff0000.png
 
 #### Call from terminal with out -o:
 ```text
-ezpp caojianfeng$ ezpp recolor -f docs/logo_256x256.png -o docs/logo_blue.png -c '#3399ff'
+ezpp caojianfeng$ ezpp recolor -i docs/logo_256x256.png -o docs/logo_blue.png -c '#3399ff'
 ```
 #### Output
 ```text
@@ -44,7 +44,7 @@ Result:
 
 #### Call from terminal
 ```text
-ezpp resize -f docs/logo_256x256.png -o docs/logo_64.png -s 64
+ezpp resize -i docs/logo_256x256.png -o docs/logo_64.png -s 64
 ```
 #### Output
 ```text
@@ -61,7 +61,7 @@ to:     /Volumes/user/cjf/w/ezpp/docs/logo_64.png
 
 #### Call from terminal
 ```text
-$ ezpp resize -f docs/lego_mc.jpg -s 160x90
+$ ezpp resize -i docs/lego_mc.jpg -s 160x90
 ```
 #### Output
 ```text
@@ -79,7 +79,7 @@ to:     /Volumes/user/cjf/w/ezpp/docs/lego_mc_160x90.jpg
 
 #### Call from terminal
 ```text
-$ ezpp resize -f docs/lego_mc.jpg -s 12.5%
+$ ezpp resize -i docs/lego_mc.jpg -s 12.5%
 ```
 #### Output
 ```text
@@ -104,7 +104,7 @@ Resize a Logo 1024x1024 to all sizes you need in android and iOS Application
 
 #### Call from terminal
 ```text
-ezpp resize -f playground/logo.png -a
+ezpp resize -i playground/logo.png -a
 ```
 
 #### Output:
@@ -166,7 +166,7 @@ logo.png.out/
 
 call from terminal
 ```bash
-ezpp resize -f playground/logo.png -a -o playground/logos
+ezpp resize -i playground/logo.png -a -o playground/logos
 ```
 Will output resized logos  to folder "playground/logos"
 
@@ -174,7 +174,7 @@ Will output resized logos  to folder "playground/logos"
 
 #### Call from terminal:
 ```text
-ezpp frosted -f docs/lego_mc.jpg 
+ezpp frosted -i docs/lego_mc.jpg 
 ```
 #### Output
 ```text
@@ -193,7 +193,7 @@ default -s is 10
 
 
 ```text
-$ ezpp frosted -f docs/lego_mc.jpg  -s 5
+$ ezpp frosted -i docs/lego_mc.jpg  -s 5
 ```
 #### Output
 ```text

@@ -16,7 +16,7 @@ def main():
     parser = argparse.ArgumentParser(
         prog="ezpp",
         usage="ezpp [-h] subcommand{recolor,resize} ...",
-        description="Example: ezpp recolor -f my.png -c #00ff00"
+        description="Example: ezpp recolor -i my.png -c #00ff00"
     )
     subparsers = parser.add_subparsers(
         title='subcommands',

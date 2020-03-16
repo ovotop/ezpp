@@ -27,8 +27,8 @@ def create_cmd_parser(subparsers):
     parser_resize = subparsers.add_parser(
         'resize', help='resize a pic',
     )
-    parser_resize.add_argument("-f",
-                               "--file",
+    parser_resize.add_argument("-i",
+                               "--infile",
                                help="The file to be resize")
     parser_resize.add_argument("-o",
                                "--outfile",

@@ -8,8 +8,8 @@ import re
 def create_cmd_parser(subparsers):
     parser_recolor = subparsers.add_parser(
         'frosted', help='frosted glass on a pic')
-    parser_recolor.add_argument("-f",
-                                "--file",
+    parser_recolor.add_argument("-i",
+                                "--infile",
                                 help="the file to be frosted")
     parser_recolor.add_argument("-s",
                                 "--size",

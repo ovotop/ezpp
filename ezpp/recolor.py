@@ -19,8 +19,8 @@ color6_re = re.compile(
 def create_cmd_parser(subparsers):
     parser_recolor = subparsers.add_parser(
         'recolor', help='recolor a pic')
-    parser_recolor.add_argument("--file",
-                                "-f",
+    parser_recolor.add_argument("--infile",
+                                "-i",
                                 help="the file to be recolor")
     parser_recolor.add_argument("--color",
                                 "-c",
