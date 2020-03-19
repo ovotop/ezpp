@@ -7,7 +7,9 @@
 
 ## 2. ReSize a picture
 
-## 3. Filter a picture
+## 3. ReFormat a picture
+
+## 4. Filter a picture
 
 # How
 ## 1. Recolor
@@ -40,7 +42,7 @@ Result:
 |![picture before recolor](docs/logo_256x256.png)|![picture after recolor](docs/logo_blue.png)|
 
 ## 2. Resize
-### 1. Resize one by size
+### 2.1. Resize one by size
 
 #### Call from terminal
 ```text
@@ -57,7 +59,7 @@ to:     /Volumes/user/cjf/w/ezpp/docs/logo_64.png
 |:---:|:---:|
 |![A icon before recolor](docs/logo_256x256.png)|![A icon after recolor](docs/logo_64.png)|
 
-### 2. Resize one by width and height
+### 2.2. Resize one by width and height
 
 #### Call from terminal
 ```text
@@ -75,7 +77,7 @@ to:     /Volumes/user/cjf/w/ezpp/docs/lego_mc_160x90.jpg
 |![A picture before resize](docs/lego_mc.jpg)|![A picture after resize](docs/lego_mc_160x90.jpg)|
 
 
-### 3. Resize one by percent
+### 2.3. Resize one by percent
 
 #### Call from terminal
 ```text
@@ -96,7 +98,7 @@ to:     /Volumes/user/cjf/w/ezpp/docs/lego_mc_35x24.jpg
 
 
 
-### 3. Resize for App
+### 2.4. Resize for App
 
 Resize a Logo 1024x1024 to all sizes you need in android and iOS Application
 
@@ -170,7 +172,27 @@ ezpp resize -i playground/logo.png -a -o playground/logos
 ```
 Will output resized logos  to folder "playground/logos"
 
-## Frosted
+## 3. ReFormat
+
+#### Call from terminal:
+```text
+$ezpp caojianfeng$ ezpp refmt -i playground/lego_mc_l.jpg  -f WEBP
+```
+#### Output
+```text
+comvert: WEBP
+from:   /Volumes/user/cjf/w/ezpp/playground/lego_mc_l.jpg
+to:     /Volumes/user/cjf/w/ezpp/playground/lego_mc_l.webp
+```
+
+#### Result:
+|Before|After refmt -f WEBP|
+|:---:|:---:|
+|lego_mc_l.jpg(203k)|lego_mc_l.webp(109k)|
+
+
+
+## 4. Frosted
 
 #### Call from terminal:
 ```text
