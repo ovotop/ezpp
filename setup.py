@@ -14,7 +14,7 @@ import setuptools
 
 setuptools.setup(
     name="ezpp",
-    version="0.0.5",
+    version="0.0.6",
     keywords=("pip", "ezpp"),
     description="Easy to process picturse",
     long_description="Easy to process picturse",
@@ -29,6 +29,7 @@ setuptools.setup(
     package_data={
         'ezpp': ['ZhenyanGB.ttf', 'resize_cfg/app_icon.json', 'resize_cfg/Contents.json'],
     },
+    exclude_package_date={'': ['docs']},
     platforms="any",
     install_requires=["Pillow", "ezutils"],
     classifiers=[
