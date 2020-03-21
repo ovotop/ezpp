@@ -3,6 +3,12 @@
 
 [中文文档](读我.md)
 
+# Install
+
+```bash
+pip install ezpp
+```
+
 # What ezpp can
 
 ## 1. ReColor a picture
@@ -228,11 +234,6 @@ docs/lego_mc.jpg frosted(size = 5) -> docs/lego_mc_frosted.jpg
 |:---:|:---:|:---:|
 |![A icon before frosted]( docs/lego_mc.jpg)|![A icon after frosted](docs/lego_mc_frosted_s5.jpg)|![A icon after defult frosted](docs/lego_mc_frosted_default.jpg)|
 
-# Install
-
-```bash
-pip install ezpp
-```
 
 
 ------ 
