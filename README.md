@@ -24,7 +24,7 @@ pip install ezpp
 
 #### Call from terminal:
 ```text
-$ezpp caojianfeng$ ezpp recolor -i docs/icon.png -c '#ff0000'
+$ ezpp recolor -i docs/icon.png -c '#ff0000'
 ```
 #### Output
 ```text
@@ -204,7 +204,7 @@ to:     /Volumes/user/cjf/w/ezpp/playground/lego_mc_l.webp
 
 #### Call from terminal:
 ```text
-ezpp frosted -i docs/lego_mc.jpg 
+$ezpp frosted -i docs/lego_mc.jpg 
 ```
 #### Output
 ```text
