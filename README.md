@@ -54,7 +54,9 @@ Result:
 
 #### Call from terminal:
 ```text
+$ ezpp recolor -i docs/lego_mc.jpg -h 90
 $ ezpp recolor -i docs/lego_mc.jpg -s -1.0
+$ ezpp recolor -i docs/lego_mc.jpg -v 1.0
 ```
 #### Output
 ```text
