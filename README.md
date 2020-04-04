@@ -22,6 +22,7 @@ pip install ezpp
 # How
 ## 1. Recolor
 
+### 1.1 Recolor Hue of a pic by color.
 #### Call from terminal:
 ```text
 $ ezpp recolor -i docs/icon.png -c '#ff0000'
@@ -48,6 +49,25 @@ Result:
 |Before|After #recolor -c #3399ff|
 |:---:|:---:|
 |![picture before recolor](docs/logo_256x256.png)|![picture after recolor](docs/logo_blue.png)|
+
+### 1.2 Recolor Hue of a pic by hsv.
+
+#### Call from terminal:
+```text
+$ ezpp recolor -i docs/lego_mc.jpg -s -1.0
+```
+#### Output
+```text
+docs/lego_mc.jpg + hsv_s(0.5) -> docs/lego_mc_s(0.5).jpg
+```
+#### Result:
+change hsv|effect
+:---:|:---:
+Before|![A pic before recolor](docs/lego_mc.jpg)
+After recolor -s 1.0 |![s 1.0](docs/lego_mc_s(1.0).jpg)
+After recolor -s 0.5 |![s 0.5](docs/lego_mc_s(0.5).jpg)
+After recolor -s -0.5 |![s -0.5 ](docs/lego_mc_s(-0.5).jpg)
+After recolor -s -1.0 |![s -1.0 ](docs/lego_mc_s(-1.0).jpg)
 
 ## 2. Resize
 ### 2.1. Resize one by size
