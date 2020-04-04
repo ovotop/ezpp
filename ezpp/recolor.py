@@ -58,9 +58,6 @@ def _on_args_parsed(args):
     hue = params['hue']
     saturation = params['saturation']
     value = params['value']
-
-    print(f"hue{hue},saturation{saturation},value{value}")
-
     if hue != None or saturation != None or value != None:
         recolor_hsv(filename, outfile, hue, saturation, value)
         return
@@ -94,9 +91,12 @@ def recolor_hsv(filename, outfile, dst_h, dst_s, dst_v):
         for x in range(0, width):
             r, g, b, a = px[x, y]
             h, s, v = colorsys.rgb_to_hsv(r/255, g/255, b/255)
+            new_s = s if r == g and g == b else (
+                deta_float(s, float(dst_s)) if dst_s != None else s
+            )
             rn, gn, bn = colorsys.hsv_to_rgb(
                 int(dst_h) if dst_h != None else h,
-                deta_float(s, float(dst_s)) if dst_s != None else s,
+                new_s,
                 deta_float(v, float(dst_v)) if dst_v != None else v)
 
             px_new[x, y] = (int(255*rn), int(255*gn), int(255*bn), a)
@@ -118,13 +118,15 @@ def recolor(filename, outfile, color):
     bar_filename, ext = os.path.splitext(filename)
     # src_h, src_s, src_v = colorsys.rgb_to_hsv(0, 152/255, 1)
     dst_h, dst_s, dst_v = colorsys.rgb_to_hsv(
-        int(red, base=16)/255, int(green, base=16)/255, int(blue, base=16)/255)
-
-    print(f"dst_h:{dst_h}, dst_s:{dst_s}, dst_v:{dst_v}")
+        int(red, base=16)/255,
+        int(green, base=16)/255,
+        int(blue, base=16)/255)
 
     color = f"{red}{green}{blue}"
     new_filename = outfile if outfile else f"{bar_filename}_0x{color}{ext}"
+
     print(f"{filename} + #{color} -> {new_filename}")
+
     img = Image.open(filename).convert('RGBA')
     width = img.width
     height = img.height
