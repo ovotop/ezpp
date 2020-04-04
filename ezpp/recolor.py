@@ -73,7 +73,7 @@ def recolor_hsv(filename, outfile, dst_h, dst_s, dst_v):
     bar_filename, ext = os.path.splitext(filename)
     print(f"dst_h:{dst_h}, dst_s:{dst_s}, dst_v:{dst_v}")
 
-    hsv_name = f"_h-{dst_h}" if dst_h != None else f""
+    hsv_name = f"_h({dst_h})" if dst_h != None else f""
     hsv_name += f"_s({dst_s})" if dst_s != None else f""
     hsv_name += f"_v({dst_v})" if dst_v != None else f""
 
@@ -95,7 +95,7 @@ def recolor_hsv(filename, outfile, dst_h, dst_s, dst_v):
                 deta_float(s, float(dst_s)) if dst_s != None else s
             )
             rn, gn, bn = colorsys.hsv_to_rgb(
-                int(dst_h) if dst_h != None else h,
+                float(dst_h)/float(360) if dst_h != None else h,
                 new_s,
                 deta_float(v, float(dst_v)) if dst_v != None else v)
 
@@ -124,7 +124,7 @@ def recolor(filename, outfile, color):
 
     color = f"{red}{green}{blue}"
     new_filename = outfile if outfile else f"{bar_filename}_0x{color}{ext}"
-
+    print(f"hue -> {dst_h}")
     print(f"{filename} + #{color} -> {new_filename}")
 
     img = Image.open(filename).convert('RGBA')

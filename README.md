@@ -61,13 +61,13 @@ $ ezpp recolor -i docs/lego_mc.jpg -s -1.0
 docs/lego_mc.jpg + hsv_s(0.5) -> docs/lego_mc_s(0.5).jpg
 ```
 #### Result:
-change hsv|effect
-:---:|:---:
-Before|![A pic before recolor](docs/lego_mc.jpg)
-After recolor -s 1.0 |![s 1.0](docs/lego_mc_s(1.0).jpg)
-After recolor -s 0.5 |![s 0.5](docs/lego_mc_s(0.5).jpg)
-After recolor -s -0.5 |![s -0.5 ](docs/lego_mc_s(-0.5).jpg)
-After recolor -s -1.0 |![s -1.0 ](docs/lego_mc_s(-1.0).jpg)
+change s of hsv|effect|change s of hsv|effect|change v of hsv|effect
+:---:|:---:|:---:|:---:|:---:|:---:
+Before|![A pic before recolor](docs/lego_mc.jpg)|Before|![A pic before recolor](docs/lego_mc.jpg)|Before|![A pic before recolor](docs/lego_mc.jpg)
+After recolor -u 0 |![h 0](docs/lego_mc_h(0).jpg)|After recolor -s 1.0 |![s 1.0](docs/lego_mc_s(1.0).jpg)|After recolor -v 1.0 |![v 1.0](docs/lego_mc_v(1.0).jpg)
+After recolor -u 90 |![-h 90](docs/lego_mc_h(90).jpg)|After recolor -s 0.5 |![s 0.5](docs/lego_mc_s(0.5).jpg)|After recolor -v 0.5 |![v 0.5](docs/lego_mc_v(0.5).jpg)
+After recolor -u 180 |![-h 180](docs/lego_mc_h(180).jpg)|After recolor -s -0.5 |![s -0.5 ](docs/lego_mc_s(-0.5).jpg)|After recolor -v -0.5 |![v -0.5 ](docs/lego_mc_v(-0.5).jpg)
+After recolor -u 270 |![-h 270](docs/lego_mc_h(270).jpg)|After recolor -s -1.0 |![s -1.0 ](docs/lego_mc_s(-1.0).jpg)|After recolor -v -0.8 |![v -0.8 ](docs/lego_mc_v(-0.8).jpg)
 
 ## 2. Resize
 ### 2.1. Resize one by size
