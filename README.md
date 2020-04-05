@@ -263,7 +263,19 @@ docs/lego_mc.jpg frosted(size = 5) -> docs/lego_mc_frosted.jpg
 |:---:|:---:|:---:|
 |![A icon before frosted]( docs/lego_mc.jpg)|![A icon after frosted](docs/lego_mc_frosted_s5.jpg)|![A icon after defult frosted](docs/lego_mc_frosted_default.jpg)|
 
+## Recursive
 
+Use -r to  process your images recursively。
+
+The support for recursive calls for each subcommand is as follows：
+
+subcommand|support recursive
+:---:|:---:
+frosted|yes
+recolor|yes
+refmt|yes
+resize -s|yes
+resize -a|no
 
 ------ 
 
