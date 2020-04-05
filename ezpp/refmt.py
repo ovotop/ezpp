@@ -7,8 +7,10 @@ import shutil
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
 # readlines, writelines, readstr, readjson, list_by_ext
 from ezutils.files import readjson
+from . import global_args
 
 re_fmt = re.compile(r'^PNG|WEBP|JPG|JPEG$')
+
 
 def brother_path(filename): return os.path.join(
     os.path.dirname(__file__), filename)
@@ -18,37 +20,58 @@ def create_cmd_parser(subparsers):
     parser_refmt = subparsers.add_parser(
         'refmt', help='Re format a picture',
     )
-    parser_refmt.add_argument("-i",
-                               "--infile",
-                               help="The file to be refmt")
-    parser_refmt.add_argument("-o",
-                               "--outfile",
-                               help="The output file refmt")
-    refmt_group = parser_refmt.add_mutually_exclusive_group()
-    refmt_group.add_argument("-f",
+    parser_refmt.add_argument("-f",
                               "--format",
                               help="File format. Like PNG, WEBP")
 
     parser_refmt.set_defaults(on_args_parsed=_on_args_parsed)
 
+    return parser_refmt
+
 
 def _on_args_parsed(args):
     params = vars(args)
-    infile = params['infile']
-    outfile = params['outfile']
+    infile, outfile, recursive = global_args.parser_io_argments(params)
     fmt = params['format']
-    _on_fmt_parsed(infile, outfile, fmt.upper())
+    on_fmt_parsed(infile, outfile, recursive, fmt.upper())
+
+
+def is_same_fmt(fmt, ext):
+    return fmt.lower() == ext[1:].lower()
+
+
+def on_fmt_parsed(infile, outfile, recursive, fmt):
+    if not recursive:
+        return _on_fmt_parsed(infile, outfile, fmt)
+
+    infiles = global_args.get_recursive_pic_infiles(infile)
+
+    for infile_for_recursive in infiles:
+        barfile, ext = os.path.splitext(infile_for_recursive)
+        if is_same_fmt(fmt, ext):
+            continue
+
+        outfile = f'{barfile}{ext}'
+        ok = _on_fmt_parsed(infile_for_recursive,
+                            outfile, fmt)
+
+        if ok:
+            print(f'remove: {infile_for_recursive}')
+            os.remove(infile_for_recursive)
+
 
 def _on_fmt_parsed(infile, outfile, fmt):
     FMT = fmt.upper()
     m_fmt = re_fmt.match(FMT)
     if not m_fmt:
-      return
+        return False
 
     img = Image.open(os.path.abspath(infile))
 
     bar_filename, ext = os.path.splitext(infile)
-    bar_filename_new,ext = outfile.splitext(infile) if outfile else (bar_filename, ext)
+    print(f"_on_fmt_parsed.ext:{ext}")
+    bar_filename_new, ext = os.path.splitext(
+        outfile) if outfile else (bar_filename, ext)
     ext = fmt.lower()
     filename_new = f"{bar_filename_new}.{ext}"
 
@@ -61,4 +84,4 @@ def _on_fmt_parsed(infile, outfile, fmt):
         os.makedirs(out_dir)
 
     img.save(os.path.abspath(filename_new), FMT)
-
+    return True

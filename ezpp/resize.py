@@ -7,6 +7,7 @@ import shutil
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
 # readlines, writelines, readstr, readjson, list_by_ext
 from ezutils.files import readjson
+from . import global_args
 
 re_wh = re.compile(r'^([0-9]+)x([0-9]+)$')
 re_size = re.compile(r'^([0-9]+)$')
@@ -27,12 +28,6 @@ def create_cmd_parser(subparsers):
     parser_resize = subparsers.add_parser(
         'resize', help='resize a pic',
     )
-    parser_resize.add_argument("-i",
-                               "--infile",
-                               help="The file to be resize")
-    parser_resize.add_argument("-o",
-                               "--outfile",
-                               help="The output file resized")
     resize_group = parser_resize.add_mutually_exclusive_group()
     resize_group.add_argument("-s",
                               "--size",
@@ -44,18 +39,19 @@ def create_cmd_parser(subparsers):
 
     parser_resize.set_defaults(on_args_parsed=_on_args_parsed)
 
+    return parser_resize
+
 
 def _on_args_parsed(args):
     params = vars(args)
     app = params['app']
-    infile = params['infile']
-    outfile = params['outfile']
+    infile, outfile, recursive = global_args.parser_io_argments(params)
     size = params['size']
 
     if app:
         _on_app_parsed(infile, outfile)
     else:
-        _on_size_parsed(infile, outfile, size)
+        on_size_parsed(infile, outfile, recursive, size)
 
 
 def _on_app_parsed(infile, outfile):
@@ -100,14 +96,26 @@ def _get_icon_sizes_from_cfg(cfg_file):
     return icons_cfg, copies_cfg
 
 
-def _on_size_parsed(infile, outfile, size):
+def on_size_parsed(infile, outfile, recursive, size):
+    print(f"on_size_parsed({infile}, {outfile}, {recursive}, {size})")
+    if not recursive:
+        return _on_size_parsed(infile, outfile, size)
 
-    (width, height) = _parse_wh_from_size(size)
-    new_width = width
-    new_height = height
+    infiles = global_args.get_recursive_pic_infiles(infile)
+    for infile_for_recursive in infiles:
+        _on_size_parsed(infile_for_recursive,
+                        infile_for_recursive,
+                        size)
+
+
+def _on_size_parsed(infile, outfile, size):
 
     img = Image.open(os.path.abspath(infile))
     (origin_w, origin_h) = img.size
+
+    (width, height) = _parse_wh_from_size(size, origin_w, origin_h)
+    new_width = width
+    new_height = height
 
     if width < 1 and height < 1:
 
@@ -143,7 +151,7 @@ def _copy(src_file, dst_file):
     shutil.copy(src_file, dst_file)
 
 
-def _parse_wh_from_size(size):
+def _parse_wh_from_size(size, origin_w, origin_h):
     m_wh = re_wh.match(size)
     if m_wh:
         width = int(m_wh.group(1))
@@ -158,9 +166,8 @@ def _parse_wh_from_size(size):
 
     m_percent = re_percent.match(size)
     if m_percent:
-        width = float(m_percent.group(1))/float(100)
-        height = width
-        return (width, height)
+        ratio = float(m_percent.group(1))/float(100)
+        return (origin_w*ratio, origin_h*ratio)
     else:
         print(size_using)
         exit(2)
