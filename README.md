@@ -51,6 +51,13 @@ Result:
 |![picture before recolor](docs/logo_256x256.png)|![picture after recolor](docs/logo_blue.png)|
 
 ### 1.2 Recolor Hue of a pic by hsv.
+params：
+
+-u(h**u**e) [0,360]
+
+-s(**s**aturation) [-1.0,1.0]
+
+-v(**v**alue) [-1.0,1.0]
 
 #### Call from terminal:
 ```text
