@@ -70,25 +70,33 @@ def deta_float(origin, deta):
 
 
 def recolor_hsv(filename, outfile, dst_h, dst_s, dst_v):
-    bar_filename, ext = os.path.splitext(filename)
-    print(f"dst_h:{dst_h}, dst_s:{dst_s}, dst_v:{dst_v}")
-
-    hsv_name = f"_h({dst_h})" if dst_h != None else f""
-    hsv_name += f"_s({dst_s})" if dst_s != None else f""
-    hsv_name += f"_v({dst_v})" if dst_v != None else f""
-
-    new_filename = outfile if outfile else f"{bar_filename}{hsv_name}{ext}"
+    # name of new file
+    # 确定用什么样的文件名来保存图片
+    new_filename = outfile
+    if outfile == None:
+        bar_filename, ext = os.path.splitext(filename)
+        print(f"dst_h:{dst_h}, dst_s:{dst_s}, dst_v:{dst_v}")
+        hsv_name = f"_h({dst_h})" if dst_h != None else f""
+        hsv_name += f"_s({dst_s})" if dst_s != None else f""
+        hsv_name += f"_v({dst_v})" if dst_v != None else f""
+        new_filename = f"{bar_filename}{hsv_name}{ext}"
     print(f"{filename} + hsv{hsv_name} -> {new_filename}")
+
+    # load pixel from image.
+    # 打开图片，加载像素值
     with open(filename, 'rb') as imgf:
         img = Image.open(imgf).convert('RGBA')
-
     width = img.width
     height = img.height
     px = img.load()
 
+    # new file to save result of recolor
+    # 创造一个新图片用来保存变换结果
     img_new = Image.new('RGBA', (width, height))
     px_new = img_new.load()
 
+    # recolor every pixel
+    # 逐个像素变换
     for y in range(0, height):
         for x in range(0, width):
             r, g, b, a = px[x, y]
@@ -103,6 +111,8 @@ def recolor_hsv(filename, outfile, dst_h, dst_s, dst_v):
 
             px_new[x, y] = (int(255*rn), int(255*gn), int(255*bn), a)
 
+    # RGBA for png ,And RGB for other ext
+    # 如果输入文件是PNG保留RGBA格式，其他文件使用RGB格式。
     if ext.lower == '.png':
         img_new.save(new_filename)
     else:
