@@ -79,7 +79,9 @@ def recolor_hsv(filename, outfile, dst_h, dst_s, dst_v):
 
     new_filename = outfile if outfile else f"{bar_filename}{hsv_name}{ext}"
     print(f"{filename} + hsv{hsv_name} -> {new_filename}")
-    img = Image.open(filename).convert('RGBA')
+    with open(filename, 'rb') as imgf:
+        img = Image.open(imgf).convert('RGBA')
+
     width = img.width
     height = img.height
     px = img.load()
@@ -101,7 +103,10 @@ def recolor_hsv(filename, outfile, dst_h, dst_s, dst_v):
 
             px_new[x, y] = (int(255*rn), int(255*gn), int(255*bn), a)
 
-    img_new.save(new_filename, 'PNG')
+    if ext.lower == '.png':
+        img_new.save(new_filename)
+    else:
+        img_new.convert('RGB').save(new_filename)
 
 
 def recolor(filename, outfile, color):
@@ -127,7 +132,9 @@ def recolor(filename, outfile, color):
     print(f"hue -> {dst_h}")
     print(f"{filename} + #{color} -> {new_filename}")
 
-    img = Image.open(filename).convert('RGBA')
+    with open(filename, 'rb') as imgf:
+        img = Image.open(imgf).convert('RGBA')
+
     width = img.width
     height = img.height
     px = img.load()
@@ -142,4 +149,7 @@ def recolor(filename, outfile, color):
             rn, gn, bn = colorsys.hsv_to_rgb(dst_h, s, v)
             px_new[x, y] = (int(255*rn), int(255*gn), int(255*bn), a)
 
-    img_new.save(new_filename, 'PNG')
+    if ext.lower == '.png':
+        img_new.save(new_filename)
+    else:
+        img_new.convert('RGB').save(new_filename)
