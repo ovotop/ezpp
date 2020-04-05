@@ -55,36 +55,36 @@ def _on_args_parsed(args):
 
 
 def _on_app_parsed(infile, outfile):
+    with open(os.path.abspath(infile), 'rb') as imgfile:
+        img = Image.open(imgfile)
+        (origin_w, origin_h) = img.size
+        if origin_h != 1024 or origin_w != 1024:
+            print("Input file should be 1024x1024 picture !")
+            return
 
-    img = Image.open(os.path.abspath(infile))
-    (origin_w, origin_h) = img.size
-    if origin_h != 1024 or origin_w != 1024:
-        print("Input file should be 1024x1024 picture !")
-        return
+        cfg_dir = brother_path('resize_cfg')
+        cfg_file = f"{cfg_dir}/app_icon.json"
+        resize_cfgs, copy_cfgs = _get_icon_sizes_from_cfg(cfg_file)
 
-    cfg_dir = brother_path('resize_cfg')
-    cfg_file = f"{cfg_dir}/app_icon.json"
-    resize_cfgs, copy_cfgs = _get_icon_sizes_from_cfg(cfg_file)
+        output_dir = outfile or f"{infile}.out"
 
-    output_dir = outfile or f"{infile}.out"
+        index = 0
+        count = len(resize_cfgs)
+        for cfg in resize_cfgs:
+            filename = cfg.get("filename")
+            size = cfg.get("size")
+            print(f"[{index+1}/{count}]--------- RESIZE ----------")
+            _resize(infile, f"{output_dir}/{filename}", origin_w, origin_h,
+                    size, size, img)
+            index += 1
 
-    index = 0
-    count = len(resize_cfgs)
-    for cfg in resize_cfgs:
-        filename = cfg.get("filename")
-        size = cfg.get("size")
-        print(f"[{index+1}/{count}]--------- RESIZE ----------")
-        _resize(infile, f"{output_dir}/{filename}", origin_w, origin_h,
-                size, size, img)
-        index += 1
-
-    index = 0
-    count = len(copy_cfgs)
-    for cfg in copy_cfgs:
-        print(f"[{index+1}/{count}]--------- COPY ----------")
-        _copy(os.path.abspath(f"{cfg_dir}/{cfg.get('from')}"),
-              os.path.abspath(f"{output_dir}/{cfg.get('to')}"))
-        index += 1
+        index = 0
+        count = len(copy_cfgs)
+        for cfg in copy_cfgs:
+            print(f"[{index+1}/{count}]--------- COPY ----------")
+            _copy(os.path.abspath(f"{cfg_dir}/{cfg.get('from')}"),
+                  os.path.abspath(f"{output_dir}/{cfg.get('to')}"))
+            index += 1
 
 
 def _get_icon_sizes_from_cfg(cfg_file):
@@ -110,19 +110,21 @@ def on_size_parsed(infile, outfile, recursive, size):
 
 def _on_size_parsed(infile, outfile, size):
 
-    img = Image.open(os.path.abspath(infile))
-    (origin_w, origin_h) = img.size
+    with open(os.path.abspath(infile), 'rb') as imgfile:
+        img = Image.open(imgfile)
+        (origin_w, origin_h) = img.size
 
-    (width, height) = _parse_wh_from_size(size, origin_w, origin_h)
-    new_width = width
-    new_height = height
+        (width, height) = _parse_wh_from_size(size, origin_w, origin_h)
+        new_width = width
+        new_height = height
 
-    if width < 1 and height < 1:
+        if width < 1 and height < 1:
 
-        new_width = int(origin_w * width)
-        new_height = int(origin_h * height)
+            new_width = int(origin_w * width)
+            new_height = int(origin_h * height)
 
-    _resize(infile, outfile, origin_w, origin_h, new_width, new_height, img)
+        _resize(infile, outfile, origin_w, origin_h,
+                new_width, new_height, img)
 
 
 def _resize(infile, outfile, origin_w, origin_h, new_width, new_height, img):

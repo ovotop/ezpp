@@ -66,22 +66,23 @@ def _on_fmt_parsed(infile, outfile, fmt):
     if not m_fmt:
         return False
 
-    img = Image.open(os.path.abspath(infile))
+    with open(os.path.abspath(infile), 'rb') as imgfile:
+        img = Image.open(imgfile)
 
-    bar_filename, ext = os.path.splitext(infile)
-    print(f"_on_fmt_parsed.ext:{ext}")
-    bar_filename_new, ext = os.path.splitext(
-        outfile) if outfile else (bar_filename, ext)
-    ext = fmt.lower()
-    filename_new = f"{bar_filename_new}.{ext}"
+        bar_filename, ext = os.path.splitext(infile)
+        print(f"_on_fmt_parsed.ext:{ext}")
+        bar_filename_new, ext = os.path.splitext(
+            outfile) if outfile else (bar_filename, ext)
+        ext = fmt.lower()
+        filename_new = f"{bar_filename_new}.{ext}"
 
-    print(f"comvert: {fmt}")
-    print(f"from:   {os.path.abspath(infile)}")
-    print(f"to:     {os.path.abspath(filename_new)}")
+        print(f"comvert: {fmt}")
+        print(f"from:   {os.path.abspath(infile)}")
+        print(f"to:     {os.path.abspath(filename_new)}")
 
-    out_dir, filename = os.path.split(filename_new)
-    if len(out_dir) > 0 and not os.path.exists(out_dir):
-        os.makedirs(out_dir)
+        out_dir, filename = os.path.split(filename_new)
+        if len(out_dir) > 0 and not os.path.exists(out_dir):
+            os.makedirs(out_dir)
 
-    img.save(os.path.abspath(filename_new), FMT)
+        img.save(os.path.abspath(filename_new), FMT)
     return True
