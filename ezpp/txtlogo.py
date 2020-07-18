@@ -23,13 +23,14 @@ from ezpp.utils.color_parser import *
 FONT_FILE_NAME = 'ZhenyanGB.ttf'
 ANTIALIAS_SIZE = 16
 LOGO_SIZE = 1024*ANTIALIAS_SIZE
+MAIN_POS_TITLE_ONLY = 512*ANTIALIAS_SIZE
 MAIN_POS = 546*ANTIALIAS_SIZE
 SUB_POS = 986*ANTIALIAS_SIZE
+# 副标题的背景
 CIRCLE_RADIUS = 1380*ANTIALIAS_SIZE
 CIRCLE_EDGE_Y = 848*ANTIALIAS_SIZE
-COLOR_MAIN = '#268bf1'
-# COLOR_MAIN = '#11aa66'
-COLOR_SECOND = '#ffffff'
+DEFAULT_COLOR = '#ffffff'
+DEFAULT_BGCOLOR = "#3399ff"
 FONT_MAIN_SUM = 840*ANTIALIAS_SIZE
 FONT_SIZE_SUB = 104*ANTIALIAS_SIZE
 
@@ -63,14 +64,14 @@ def create_cmd_parser(subparsers):
     return parser_recolor
 
 
-def draw_bg():
-    img = Image.new('RGB', (LOGO_SIZE, LOGO_SIZE), COLOR_MAIN)
+def draw_bg(color, bgcolor, hasSubtitle):
+    img = Image.new('RGB', (LOGO_SIZE, LOGO_SIZE), bgcolor)
     draw = ImageDraw.Draw(img)
-
-    ellipseX1 = LOGO_SIZE/2 - CIRCLE_RADIUS
-    ellipseX2 = LOGO_SIZE/2 + CIRCLE_RADIUS
-    draw.ellipse((ellipseX1, CIRCLE_EDGE_Y, ellipseX2,
-                  CIRCLE_EDGE_Y+CIRCLE_RADIUS*2), COLOR_SECOND)
+    if hasSubtitle:
+        ellipseX1 = LOGO_SIZE/2 - CIRCLE_RADIUS
+        ellipseX2 = LOGO_SIZE/2 + CIRCLE_RADIUS
+        draw.ellipse((ellipseX1, CIRCLE_EDGE_Y, ellipseX2,
+                      CIRCLE_EDGE_Y+CIRCLE_RADIUS*2), color)
     return img
 
 
@@ -98,8 +99,8 @@ def txtlogo(params, outfile):
 
     title = params['title']
     subtitle = params['subtitle']
-    color = params['color']
-    bgcolor = params['bgcolor']
+    color = params['color'] or DEFAULT_COLOR
+    bgcolor = params['bgcolor'] or DEFAULT_BGCOLOR
 
     print(
         f'txtlogo:[title:{title},subtitle:{subtitle},color:{color},bgcolor:{bgcolor}]'
@@ -111,24 +112,27 @@ def txtlogo(params, outfile):
         brother_path(FONT_FILE_NAME),
         main_title_font_size
     )
-    img = draw_bg()
+    hasSubtitle = subtitle != None
+    img = draw_bg(color, bgcolor, hasSubtitle)
     text_horzontal_center(
         title,
-        COLOR_SECOND,
+        color,
         font,
         img,
-        MAIN_POS)
+        (MAIN_POS if hasSubtitle else MAIN_POS_TITLE_ONLY) + main_title_font_size/2)
 
     font_sub = ImageFont.truetype(
         brother_path(FONT_FILE_NAME),
         FONT_SIZE_SUB
     )
-    text_horzontal_center(
-        subtitle,
-        COLOR_MAIN,
-        font_sub,
-        img,
-        SUB_POS)
+
+    if hasSubtitle:
+        text_horzontal_center(
+            subtitle,
+            bgcolor,
+            font_sub,
+            img,
+            SUB_POS)
 
     logo_size = int(LOGO_SIZE/ANTIALIAS_SIZE)
     img = img.resize((logo_size, logo_size), Image.ANTIALIAS)
