@@ -250,7 +250,7 @@ docs/lego_mc.jpg frosted(size = 10) -> docs/lego_mc_frosted.jpg
 
 #### Call from terminal:
 ```text
-$ezpp caojianfeng$ ezpp txtlogo -t "好课" -s"智课" -o playground/lego_mc_l.jpg -c "#3399ff" -b "#fff"
+$ezpp caojianfeng$ ezpp text2icon -t "好课" -s"智课" -o playground/lego_mc_l.jpg -c "#3399ff" -b "#fff"
 ```
 #### Output
 ```text

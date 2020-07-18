@@ -42,7 +42,7 @@ def brother_path(file_name):
 
 def create_cmd_parser(subparsers):
     parser_recolor = subparsers.add_parser(
-        'txtlogo', help='Gen a 1024x1024 logo by text and color')
+        'text2icon', help='Gen a 1024x1024 logo by text and color')
     parser_recolor.add_argument("--color",
                                 "-c",
                                 help=using_color)
@@ -92,10 +92,10 @@ def repeat2(str_tobe_repeat):
 def _on_args_parsed(args):
     params = vars(args)
     i, outfile, r = global_args.parser_io_argments(params)
-    txtlogo(params, outfile)
+    text2icon(params, outfile)
 
 
-def txtlogo(params, outfile):
+def text2icon(params, outfile):
 
     title = params['title']
     subtitle = params['subtitle']
@@ -103,7 +103,7 @@ def txtlogo(params, outfile):
     bgcolor = params['bgcolor'] or DEFAULT_BGCOLOR
 
     print(
-        f'txtlogo:[title:{title},subtitle:{subtitle},color:{color},bgcolor:{bgcolor}]'
+        f'text2icon:[title:{title},subtitle:{subtitle},color:{color},bgcolor:{bgcolor}]'
     )
 
     title_len = len(title)
