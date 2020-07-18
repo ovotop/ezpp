@@ -20,7 +20,7 @@ setuptools.setup(
     long_description="Easy to process picturse",
     license="MIT Licence",
 
-    url="https://github.com/caojianfeng/ezpp",
+    url="https://github.com/ovotop/ezpp",
     author="JeffreyCao",
     author_email="jeffreycao1024@gmail.com",
 
