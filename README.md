@@ -245,6 +245,26 @@ docs/lego_mc.jpg frosted(size = 10) -> docs/lego_mc_frosted.jpg
 |![A icon before frosted]( docs/lego_mc.jpg)|![A icon after defult frosted](docs/lego_mc_frosted_default.jpg)|
 
 
+
+## 5. Text Logo
+
+#### Call from terminal:
+```text
+$ezpp caojianfeng$ ezpp txtlogo -t "好课" -s"智课" -o playground/lego_mc_l.jpg -c "#3399ff" -b "#fff"
+```
+#### Output
+```text
+comvert: WEBP
+from:   /Volumes/user/cjf/w/ezpp/playground/lego_mc_l.jpg
+to:     /Volumes/user/cjf/w/ezpp/playground/lego_mc_l.webp
+```
+
+#### Result:
+|Before|After refmt -f WEBP|
+|:---:|:---:|
+|lego_mc_l.jpg(203k)|lego_mc_l.webp(109k)|
+
+
 #### Call from terminal with '-s 5':
 
 default -s is 10

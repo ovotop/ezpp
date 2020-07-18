@@ -21,15 +21,15 @@ def parser_io_argments(params):
     infile = params['infile']
     outfile = params['outfile']
     recursive = params['recursive']
-    if not os.path.exists(infile):
+    if infile and not os.path.exists(infile):
         print(f'Cant find --infile :{infile}')
         os._exit(1)
 
-    if os.path.isfile(infile) and recursive:
+    if infile and os.path.isfile(infile) and recursive:
         print('"-r" is only for inputfile is a dir')
         os._exit(1)
 
-    if os.path.isdir(infile) and not recursive:
+    if infile and os.path.isdir(infile) and not recursive:
         print('"-r" is needed when --infile is a dir')
         os._exit(1)
 

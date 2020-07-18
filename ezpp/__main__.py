@@ -9,6 +9,7 @@ from . import refmt
 from . import frosted
 from . import recolor
 from . import resize
+from . import txtlogo
 import sys
 
 # https://docs.python.org/3/library/argparse.html#sub-commands
@@ -44,6 +45,7 @@ def main():
     global_args.add_global_argments(recolor.create_cmd_parser(subparsers))
     global_args.add_global_argments(resize.create_cmd_parser(subparsers))
     global_args.add_global_argments(refmt.create_cmd_parser(subparsers))
+    global_args.add_global_argments(txtlogo.create_cmd_parser(subparsers))
 
     if len(sys.argv) < 2:
         parser.print_help()

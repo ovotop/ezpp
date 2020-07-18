@@ -27,7 +27,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     include_package_data=True,
     package_data={
-        'ezpp': ['ZhenyanGB.ttf', 'resize_cfg/app_icon.json', 'resize_cfg/Contents.json'],
+        'ezpp': ['txtlogo/ZhenyanGB.ttf', 'resize_cfg/app_icon.json', 'resize_cfg/Contents.json'],
     },
     exclude_package_date={'': ['docs']},
     platforms="any",
