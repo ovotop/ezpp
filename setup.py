@@ -14,20 +14,20 @@ import setuptools
 
 setuptools.setup(
     name="ezpp",
-    version="0.1.1",
+    version="0.1.2",
     keywords=("pip", "ezpp"),
     description="Easy to process picturse",
     long_description="Easy to process picturse",
     license="MIT Licence",
 
-    url="https://github.com/caojianfeng/ezpp",
+    url="https://github.com/ovotop/ezpp",
     author="JeffreyCao",
     author_email="jeffreycao1024@gmail.com",
 
     packages=setuptools.find_packages(),
     include_package_data=True,
     package_data={
-        'ezpp': ['ZhenyanGB.ttf', 'resize_cfg/app_icon.json', 'resize_cfg/Contents.json'],
+        'ezpp': ['text2icon/ZhenyanGB.ttf', 'resize_cfg/app_icon.json', 'resize_cfg/Contents.json'],
     },
     exclude_package_date={'': ['docs']},
     platforms="any",

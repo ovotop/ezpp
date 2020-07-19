@@ -19,6 +19,8 @@ pip install ezpp
 
 ## 4. Filter a picture
 
+## 5. Text to icon:
+
 # How
 ## 1. Recolor
 
@@ -244,7 +246,6 @@ docs/lego_mc.jpg frosted(size = 10) -> docs/lego_mc_frosted.jpg
 |:---:|:---:|
 |![A icon before frosted]( docs/lego_mc.jpg)|![A icon after defult frosted](docs/lego_mc_frosted_default.jpg)|
 
-
 #### Call from terminal with '-s 5':
 
 default -s is 10
@@ -263,7 +264,45 @@ docs/lego_mc.jpg frosted(size = 5) -> docs/lego_mc_frosted.jpg
 |:---:|:---:|:---:|
 |![A icon before frosted]( docs/lego_mc.jpg)|![A icon after frosted](docs/lego_mc_frosted_s5.jpg)|![A icon after defult frosted](docs/lego_mc_frosted_default.jpg)|
 
-## Recursive
+
+
+## 5. Text to icon:
+
+### Simplest call
+
+#### Call from terminal:
+
+```
+ezpp text2icon -t "EzPP" -o playground/ezpp_t.png
+```
+
+#### Output
+```text
+text2icon:[title:EzPP,subtitle:None,color:#ffffff,bgcolor:#3399ff]
+```
+#### Result:
+
+![Simplest call of text2icon](docs/EzPP_t_128.png)
+
+
+### Setting subtitle and colors
+#### Call from terminal:
+```
+ezpp text2icon -t "EzPP" -s"ovo.top" -o playground/ezpp_c.png -c "#543" -b "#f93" 
+```
+
+#### Output
+```text
+text2icon:[title:EzPP,subtitle:ovo.top,color:#543,bgcolor:#f93]
+```
+
+#### Result:
+
+![Setting subtitle and colors](docs/EzPP_c_128.png)
+
+
+
+## Recursive for subcommands
 
 Use -r to  process your images recursively。
 
@@ -276,7 +315,7 @@ recolor|yes
 refmt|yes
 resize -s|yes
 resize -a|no
-
+text2icon |no
 ------ 
 
 # ROADMAP
