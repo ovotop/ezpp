@@ -1,4 +1,5 @@
-playground
+playground/*
+!playground/.gitkeep
 .vscode
 .DS_Store
 # Byte-compiled / optimized / DLL files
