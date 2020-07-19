@@ -282,7 +282,7 @@ text2icon:[title:EzPP,subtitle:None,color:#ffffff,bgcolor:#3399ff]
 ```
 #### Result:
 
-![Simplest call of text2icon](docs/EzPP_t_128.png)
+![Simplest call of text2icon](docs/ezpp_t_128.png)
 
 
 ### Setting subtitle and colors
@@ -298,7 +298,7 @@ text2icon:[title:EzPP,subtitle:ovo.top,color:#543,bgcolor:#f93]
 
 #### Result:
 
-![Setting subtitle and colors](docs/EzPP_c_128.png)
+![Setting subtitle and colors](docs/ezpp_c_128.png)
 
 
 
