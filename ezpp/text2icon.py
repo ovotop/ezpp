@@ -24,7 +24,7 @@ FONT_FILE_NAME = 'ZhenyanGB.ttf'
 ANTIALIAS_SIZE = 16
 LOGO_SIZE = 1024*ANTIALIAS_SIZE
 MAIN_POS_TITLE_ONLY = 512*ANTIALIAS_SIZE
-MAIN_POS = 546*ANTIALIAS_SIZE
+MAIN_POS = 468*ANTIALIAS_SIZE
 SUB_POS = 986*ANTIALIAS_SIZE
 # 副标题的背景
 CIRCLE_RADIUS = 1380*ANTIALIAS_SIZE
@@ -136,4 +136,5 @@ def text2icon(params, outfile):
 
     logo_size = int(LOGO_SIZE/ANTIALIAS_SIZE)
     img = img.resize((logo_size, logo_size), Image.ANTIALIAS)
-    img.save(outfile, 'PNG')
+    new_outfile = outfile if outfile else f'{title}_{subtitle}.png' if subtitle else f'{title}.png'
+    img.save(new_outfile, 'PNG')
