@@ -85,15 +85,15 @@
             "size": 72
         },
         {
-            "filename": "android/res/mipmap-xdpi/ic_launcher.png",
+            "filename": "android/res/mipmap-xhdpi/ic_launcher.png",
             "size": 96
         },
         {
-            "filename": "android/res/mipmap-xxdpi/ic_launcher.png",
+            "filename": "android/res/mipmap-xxhdpi/ic_launcher.png",
             "size": 144
         },
         {
-            "filename": "android/res/mipmap-xxxdpi/ic_launcher.png",
+            "filename": "android/res/mipmap-xxxhdpi/ic_launcher.png",
             "size": 192
         }
     ],
