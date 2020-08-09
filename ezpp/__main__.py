@@ -18,19 +18,6 @@ from . import shadow
 # SUB COMMONDS DEF]
 
 
-def add_global_argments(sub_parser):
-    sub_parser.add_argument('-i',
-                            '--infile',
-                            help='the file to be recolor')
-    sub_parser.add_argument('-r',
-                            '--recursive',
-                            action='store_true',
-                            help='recursive the input file')
-    sub_parser.add_argument('-o',
-                            '--outfile',
-                            help='Optional the output file')
-
-
 def main():
     parser = argparse.ArgumentParser(
         prog="ezpp",

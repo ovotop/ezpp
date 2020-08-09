@@ -23,13 +23,14 @@ def create_cmd_parser(subparsers):
 
 def _on_args_parsed(args):
     params = vars(args)
-    infile, outfile, recursive = global_args.parser_io_argments(params)
+    infile, outfile, recursive, overwrite = global_args.parser_io_argments(
+        params)
 
     alphaStr = params['alpha']
     if not alphaStr:
         alphaStr = '0.5'
     alpha = float(alphaStr)
-    shadow(infile, outfile, recursive, alpha)
+    shadow(infile, outfile, recursive, overwrite, alpha)
 
 
 def sameColor(colorA, colorB):
@@ -86,14 +87,19 @@ def shadowOnImage(img, alpha):
 
 
 def shadow_file(fileName, outFile, alpha):
-    print(f'shadow file with alpha= {alpha}:\n{fileName} \n to {outFile}')
+    newFile = outFile
+    if outFile == None:
+        newFile = global_args.auto_outfile(fileName, "_shadow")
+
+    print(f'shadow file with alpha= {alpha}:\n{fileName} \n to {newFile}')
+
     with Image.open(fileName) as im:
         shadowOnImage(im, alpha)
         im.show()
-        im.save(outFile)
+        im.save(newFile)
 
 
-def shadow(infile, outfile, recursive, alpha=0.5):
+def shadow(infile, outfile, recursive, overwrite, alpha=0.5):
 
     if recursive == None or recursive == False:
         return shadow_file(infile, outfile, alpha)
@@ -101,5 +107,5 @@ def shadow(infile, outfile, recursive, alpha=0.5):
     infiles = global_args.get_recursive_pic_infiles(infile)
     for infile_for_recursive in infiles:
         shadow_file(infile_for_recursive,
-                    infile_for_recursive,
+                    infile_for_recursive if overwrite else None,
                     alpha)
