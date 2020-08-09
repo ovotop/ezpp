@@ -104,12 +104,11 @@ def on_size_parsed(infile, outfile, recursive, size):
     infiles = global_args.get_recursive_pic_infiles(infile)
     for infile_for_recursive in infiles:
         _on_size_parsed(infile_for_recursive,
-                        infile_for_recursive,
+                        None,
                         size)
 
 
 def _on_size_parsed(infile, outfile, size):
-
     with open(os.path.abspath(infile), 'rb') as imgfile:
         img = Image.open(imgfile)
         (origin_w, origin_h) = img.size
@@ -123,25 +122,27 @@ def _on_size_parsed(infile, outfile, size):
             new_width = int(origin_w * width)
             new_height = int(origin_h * height)
 
-        _resize(infile, outfile, origin_w, origin_h,
+        newFile = outfile
+        if outfile == None or outfile == Null:
+            newFile = global_args.auto_outfile(
+                infile, f"_{new_width}x{new_height}")
+
+        _resize(infile, newFile, origin_w, origin_h,
                 new_width, new_height, img)
 
 
 def _resize(infile, outfile, origin_w, origin_h, new_width, new_height, img):
-    bar_filename, ext = os.path.splitext(infile)
-    filename_new = outfile if outfile else f"{bar_filename}_{new_width}x{new_height}{ext}"
-
     print(f"resize: ({origin_w}, {origin_h})->({new_width}, {new_height})")
     print(f"from:   {os.path.abspath(infile)}")
-    print(f"to:     {os.path.abspath(filename_new)}")
+    print(f"to:     {os.path.abspath(outfile)}")
 
-    out_dir, filename = os.path.split(filename_new)
+    out_dir, filename = os.path.split(outfile)
     if len(out_dir) > 0 and not os.path.exists(out_dir):
         os.makedirs(out_dir)
 
     img_tobe_scale = img.resize(
         (int(new_width), int(new_height)), Image.ANTIALIAS)
-    img_tobe_scale.save(os.path.abspath(filename_new), 'PNG')
+    img_tobe_scale.save(os.path.abspath(outfile), 'PNG')
 
 
 def _copy(src_file, dst_file):

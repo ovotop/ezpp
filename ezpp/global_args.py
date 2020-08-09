@@ -7,20 +7,26 @@ def add_global_argments(sub_parser):
                             '--infile',
                             help='input file or dir')
 
+    sub_parser.add_argument('-o',
+                            '--outfile',
+                            help='Optional the output file')
+
     sub_parser.add_argument('-r',
                             '--recursive',
                             default=False,
                             action='store_true',
                             help='recursive the input dir, outfiles will overwrite inputfiles. And the -o will be ignore')
-    sub_parser.add_argument('-o',
-                            '--outfile',
-                            help='Optional the output file')
+
+    sub_parser.add_argument('--overwrite',
+                            action='store_false',
+                            help='Overwrite the infile with new file')
 
 
 def parser_io_argments(params):
     infile = params['infile']
     outfile = params['outfile']
     recursive = params['recursive']
+    overwrite = params['overwrite']
     if infile and not os.path.exists(infile):
         print(f'Cant find --infile :{infile}')
         os._exit(1)
@@ -33,7 +39,7 @@ def parser_io_argments(params):
         print('"-r" is needed when --infile is a dir')
         os._exit(1)
 
-    return infile, outfile, recursive
+    return infile, outfile, recursive, overwrite
 
 
 def get_recursive_pic_infiles(indir):
@@ -45,3 +51,9 @@ def get_recursive_pic_infiles(indir):
         picfiles = glob.glob(type_filter_str, recursive=True)
         paths.extend(picfiles)
     return paths
+
+
+def auto_outfile(infile, postfix):
+    filename, ext = os.path.splitext(infile)
+    outfile = f"{filename}{postfix}{ext}"
+    return outfile
