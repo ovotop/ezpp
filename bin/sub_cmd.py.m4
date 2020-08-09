@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-from . import global_args
-import re
-import os
 import argparse
-
+import os
+import re
+from . import global_args
 
 def create_cmd_parser(subparsers):
     cmd_parser = subparsers.add_parser(

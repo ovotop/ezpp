@@ -4,14 +4,18 @@ import sys
 import os
 import getopt
 import argparse
+
+# SUB COMMONDS DEF[
+# https://docs.python.org/3/library/argparse.html#sub-commands
 from . import global_args
 from . import refmt
 from . import frosted
 from . import recolor
 from . import resize
 from . import text2icon
-
-# https://docs.python.org/3/library/argparse.html#sub-commands
+from . import shadow
+# IMPORT SUBCMD DEF HERE
+# SUB COMMONDS DEF]
 
 
 def add_global_argments(sub_parser):
@@ -40,11 +44,15 @@ def main():
         description='ezpp [subcommand] [options]',
         help='subcommand using:ezpp [subcommand] -h')
 
+    # SUB COMMONDS ARGMENTS[
     global_args.add_global_argments(frosted.create_cmd_parser(subparsers))
     global_args.add_global_argments(recolor.create_cmd_parser(subparsers))
     global_args.add_global_argments(resize.create_cmd_parser(subparsers))
     global_args.add_global_argments(refmt.create_cmd_parser(subparsers))
     global_args.add_global_argments(text2icon.create_cmd_parser(subparsers))
+    global_args.add_global_argments(shadow.create_cmd_parser(subparsers))
+    # ADD SUBCMD ARGMENTS HERE
+    # SUB COMMONDS ARGMENTS]
 
     if len(sys.argv) < 2:
         parser.print_help()
