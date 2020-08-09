@@ -29,7 +29,7 @@ def _on_args_parsed(args):
 def __SUB_CMD__`_'file(infile, outfile, overwrite, yourArgumentStr):
     new_filename = outfile
     if outfile == None:
-        new_filename = global_args.auto_outfile(infile, "`_`__SUB_CMD__")
+        new_filename = global_args.auto_outfile(infile, "`_'__SUB_CMD__")
 
 
 def __SUB_CMD__`'(infile, outfile, recursive,overwrite, sizeStr=10):
