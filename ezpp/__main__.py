@@ -10,7 +10,6 @@ from . import frosted
 from . import recolor
 from . import resize
 from . import text2icon
-import sys
 
 # https://docs.python.org/3/library/argparse.html#sub-commands
 
