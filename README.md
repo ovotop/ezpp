@@ -362,7 +362,7 @@ shadow |yes
 
 ------ 
 
-### 使用--overwrite覆盖原图而非创建新图
+### Use --overwrite to override the original images
 
 The following command walks through the docs for images and turns them into frosted effects, directly overwriting the original image
 ```text
