@@ -14,8 +14,8 @@ import setuptools
 
 setuptools.setup(
     name="ezpp",
-    version="0.1.3",
-    keywords=("pip", "ezpp"),
+    version="0.1.4",
+    keywords=["pip", "ezpp", "resize", "reformat", "recolor", "shadow"],
     description="Easy to process picturse",
     long_description="Easy to process picturse",
     license="MIT Licence",
@@ -24,12 +24,11 @@ setuptools.setup(
     author="JeffreyCao",
     author_email="jeffreycao1024@gmail.com",
 
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(exclude=['docs', 'playground', 'bin']),
     include_package_data=True,
     package_data={
         'ezpp': ['text2icon/ZhenyanGB.ttf', 'resize_cfg/app_icon.json', 'resize_cfg/Contents.json'],
     },
-    exclude_package_date={'': ['docs']},
     platforms="any",
     install_requires=["Pillow", "ezutils"],
     classifiers=[
