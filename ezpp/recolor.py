@@ -49,30 +49,32 @@ def repeat2(str_tobe_repeat):
 
 def _on_args_parsed(args):
     params = vars(args)
-    infile, outfile, recursive = global_args.parser_io_argments(params)
+    infile, outfile, recursive, overwrite = global_args.parser_io_argments(
+        params)
 
     color = params['color']
     hue = params['hue']
     saturation = params['saturation']
     value = params['value']
     if hue != None or saturation != None or value != None:
-        recolor_hsv(infile, outfile, recursive, hue, saturation, value)
+        recolor_hsv(infile, outfile, recursive,
+                    overwrite, hue, saturation, value)
         return
 
-    recolor(infile, outfile, recursive, color)
+    recolor(infile, outfile, recursive, overwrite, color)
 
 
 def deta_float(origin, deta):
     return max(min(origin + deta, 1.0), 0.0)
 
 
-def recolor_hsv(infile, outfile, recursive, dst_h, dst_s, dst_v):
+def recolor_hsv(infile, outfile, recursive, overwrite, dst_h, dst_s, dst_v):
     if recursive == None or recursive == False:
         return recolor_hsv_file(infile, outfile, dst_h, dst_s, dst_v)
     infiles = global_args.get_recursive_pic_infiles(infile)
     for infile_for_recursive in infiles:
         recolor_hsv_file(infile_for_recursive,
-                         infile_for_recursive,
+                         infile_for_recursive if overwrite else None,
                          dst_h,
                          dst_s,
                          dst_v)
@@ -81,17 +83,13 @@ def recolor_hsv(infile, outfile, recursive, dst_h, dst_s, dst_v):
 def recolor_hsv_file(infile, outfile, dst_h, dst_s, dst_v):
     # name of new file
     # 确定用什么样的文件名来保存图片
-    new_filename = outfile
-    bar_filename, ext = os.path.splitext(outfile)
-
     # print(f"dst_h:{dst_h}, dst_s:{dst_s}, dst_v:{dst_v}")
     hsv_name = f"_h({dst_h})" if dst_h != None else f""
     hsv_name += f"_s({dst_s})" if dst_s != None else f""
     hsv_name += f"_v({dst_v})" if dst_v != None else f""
 
-    if outfile == None:
-        bar_filename, ext = os.path.splitext(infile)
-        new_filename = f"{bar_filename}{hsv_name}{ext}"
+    new_filename = outfile if outfile else global_args.auto_outfile(
+        infile, f"_hsv{hsv_name}")
 
     print(f"{infile} + hsv{hsv_name} -> {new_filename}")
 
@@ -132,13 +130,12 @@ def recolor_hsv_file(infile, outfile, dst_h, dst_s, dst_v):
         img_new.convert('RGB').save(new_filename)
 
 
-def recolor(infile, outfile, recursive, color):
+def recolor(infile, outfile, recursive, overwrite, color):
     if recursive == None or recursive == False:
         return recolor_file(infile, outfile, color)
-    infiles = global_args.get_recursive_pic_infiles(infile)
     for infile_for_recursive in infiles:
         recolor_file(infile_for_recursive,
-                     infile_for_recursive,
+                     infile_for_recursive if overwrite else None,
                      color)
 
 
@@ -161,7 +158,9 @@ def recolor_file(infile, outfile, color):
         int(blue, base=16)/255)
 
     color = f"{red}{green}{blue}"
-    new_filename = outfile if outfile else f"{bar_filename}_0x{color}{ext}"
+    new_filename = outfile if outfile else global_args.auto_outfile(
+        infile, f"_0x{color}")
+
     print(f"hue -> {dst_h}")
     print(f"{infile} + #{color} -> {new_filename}")
 

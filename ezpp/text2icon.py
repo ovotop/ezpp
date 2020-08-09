@@ -91,7 +91,7 @@ def repeat2(str_tobe_repeat):
 
 def _on_args_parsed(args):
     params = vars(args)
-    i, outfile, r = global_args.parser_io_argments(params)
+    i, outfile, r, o = global_args.parser_io_argments(params)
     text2icon(params, outfile)
 
 

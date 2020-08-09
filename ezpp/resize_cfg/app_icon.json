@@ -95,6 +95,26 @@
         {
             "filename": "android/res/mipmap-xxxhdpi/ic_launcher.png",
             "size": 192
+        },
+        {
+            "filename": "android_stores/16.png",
+            "size": 16
+        },
+        {
+            "filename": "android_stores/216.png",
+            "size": 216
+        },
+        {
+            "filename": "android_stores/256.png",
+            "size": 256
+        },
+        {
+            "filename": "android_stores/512.png",
+            "size": 512
+        },
+        {
+            "filename": "android_stores/1024.png",
+            "size": 1024
         }
     ],
     "copies": [

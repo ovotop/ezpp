@@ -31,7 +31,8 @@ def create_cmd_parser(subparsers):
 
 def _on_args_parsed(args):
     params = vars(args)
-    infile, outfile, recursive = global_args.parser_io_argments(params)
+    infile, outfile, recursive, o = global_args.parser_io_argments(
+        params)
     fmt = params['format']
     on_fmt_parsed(infile, outfile, recursive, fmt.upper())
 
