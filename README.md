@@ -11,15 +11,15 @@ pip install ezpp
 
 # What ezpp can
 
-## 1. ReColor a picture
+Function |Before|After
+:---:|:---:|:---:
+Frosted|![A icon before frosted]( docs/lego_mc.jpg)|![A icon after defult frosted](docs/lego_mc_frosted_default.jpg)
+ReColor|![picture before recolor](docs/logo_256x256.png)|![picture after recolor](docs/logo_blue.png)
+ReSize|![A icon before recolor](docs/logo_256x256.png)|![A icon after recolor](docs/logo_64.png)
+ReFormat| *.png| *.webp
+Text2Icon| "EzPP"|![Simplest call of text2icon](docs/ezpp_t_128.png)
+Shadow|![A clean background icon](docs/ezpp_t_128.png)|![Shadow added on clean background](docs/ezpp_t_128_shadow.png)
 
-## 2. ReSize a picture
-
-## 3. ReFormat a picture
-
-## 4. Filter a picture
-
-## 5. Text to icon:
 
 # How
 ## 1. Recolor
@@ -264,8 +264,6 @@ docs/lego_mc.jpg frosted(size = 5) -> docs/lego_mc_frosted.jpg
 |:---:|:---:|:---:|
 |![A icon before frosted]( docs/lego_mc.jpg)|![A icon after frosted](docs/lego_mc_frosted_s5.jpg)|![A icon after defult frosted](docs/lego_mc_frosted_default.jpg)|
 
-
-
 ## 5. Text to icon:
 
 ### Simplest call
@@ -301,10 +299,54 @@ text2icon:[title:EzPP,subtitle:ovo.top,color:#543,bgcolor:#f93]
 ![Setting subtitle and colors](docs/ezpp_c_128.png)
 
 
+## 6. Shadow:
+
+Add shadow to a picture which has clean background
+
+### Simplest call
+
+#### Call from terminal:
+
+```
+ezpp shadow -i docs/ezpp_t_128.png 
+```
+
+#### Output
+```text
+shadow file with alpha= 0.5:
+docs/ezpp_t_128.png 
+to docs/ezpp_t_128_shadow.png
+```
+#### Result:
+
+|Before|After|
+|:---:|:---:|
+![A clean background icon](docs/ezpp_t_128.png)|![Shadow added on clean background](docs/ezpp_t_128_shadow.png)
+
+### Config shadow alpha
+
+
+#### Call from terminal:
+
+```
+ezpp shadow -i docs/ezpp_t_128.png  -a 0.2
+```
+
+#### Output
+```text
+shadow file with alpha= 0.2:
+docs/ezpp_t_128.png 
+to docs/ezpp_t_128_shadow.png
+```
+#### Result:
+
+Before| alpha 0.2|Default(0.5)|alpha 0.8
+:---:|:---:|:---:|:---:
+![A clean background icon](docs/ezpp_t_128.png)|![Shadow added on clean background, shadow alpha 0.2](docs/ezpp_t_128_shadow_0.2.png)|![Shadow added on clean background, shadow alpha 0.5](docs/ezpp_t_128_shadow.png)|![Shadow added on clean background, shadow alpha 0.8](docs/ezpp_t_128_shadow_0.8.png)
 
 ## Recursive for subcommands
 
-Use -r to  process your images recursively。
+### Use -r to  process your images recursively。
 
 The support for recursive calls for each subcommand is as follows：
 
@@ -316,7 +358,16 @@ refmt|yes
 resize -s|yes
 resize -a|no
 text2icon |no
+shadow |yes
+
 ------ 
+
+### 使用--overwrite覆盖原图而非创建新图
+
+The following command walks through the docs for images and turns them into frosted effects, directly overwriting the original image
+```text
+$ ezpp frosted -r --overwrite -i docs
+```
 
 # ROADMAP
 ## 1. Ignore colors when recolor a pic.
