@@ -16,7 +16,7 @@ Function |Before|After
 Frosted|![A icon before frosted]( docs/lego_mc.jpg)|![A icon after defult frosted](docs/lego_mc_frosted_default.jpg)
 ReColor|![picture before recolor](docs/logo_256x256.png)|![picture after recolor](docs/logo_blue.png)
 ReSize|![A icon before recolor](docs/logo_256x256.png)|![A icon after recolor](docs/logo_64.png)
-ReFormat| *.png| *.webp
+ReFormat|lego_mc_l.jpg(203k)|lego_mc_l.webp(109k)|
 Text2Icon| "EzPP"|![Simplest call of text2icon](docs/ezpp_t_128.png)
 Shadow|![A clean background icon](docs/ezpp_t_128.png)|![Shadow added on clean background](docs/ezpp_t_128_shadow.png)
 
