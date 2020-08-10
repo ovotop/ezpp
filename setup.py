@@ -14,7 +14,7 @@ import setuptools
 
 setuptools.setup(
     name="ezpp",
-    version="0.1.4",
+    version="0.1.5",
     keywords=["pip", "ezpp", "resize", "reformat", "recolor", "shadow"],
     description="Easy to process picturse",
     long_description="Easy to process picturse",
