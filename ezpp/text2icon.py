@@ -16,11 +16,11 @@ from ezpp.utils.color_parser import *
 # )
 
 # https://www.zcool.com.cn/article/ZNDg2Mzg4.html
-# FONT_FILE_NAME = 'HappyZcool-2016.ttf'
-# FONT_FILE_NAME = 'zcoolqinkehuangyouti.ttf'
-# FONT_FILE_NAME = 'lianmengqiyilushuaizhengruiheiti.ttf'
+# DEFUALT_FONT_NAME = 'HappyZcool-2016.ttf'
+# DEFUALT_FONT_NAME = 'zcoolqinkehuangyouti.ttf'
+# DEFUALT_FONT_NAME = 'lianmengqiyilushuaizhengruiheiti.ttf'
 
-FONT_FILE_NAME = 'text2icon/ZhenyanGB.ttf'
+DEFUALT_FONT_NAME = 'text2icon/ZhenyanGB.ttf'
 ANTIALIAS_SIZE = 16
 LOGO_SIZE = 1024*ANTIALIAS_SIZE
 MAIN_POS_TITLE_ONLY = 512*ANTIALIAS_SIZE
@@ -31,7 +31,7 @@ CIRCLE_RADIUS = 1380*ANTIALIAS_SIZE
 CIRCLE_EDGE_Y = 848*ANTIALIAS_SIZE
 DEFAULT_COLOR = '#ffffff'
 DEFAULT_BGCOLOR = "#3399ff"
-FONT_MAIN_SUM = 840*ANTIALIAS_SIZE
+FONT_MAIN_SUM = 640*ANTIALIAS_SIZE
 FONT_SIZE_SUB = 104*ANTIALIAS_SIZE
 
 
@@ -52,12 +52,20 @@ def create_cmd_parser(subparsers):
                                 help=using_color)
 
     parser_recolor.add_argument("--title",
-                                "-t",
-                                help=using_color)
+                                "-T",
+                                help="text of title")
 
     parser_recolor.add_argument("--subtitle",
-                                "-s",
-                                help=using_color)
+                                "-t",
+                                help="text of subtitle")
+    
+    parser_recolor.add_argument("--font",
+                                "-F",
+                                help="font of title")
+
+    parser_recolor.add_argument("--subfont",
+                                "-f",
+                                help="font of subtitle")
 
     parser_recolor.set_defaults(on_args_parsed=_on_args_parsed)
 
@@ -94,24 +102,29 @@ def _on_args_parsed(args):
     i, outfile, r, o = global_args.parser_io_argments(params)
     text2icon(params, outfile)
 
+def font_path(font_name):
+    return brother_path(font_name)
 
 def text2icon(params, outfile):
 
     title = params['title']
     subtitle = params['subtitle']
+    font_name = params['font'] or DEFUALT_FONT_NAME
+    subfont_name = params['subfont'] or DEFUALT_FONT_NAME
     color = params['color'] or DEFAULT_COLOR
     bgcolor = params['bgcolor'] or DEFAULT_BGCOLOR
 
     print(
-        f'text2icon:[title:{title},subtitle:{subtitle},color:{color},bgcolor:{bgcolor}]'
+        f'text2icon:\n[\n\ttitle:({title},font:{font_name}),\n\tsubtitle:({subtitle},subfont:{subfont_name}),\n\tcolor:{color},\n\tbgcolor:{bgcolor}\n]'
     )
 
     title_len = len(title)
     main_title_font_size = int(FONT_MAIN_SUM/title_len)
     font = ImageFont.truetype(
-        brother_path(FONT_FILE_NAME),
+        font_path(font_name),
         main_title_font_size
     )
+
     hasSubtitle = subtitle != None
     img = draw_bg(color, bgcolor, hasSubtitle)
     text_horzontal_center(
@@ -122,7 +135,7 @@ def text2icon(params, outfile):
         (MAIN_POS if hasSubtitle else MAIN_POS_TITLE_ONLY) + main_title_font_size/2)
 
     font_sub = ImageFont.truetype(
-        brother_path(FONT_FILE_NAME),
+        font_path(subfont_name),
         FONT_SIZE_SUB
     )
 
