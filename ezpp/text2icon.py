@@ -30,7 +30,8 @@ CIRCLE_RADIUS = 1380*ANTIALIAS_SIZE
 CIRCLE_EDGE_Y = 848*ANTIALIAS_SIZE
 DEFAULT_COLOR = '#ffffff'
 DEFAULT_BGCOLOR = "#3399ff"
-FONT_MAIN_SUM = 640*ANTIALIAS_SIZE
+FONT_MAIN_SUM = 840*ANTIALIAS_SIZE
+FONT_MAIN_SUM_MIM = 640*ANTIALIAS_SIZE
 FONT_SIZE_SUB = 104*ANTIALIAS_SIZE
 
 
@@ -119,7 +120,7 @@ def text2icon(params, outfile):
     )
 
     title_len = len(title)
-    main_title_font_size = int(FONT_MAIN_SUM/title_len)
+    main_title_font_size = FONT_MAIN_SUM_MIN if title_len == 1  else int(FONT_MAIN_SUM/title_len)
     font = ImageFont.truetype(
         font_path(font_name),
         main_title_font_size
