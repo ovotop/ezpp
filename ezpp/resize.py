@@ -45,7 +45,7 @@ def create_cmd_parser(subparsers):
 def _on_args_parsed(args):
     params = vars(args)
     app = params['app']
-    infile, outfile, recursive,o = global_args.parser_io_argments(params)
+    infile, outfile, recursive, o = global_args.parser_io_argments(params)
     size = params['size']
 
     if app:
@@ -170,7 +170,7 @@ def _parse_wh_from_size(size, origin_w, origin_h):
     m_percent = re_percent.match(size)
     if m_percent:
         ratio = float(m_percent.group(1))/float(100)
-        return (origin_w*ratio, origin_h*ratio)
+        return (int(origin_w*ratio), int(origin_h*ratio))
     else:
         print(size_using)
         exit(2)

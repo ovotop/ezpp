@@ -277,7 +277,7 @@ docs/lego_mc.jpg frosted(size = 5) -> docs/lego_mc_frosted.jpg
 #### Call from terminal:
 
 ```
-ezpp text2icon -t "EzPP" -o playground/ezpp_t.png
+ezpp text2icon -t "EzPP"
 ```
 
 #### Output
@@ -289,20 +289,36 @@ text2icon:[title:EzPP,subtitle:None,color:#ffffff,bgcolor:#3399ff]
 ![Simplest call of text2icon](docs/ezpp_t_128.png)
 
 
-### Setting subtitle and colors
+### Setting color font and subtitle 
+
+option|function
+:---|:---
+-t or --title  | set title
+-s or --subtitle | set subtitle
+-c or --color  |set color of the title
+-b or --bgcolor |set background color 
+-F or --font |set font of the title
+-f or --subfont |set font fo the subtitle
+
 #### Call from terminal:
 ```
-ezpp text2icon -t "EzPP" -s"ovo.top" -o playground/ezpp_c.png -c "#543" -b "#f93" 
+ezpp text2icon -t "EzPP" -s "ovo.top" -o playground/ezpp_cm.png -c "#543" -b "#f93" -F /System/Library/fonts/Courier.dfont -f /System/Library/fonts/Monaco.dfont
 ```
 
 #### Output
 ```text
-text2icon:[title:EzPP,subtitle:ovo.top,color:#543,bgcolor:#f93]
+text2icon:
+[
+        title:(EzPP,font:/System/Library/fonts/Courier.dfont),
+        subtitle:(ovo.top,subfont:/System/Library/fonts/Monaco.dfont),
+        color:#543,
+        bgcolor:#f93
+]
 ```
 
 #### Result:
 
-![Setting subtitle and colors](docs/ezpp_c_128.png)
+![Setting font color and subtitle](docs/ezpp_cm_128.png)
 
 
 ## 6. Shadow:
