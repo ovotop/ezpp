@@ -12,12 +12,21 @@
 # from setuptools import setup, find_packages  # 这个包没有的可以pip一下
 import setuptools
 
+# with open("README.md", "r") as fh:
+#     long_description = fh.read()
+
 setuptools.setup(
     name="ezpp",
-    version="0.1.5",
-    keywords=["pip", "ezpp", "resize", "reformat", "recolor", "shadow"],
+    version="0.1.6",
+    keywords=["pip", "ezpp", "resize", "reformat", "recolor", "shadow", "icon","logo"],
     description="Easy to process picturse",
-    long_description="Easy to process picturse",
+    # long_description=long_description,
+    long_description=
+    """
+    Easy Process Picturse.
+    Easy to make  and resize  icons for apps.
+    Resize,recolor,frosted,shadow pictures by one command line.
+    """,
     license="MIT Licence",
 
     url="https://github.com/ovotop/ezpp",
