@@ -20,7 +20,6 @@ from ezpp.utils.color_parser import *
 # DEFUALT_FONT_NAME = 'zcoolqinkehuangyouti.ttf'
 # DEFUALT_FONT_NAME = 'lianmengqiyilushuaizhengruiheiti.ttf'
 
-DEFUALT_FONT_NAME = 'text2icon/ZhenyanGB.ttf'
 ANTIALIAS_SIZE = 16
 LOGO_SIZE = 1024*ANTIALIAS_SIZE
 MAIN_POS_TITLE_ONLY = 512*ANTIALIAS_SIZE
@@ -39,6 +38,7 @@ def brother_path(file_name):
     return os.path.join(os.path.abspath(
         os.path.dirname(__file__)), file_name)
 
+DEFUALT_FONT_NAME = brother_path('text2icon/ZhenyanGB.ttf')
 
 def create_cmd_parser(subparsers):
     parser_recolor = subparsers.add_parser(
@@ -52,11 +52,11 @@ def create_cmd_parser(subparsers):
                                 help=using_color)
 
     parser_recolor.add_argument("--title",
-                                "-T",
+                                "-t",
                                 help="text of title")
 
     parser_recolor.add_argument("--subtitle",
-                                "-t",
+                                "-s",
                                 help="text of subtitle")
     
     parser_recolor.add_argument("--font",
