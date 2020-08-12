@@ -45,7 +45,7 @@ def create_cmd_parser(subparsers):
 def _on_args_parsed(args):
     params = vars(args)
     app = params['app']
-    infile, outfile, recursive,o = global_args.parser_io_argments(params)
+    infile, outfile, recursive, o = global_args.parser_io_argments(params)
     size = params['size']
 
     if app:
