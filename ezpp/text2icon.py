@@ -30,8 +30,9 @@ CIRCLE_RADIUS = 1380*ANTIALIAS_SIZE
 CIRCLE_EDGE_Y = 848*ANTIALIAS_SIZE
 DEFAULT_COLOR = '#ffffff'
 DEFAULT_BGCOLOR = "#3399ff"
-FONT_MAIN_SUM = 840*ANTIALIAS_SIZE
-FONT_MAIN_SUM_MIM = 640*ANTIALIAS_SIZE
+FONT_MAIN_SUM = 960*ANTIALIAS_SIZE
+FONT_MAIN_SUM_MIN = 640*ANTIALIAS_SIZE
+FONT_MAIN_SUM_STEP = 80*ANTIALIAS_SIZE
 FONT_SIZE_SUB = 104*ANTIALIAS_SIZE
 
 
@@ -120,6 +121,12 @@ def text2icon(params, outfile):
     )
 
     title_len = len(title)
+    print('title_len',title,title_len)
+    if title_len > 5:
+        main_title_font_size = int(FONT_MAIN_SUM/title_len)
+    else:
+        main_title_font_size = int((FONT_MAIN_SUM_MIN+(title_len-1)*FONT_MAIN_SUM_STEP)/1)
+
     main_title_font_size = FONT_MAIN_SUM_MIN if title_len == 1  else int(FONT_MAIN_SUM/title_len)
     font = ImageFont.truetype(
         font_path(font_name),
@@ -150,5 +157,12 @@ def text2icon(params, outfile):
 
     logo_size = int(LOGO_SIZE/ANTIALIAS_SIZE)
     img = img.resize((logo_size, logo_size), Image.ANTIALIAS)
-    new_outfile = outfile if outfile else f'{title}_{subtitle}.png' if subtitle else f'{title}.png'
+    
+    if not outfile :
+        new_outfile = f'{title}_{subtitle}.png' if subtitle else f'{title}.png'
+    elif outfile[-1:]=="/":
+        new_outfile = f"{outfile}{title}.png"
+    else:
+        new_outfile = outfile 
+
     img.save(new_outfile, 'PNG')
