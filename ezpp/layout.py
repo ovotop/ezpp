@@ -17,7 +17,7 @@ def create_cmd_parser(subparsers):
 
 def _on_args_parsed(args):
     params = vars(args)
-    infile, outfile, r, o = global_args.parser_io_argments(params,recursive = false,overwrite = false)
+    infile, outfile = global_args.parser_io_argments(params)
 
     params = params['params']
     if not params:

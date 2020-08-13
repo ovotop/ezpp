@@ -2,7 +2,7 @@ import os
 import glob
 
 
-def add_global_argments(sub_parser):
+def add_global_argments(sub_parser, has_recursive = True, has_overwrite = True):
     sub_parser.add_argument('-i',
                             '--infile',
                             help='input file or dir')
@@ -11,15 +11,16 @@ def add_global_argments(sub_parser):
                             '--outfile',
                             help='Optional the output file')
 
-    sub_parser.add_argument('-r',
-                            '--recursive',
-                            default=False,
-                            action='store_true',
-                            help='recursive the input dir, outfiles will overwrite inputfiles. And the -o will be ignore')
-
-    sub_parser.add_argument('--overwrite',
-                            action='store_false',
-                            help='Overwrite the infile with new file')
+    if has_recursive:
+        sub_parser.add_argument('-r',
+                                '--recursive',
+                                default=False,
+                                action='store_true',
+                                help='recursive the input dir, outfiles will overwrite inputfiles. And the -o will be ignore')
+    if has_overwrite:
+        sub_parser.add_argument('--overwrite',
+                                action='store_false',
+                                help='Overwrite the infile with new file')
 
 
 def parser_io_argments(params):

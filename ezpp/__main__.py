@@ -39,7 +39,7 @@ def main():
     global_args.add_global_argments(refmt.create_cmd_parser(subparsers))
     global_args.add_global_argments(text2icon.create_cmd_parser(subparsers))
     global_args.add_global_argments(shadow.create_cmd_parser(subparsers))
-    global_args.add_global_argments(layout.create_cmd_parser(subparsers))
+    global_args.add_global_argments(layout.create_cmd_parser(subparsers), has_recursive = False, has_overwrite = False)
     # ADD SUBCMD ARGMENTS HERE
     # SUB COMMONDS ARGMENTS]
 
