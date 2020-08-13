@@ -1,0 +1,9 @@
+canvas:
+  size:"960x540"
+layouts:
+  -layout:
+    type:"fill"
+    visible:true
+    name:"background with color"
+    color:"#543"
+    
