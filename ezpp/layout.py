@@ -3,6 +3,8 @@ import argparse
 import os
 import re
 from . import global_args
+import yaml 
+from ezutils.files import readstr
 
 def create_cmd_parser(subparsers):
     cmd_parser = subparsers.add_parser(
@@ -17,7 +19,7 @@ def create_cmd_parser(subparsers):
 
 def _on_args_parsed(args):
     params = vars(args)
-    infile, outfile = global_args.parser_io_argments(params)
+    infile, outfile, r, o = global_args.parser_io_argments(params)
 
     params = params['params']
     if not params:
@@ -27,5 +29,8 @@ def _on_args_parsed(args):
 
 
 def layout(infile, outfile,sizeStr=10):
+    dataStr = readstr(infile)
+    yamlCfg = yaml.load(dataStr)
+    print('cfg:',yamlCfg)
     pass
 

@@ -26,8 +26,8 @@ def add_global_argments(sub_parser, has_recursive = True, has_overwrite = True):
 def parser_io_argments(params):
     infile = params['infile']
     outfile = params['outfile']
-    recursive = params['recursive']
-    overwrite = params['overwrite']
+    recursive = params['recursive'] if 'recursive' in params else None
+    overwrite = params['overwrite'] if 'overwrite' in params else None
     if infile and not os.path.exists(infile):
         print(f'Cant find --infile :{infile}')
         os._exit(1)
