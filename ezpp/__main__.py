@@ -14,6 +14,7 @@ from . import recolor
 from . import resize
 from . import text2icon
 from . import shadow
+from . import layout
 # IMPORT SUBCMD DEF HERE
 # SUB COMMONDS DEF]
 
@@ -38,6 +39,7 @@ def main():
     global_args.add_global_argments(refmt.create_cmd_parser(subparsers))
     global_args.add_global_argments(text2icon.create_cmd_parser(subparsers))
     global_args.add_global_argments(shadow.create_cmd_parser(subparsers))
+    global_args.add_global_argments(layout.create_cmd_parser(subparsers))
     # ADD SUBCMD ARGMENTS HERE
     # SUB COMMONDS ARGMENTS]
 
