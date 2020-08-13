@@ -1,9 +1,16 @@
 canvas:
-  size:"960x540"
+  width: 960
+  height: 540 
+  antialias_size: 1    # 1-16 antialias range,The bigger the slower
+  color: "#f93" 
 layouts:
-  -layout:
-    type:"fill"
-    visible:true
-    name:"background with color"
-    color:"#543"
-    
+- 
+  type: "fill"
+  visible: false
+  color: "#543"
+- 
+  type: "text"
+  visible: true
+  title: "hello ezpp"
+  color: "#fff"
+  size: 96
