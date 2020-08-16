@@ -9,6 +9,8 @@ from ezutils.files import readstr
 from pydash import _
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
 from ezpp.utils.text import text_horzontal_center,text_vertical_center,text_center
+from ezpp.shadow import shadow_on_image
+
 def create_cmd_parser(subparsers):
     cmd_parser = subparsers.add_parser(
         'layout', help='layout help')
@@ -71,16 +73,22 @@ def render_text_layer(img, layer, infile_dir):
         draw = ImageDraw.Draw(img)
         draw.text((x, y), title, color, font=font)
 
+def render_shadow_layer(img,layer):
+    alpha = _.get(layer,'alpha')
+    shadow_on_image(img,alpha)
+
 def render_layer(img, layer, infile_dir):
     layer_type = _.get(layer,'type')
     if layer_type == "image":
         render_image_layer(img, layer, infile_dir)
     elif layer_type == "text":
         render_text_layer(img, layer, infile_dir)
+    elif layer_type == "shadow":
+        render_shadow_layer(img,layer)
 
 def merge_params(data_str,params):
     tmp_yaml_cfg = yaml.load(data_str)
-    cfg_params = _.get(tmp_yaml_cfg, 'params');
+    cfg_params = _.get(tmp_yaml_cfg, 'params')
     for cfg_param in cfg_params:
         data_str = data_str.replace(f"__{cfg_param}__", params[cfg_param])
     print("new data_str:\n",data_str)
@@ -97,15 +105,20 @@ def layout(infile, outfile, params_map):
     height = int(_.get(yaml_cfg, 'canvas.height'))
     antialias_size =int(_.get(yaml_cfg, 'canvas.antialias_size'))
     
+    # canvas
     color =  _.get(yaml_cfg, 'canvas.color')
     if color == None:
         color = '#fff'
     img = Image.new('RGBA', (width*antialias_size, height*antialias_size), color)
-
+    
+    # layers
+    img_layers = Image.new('RGBA', (width*antialias_size, height*antialias_size), ("#0000"))
     layers = _.get(yaml_cfg, 'layers')
     for layer in layers:
-        render_layer(img, layer, infile_dir)
+        render_layer(img_layers, layer, infile_dir)
 
+    img.paste(img_layers, (0,0), mask = img_layers)
+    
     if antialias_size > 1:
         img = img.resize((width, height), Image.ANTIALIAS)
     img.show()

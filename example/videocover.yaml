@@ -6,7 +6,7 @@ canvas:
   width: 960
   height: 540 
   antialias_size: 1    # 1-16 antialias range,The bigger the slower
-  color: "#f93"  # "#XXX0" or "#XXXXXX00" 代表透明
+  color: "#f930"  # "#XXX0" or "#XXXXXX00" 代表透明
 
 layers:
 -
@@ -26,6 +26,11 @@ layers:
     name: "/System/Library/fonts/Monaco.dfont"
     size: 96
     color: "#fff"
+        
+-
+  type: "shadow"
+  alpha: 0.3
+
 - 
   title: "bottom"
   type: "text"
@@ -50,7 +55,3 @@ layers:
     name: "/System/Library/fonts/Monaco.dfont"
     size: 48
     color: "#543"
-    
--
-  type: "shadow"
-  alpha: 0.8
