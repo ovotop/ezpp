@@ -1,0 +1,1 @@
+ezpp layout -i tests/videocover.yaml -p '{"icon":"logo_256x256.png","title":"EzPP"}'

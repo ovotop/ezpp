@@ -1,1 +1,0 @@
-ezpp layout -i videocover.yaml
