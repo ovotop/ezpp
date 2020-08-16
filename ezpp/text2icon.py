@@ -6,6 +6,7 @@ import re
 import colorsys
 from . import global_args
 from ezpp.utils.color_parser import *
+from ezpp.utils.text import text_horzontal_center
 # using_color = "-c The color in hex value in formate of #RRGGBB  or #RGB. For example :#00ff00 or #0f0 make a  green version of your pic"
 # is_color_re = re.compile(r'^#?([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$')
 # color3_re = re.compile(
@@ -84,15 +85,6 @@ def draw_bg(color, bgcolor, hasSubtitle):
                       CIRCLE_EDGE_Y+CIRCLE_RADIUS*2), color)
     return img
 
-
-def text_horzontal_center(text, color, font, img, base_y):
-    text_width, text_height = font.getsize(text)
-    draw = ImageDraw.Draw(img)
-    x = (LOGO_SIZE-text_width)/2
-    y = base_y-text_height
-    draw.text((x, y), text, color, font=font)
-
-
 def repeat2(str_tobe_repeat):
     if len(str_tobe_repeat) > 1:
         return str_tobe_repeat
@@ -140,6 +132,7 @@ def text2icon(params, outfile):
         color,
         font,
         img,
+        LOGO_SIZE,
         (MAIN_POS if hasSubtitle else MAIN_POS_TITLE_ONLY) + main_title_font_size/2)
 
     font_sub = ImageFont.truetype(
@@ -153,6 +146,7 @@ def text2icon(params, outfile):
             bgcolor,
             font_sub,
             img,
+            LOGO_SIZE,
             SUB_POS)
 
     logo_size = int(LOGO_SIZE/ANTIALIAS_SIZE)
