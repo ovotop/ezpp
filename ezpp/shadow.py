@@ -33,14 +33,14 @@ def _on_args_parsed(args):
     shadow(infile, outfile, recursive, overwrite, alpha)
 
 
-def sameColor(colorA, colorB):
+def same_color(colorA, colorB):
     r = colorA[0] - colorB[0]
     g = colorA[1] - colorB[1]
     b = colorA[2] - colorB[2]
     return r*r+g*g+b*b < COLOR_SAME_RADUS*COLOR_SAME_RADUS
 
 
-def shadowColor(colorbg, alpha):
+def shadow_color(colorbg, alpha):
     r, g, b = colorbg
     h, s, v = rgb2hsv(r, g, b)
     r1, g1, b1 = hsv2rgb(h, s, (1-alpha)*v)
@@ -48,7 +48,7 @@ def shadowColor(colorbg, alpha):
     return f"#{strHex}"
 
 
-def shadowOnline(pixes, width, height, fromX, fromY, alpha):
+def shadow_on_line(pixes, width, height, fromX, fromY, alpha):
     first = None
     firstObj = None
     for i in range(0, width):
@@ -62,28 +62,28 @@ def shadowOnline(pixes, width, height, fromX, fromY, alpha):
             continue
 
         if firstObj == None:
-            if not sameColor(first, pixes[x, y]):
+            if not same_color(first, pixes[x, y]):
                 firstObj = pixes[x, y]
             continue
 
-        if sameColor(first, pixes[x, y]):
+        if same_color(first, pixes[x, y]):
             pixes[x, y] = ImageColor.getcolor(
-                shadowColor(pixes[x, y], alpha), "RGB")
+                shadow_color(pixes[x, y], alpha), "RGB")
 
 
-def shadowOnPixes(pixes, width, height, alpha):
+def shadow_on_pixes(pixes, width, height, alpha):
     for i in range(0, width):
-        shadowOnline(pixes, width, height, i, 0, alpha)
+        shadow_on_line(pixes, width, height, i, 0, alpha)
 
     for j in range(1, height):
-        shadowOnline(pixes, width, height, 0, j, alpha)
+        shadow_on_line(pixes, width, height, 0, j, alpha)
 
 
-def shadowOnImage(img, alpha):
+def shadow_on_image(img, alpha):
     imgSize = img.size
     pixes = img.load()
     width, height = imgSize
-    shadowOnPixes(pixes, width, height, alpha)
+    shadow_on_pixes(pixes, width, height, alpha)
 
 
 def shadow_file(fileName, outFile, alpha):
@@ -94,7 +94,7 @@ def shadow_file(fileName, outFile, alpha):
     print(f'shadow file with alpha= {alpha}:\n{fileName} \n to {newFile}')
 
     with Image.open(fileName) as im:
-        shadowOnImage(im, alpha)
+        shadow_on_image(im, alpha)
         im.show()
         im.save(newFile)
 
