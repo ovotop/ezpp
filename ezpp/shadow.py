@@ -8,7 +8,7 @@ from ezutils.colors import *
 from . import global_args
 
 COLOR_SAME_RADUS = 160
-
+MIN_TRANSPARENT_ALPHA = int(0.3*0xff)
 
 def create_cmd_parser(subparsers):
     cmd_parser = subparsers.add_parser(
@@ -34,18 +34,30 @@ def _on_args_parsed(args):
 
 
 def same_color(colorA, colorB):
+    if len(colorA) == 4 and len(colorB) == 4 :
+        if colorA[3] < MIN_TRANSPARENT_ALPHA and  colorB[3] < MIN_TRANSPARENT_ALPHA:
+            return True
+        elif colorA[3] < MIN_TRANSPARENT_ALPHA or  colorB[3]< MIN_TRANSPARENT_ALPHA:
+            return False
+
     r = colorA[0] - colorB[0]
     g = colorA[1] - colorB[1]
     b = colorA[2] - colorB[2]
+
     return r*r+g*g+b*b < COLOR_SAME_RADUS*COLOR_SAME_RADUS
 
-
 def shadow_color(colorbg, alpha):
-    r, g, b = colorbg
-    h, s, v = rgb2hsv(r, g, b)
-    r1, g1, b1 = hsv2rgb(h, s, (1-alpha)*v)
-    strHex = bytearray([r1, g1, b1]).hex()
-    return f"#{strHex}"
+    r, g, b, a = colorbg
+    if a < MIN_TRANSPARENT_ALPHA:
+        r1=0
+        b1=0
+        g1=0
+    else:
+        h, s, v = rgb2hsv(r, g, b)
+        r1, g1, b1 = hsv2rgb(h, s, (1-alpha)*v)
+    
+    str_hex = bytearray([r1, g1, b1, int(0xff*alpha)]).hex()
+    return f"#{str_hex}"
 
 
 def shadow_on_line(pixes, width, height, fromX, fromY, alpha):
@@ -68,7 +80,7 @@ def shadow_on_line(pixes, width, height, fromX, fromY, alpha):
 
         if same_color(first, pixes[x, y]):
             pixes[x, y] = ImageColor.getcolor(
-                shadow_color(pixes[x, y], alpha), "RGB")
+                shadow_color(pixes[x, y], alpha), "RGBA")
 
 
 def shadow_on_pixes(pixes, width, height, alpha):
