@@ -47,7 +47,12 @@ def same_color(colorA, colorB):
     return r*r+g*g+b*b < COLOR_SAME_RADUS*COLOR_SAME_RADUS
 
 def shadow_color(colorbg, alpha):
-    r, g, b, a = colorbg
+    if len(colorbg) == 4:
+        r, g, b, a = colorbg
+    else:
+        r, g, b = colorbg
+        a = 0xff
+        
     if a < MIN_TRANSPARENT_ALPHA:
         r1=0
         b1=0
