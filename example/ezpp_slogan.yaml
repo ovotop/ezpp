@@ -5,23 +5,12 @@ canvas:
 
 layers:
 -
-  type: "image"
-  filename: "logo_256x256.png"
+  type: "layout"
+  filename: "ezpp_slogan_top.yaml"
   pos:
-    x: 100
-    y: "center"
-- 
-  title: "EzPP"
-  type: "text"
-  visible: true
-  pos:
-    x: "center"
-    y: "center"
-  font:
-    name: "/System/Library/fonts/Monaco.dfont"
-    size: 96
-    color: "#fff"
-        
+    x: 0
+    y: 0
+
 -
   type: "shadow"
   alpha: 0.1

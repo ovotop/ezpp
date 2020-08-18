@@ -33,23 +33,55 @@ def _on_args_parsed(args):
     params_map = json.loads(params_str)
     layout(infile, outfile, params_map)
 
+
+def render_layout_file(infile, params_map):
+    data_str = readstr(infile)
+    infile_dir, infile_name = os.path.split(infile)
+    yaml_cfg = yaml.load(merge_params(data_str, params_map))
+    print('yaml_cfg:',yaml_cfg)
+    print('params_map:',params_map)
+
+    width = int(_.get(yaml_cfg, 'canvas.width'))
+    height = int(_.get(yaml_cfg, 'canvas.height'))
+    antialias_size =int(_.get(yaml_cfg, 'canvas.antialias_size','1'))
+    
+    # canvas
+    color =  _.get(yaml_cfg, 'canvas.color')
+    if color == None:
+        color = '#fff'
+    img = Image.new('RGBA', (width*antialias_size, height*antialias_size), color)
+    
+    # layers
+    img_layers = Image.new('RGBA', (width*antialias_size, height*antialias_size), ("#0000"))
+    layers = _.get(yaml_cfg, 'layers')
+    for layer in layers:
+        render_layer(img_layers, layer, infile_dir, params_map)
+
+    img.paste(img_layers, (0,0), mask = img_layers)
+
+    if antialias_size > 1:
+        img = img.resize((width, height), Image.ANTIALIAS)
+    return img
+
 def render_image_layer(img, layer, infile_dir):
+    file_name = _.get(layer, 'filename')
+    layer_img = Image.open(os.path.join(infile_dir, file_name)).convert("RGBA")
+    paste_layer_img(img, layer, layer_img, infile_dir)
+
+def paste_layer_img(img,layer,layer_img, infile_dir):
     x = _.get(layer, 'pos.x')
     y = _.get(layer, 'pos.y')
     w,h = img.size
 
-    file_name = _.get(layer,'filename')
-    layer_image = Image.open(os.path.join(infile_dir,file_name)).convert("RGBA")
-    layer_w, layer_h = layer_image.size
-    
+    layer_w, layer_h = layer_img.size
+
     if x == "center":
         x = int((w-layer_w)/2)
     
     if y == "center":
         y = int((h-layer_h)/2)
 
-    img.paste(layer_image,(x,y),mask=layer_image)
-
+    img.paste(layer_img,(x,y),mask=layer_img)
 
 def render_text_layer(img, layer, infile_dir):
     title = _.get(layer, 'title')
@@ -73,11 +105,17 @@ def render_text_layer(img, layer, infile_dir):
         draw = ImageDraw.Draw(img)
         draw.text((x, y), title, color, font=font)
 
-def render_shadow_layer(img,layer):
+def render_shadow_layer(img, layer): 
     alpha = _.get(layer,'alpha')
     shadow_on_image(img,alpha)
 
-def render_layer(img, layer, infile_dir):
+def render_layout_layer(img, layer, infile_dir,params_map):
+    filename = _.get(layer,'filename')
+    layer_img = render_layout_file(os.path.join(infile_dir, filename), params_map)
+    paste_layer_img(img,layer,layer_img,infile_dir)
+    pass
+
+def render_layer(img, layer, infile_dir, params_map):
     layer_type = _.get(layer,'type')
     if layer_type == "image":
         render_image_layer(img, layer, infile_dir)
@@ -85,6 +123,8 @@ def render_layer(img, layer, infile_dir):
         render_text_layer(img, layer, infile_dir)
     elif layer_type == "shadow":
         render_shadow_layer(img,layer)
+    elif layer_type == "layout":
+        render_layout_layer(img, layer, infile_dir, params_map)
 
 def merge_params(data_str,params):
     if params == None:
@@ -100,34 +140,7 @@ def merge_params(data_str,params):
     return data_str
 
 def layout(infile, outfile, params_map):
-    data_str = readstr(infile)
-    infile_dir, infile_name = os.path.split(infile)
-    yaml_cfg = yaml.load(merge_params(data_str, params_map))
     print("FROM:",infile)
     print("TO:",outfile)
-    print('yaml_cfg:',yaml_cfg)
-    print('params_map:',params_map)
-
-    width = int(_.get(yaml_cfg, 'canvas.width'))
-    height = int(_.get(yaml_cfg, 'canvas.height'))
-    antialias_size =int(_.get(yaml_cfg, 'canvas.antialias_size','1'))
-    
-    # canvas
-    color =  _.get(yaml_cfg, 'canvas.color')
-    if color == None:
-        color = '#fff'
-    img = Image.new('RGBA', (width*antialias_size, height*antialias_size), color)
-    
-    # layers
-    img_layers = Image.new('RGBA', (width*antialias_size, height*antialias_size), ("#0000"))
-    layers = _.get(yaml_cfg, 'layers')
-    for layer in layers:
-        render_layer(img_layers, layer, infile_dir)
-
-    img.paste(img_layers, (0,0), mask = img_layers)
-
-    if antialias_size > 1:
-        img = img.resize((width, height), Image.ANTIALIAS)
+    img = render_layout_file(infile, params_map)
     img.show()
-
-    

@@ -1,7 +1,7 @@
 canvas:
   width: 1280
   height: 396 
-  color: "#f93"  # "#XXX0" or "#XXXXXX00" 代表透明
+  color: "#0000"  # "#XXX0" or "#XXXXXX00" 代表透明
 
 layers:
 -
