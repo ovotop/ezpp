@@ -33,7 +33,7 @@ setuptools.setup(
     author="JeffreyCao",
     author_email="jeffreycao1024@gmail.com",
 
-    packages=setuptools.find_packages(exclude=['docs', 'playground', 'bin']),
+    packages=setuptools.find_packages(exclude=['docs', 'playground', 'bin', 'example']),
     include_package_data=True,
     package_data={
         'ezpp': ['text2icon/ZhenyanGB.ttf', 'resize_cfg/app_icon.json', 'resize_cfg/Contents.json'],
