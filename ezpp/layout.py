@@ -87,23 +87,30 @@ def render_layer(img, layer, infile_dir):
         render_shadow_layer(img,layer)
 
 def merge_params(data_str,params):
+    if params == None:
+        return data_str
+
     tmp_yaml_cfg = yaml.load(data_str)
     cfg_params = _.get(tmp_yaml_cfg, 'params')
+    if cfg_params == None:
+        return data_str
+
     for cfg_param in cfg_params:
         data_str = data_str.replace(f"__{cfg_param}__", params[cfg_param])
-    print("new data_str:\n",data_str)
     return data_str
 
 def layout(infile, outfile, params_map):
     data_str = readstr(infile)
     infile_dir, infile_name = os.path.split(infile)
-    # print('data_str:',data_str)
     yaml_cfg = yaml.load(merge_params(data_str, params_map))
-    print('yaml_cfg',yaml_cfg)
+    print("FROM:",infile)
+    print("TO:",outfile)
+    print('yaml_cfg:',yaml_cfg)
+    print('params_map:',params_map)
 
     width = int(_.get(yaml_cfg, 'canvas.width'))
     height = int(_.get(yaml_cfg, 'canvas.height'))
-    antialias_size =int(_.get(yaml_cfg, 'canvas.antialias_size'))
+    antialias_size =int(_.get(yaml_cfg, 'canvas.antialias_size','1'))
     
     # canvas
     color =  _.get(yaml_cfg, 'canvas.color')
@@ -118,7 +125,7 @@ def layout(infile, outfile, params_map):
         render_layer(img_layers, layer, infile_dir)
 
     img.paste(img_layers, (0,0), mask = img_layers)
-    
+
     if antialias_size > 1:
         img = img.resize((width, height), Image.ANTIALIAS)
     img.show()

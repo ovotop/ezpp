@@ -12,7 +12,7 @@ def text_horzontal_center(text, color, font, img, canvas_width,base_y):
 def text_vertical_center(text, color, font, img, canvas_height,base_x):
     text_width, text_height = font.getsize(text)
     draw = ImageDraw.Draw(img)
-    x = base_x-text_width
+    x = base_x
     y = (canvas_height-text_height)/2
     if SHOW_BOUNDS:
       draw.rectangle([(x,y),(x+text_width,y+text_height)])
