@@ -34,13 +34,15 @@ def _on_args_parsed(args):
     layout(infile, outfile, params_map)
 
 
-def render_layout_file(infile, params_map):
+def render_canvas_file(infile, params_map):
     data_str = readstr(infile)
     infile_dir, infile_name = os.path.split(infile)
     yaml_cfg = yaml.load(merge_params(data_str, params_map))
     print('yaml_cfg:',yaml_cfg)
     print('params_map:',params_map)
+    return render_canvas(yaml_cfg, infile_dir, params_map)
 
+def render_canvas(yaml_cfg, infile_dir, params_map):
     width = int(_.get(yaml_cfg, 'canvas.width'))
     height = int(_.get(yaml_cfg, 'canvas.height'))
     antialias_size =int(_.get(yaml_cfg, 'canvas.antialias_size','1'))
@@ -63,12 +65,25 @@ def render_layout_file(infile, params_map):
         img = img.resize((width, height), Image.ANTIALIAS)
     return img
 
+def render_layer(img, layer, infile_dir, params_map):
+    layer_type = _.get(layer,'type')
+    if layer_type == "image":
+        render_image_layer(img, layer, infile_dir)
+    elif layer_type == "text":
+        render_text_layer(img, layer, infile_dir)
+    elif layer_type == "shadow":
+        render_shadow_layer(img,layer)
+    elif layer_type == "import":
+        render_import_layer(img, layer, infile_dir, params_map)
+    elif layer_type == "nested":
+        render_nested_layer(img, layer, infile_dir, params_map)
+
 def render_image_layer(img, layer, infile_dir):
     file_name = _.get(layer, 'filename')
     layer_img = Image.open(os.path.join(infile_dir, file_name)).convert("RGBA")
     paste_layer_img(img, layer, layer_img, infile_dir)
 
-def paste_layer_img(img,layer,layer_img, infile_dir):
+def paste_layer_img(img, layer, layer_img, infile_dir):
     x = _.get(layer, 'pos.x')
     y = _.get(layer, 'pos.y')
     w,h = img.size
@@ -80,13 +95,15 @@ def paste_layer_img(img,layer,layer_img, infile_dir):
     
     if y == "center":
         y = int((h-layer_h)/2)
-
-    img.paste(layer_img,(x,y),mask=layer_img)
+    print('paste_layer_img.x,y',x,y)
+    img.paste(layer_img, (x,y) , mask = layer_img)
 
 def render_text_layer(img, layer, infile_dir):
     title = _.get(layer, 'title')
     font_size = _.get(layer, 'font.size')
-    font_name = _.get(layer, 'font.name')
+    font_filename = _.get(layer, 'font.filename')
+    font_file = _.get(layer, 'font.file')
+    font_name = font_file if font_file != None else os.path.join(infile_dir,font_filename)
     color = _.get(layer, 'font.color')
     font = ImageFont.truetype(
         font_name,
@@ -109,22 +126,15 @@ def render_shadow_layer(img, layer):
     alpha = _.get(layer,'alpha')
     shadow_on_image(img,alpha)
 
-def render_layout_layer(img, layer, infile_dir,params_map):
+def render_import_layer(img, layer, infile_dir, params_map):
     filename = _.get(layer,'filename')
-    layer_img = render_layout_file(os.path.join(infile_dir, filename), params_map)
-    paste_layer_img(img,layer,layer_img,infile_dir)
-    pass
+    layer_img = render_canvas_file(os.path.join(infile_dir, filename), params_map)
+    paste_layer_img(img, layer, layer_img, infile_dir)
 
-def render_layer(img, layer, infile_dir, params_map):
-    layer_type = _.get(layer,'type')
-    if layer_type == "image":
-        render_image_layer(img, layer, infile_dir)
-    elif layer_type == "text":
-        render_text_layer(img, layer, infile_dir)
-    elif layer_type == "shadow":
-        render_shadow_layer(img,layer)
-    elif layer_type == "layout":
-        render_layout_layer(img, layer, infile_dir, params_map)
+def render_nested_layer(img, layer, infile_dir, params_map):
+    layer_img = render_canvas(layer, infile_dir, params_map)
+    print("nested.layer_img.size",layer_img.size)
+    paste_layer_img(img, layer, layer_img, infile_dir)
 
 def merge_params(data_str,params):
     if params == None:
@@ -142,5 +152,5 @@ def merge_params(data_str,params):
 def layout(infile, outfile, params_map):
     print("FROM:",infile)
     print("TO:",outfile)
-    img = render_layout_file(infile, params_map)
+    img = render_canvas_file(infile, params_map)
     img.show()

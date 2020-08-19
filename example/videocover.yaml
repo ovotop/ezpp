@@ -23,7 +23,7 @@ layers:
     x: "center"
     y: "center"
   font:
-    name: "/System/Library/fonts/Monaco.dfont"
+    file: "/System/Library/fonts/Monaco.dfont"
     size: 96
     color: "#fff"
         
@@ -40,7 +40,7 @@ layers:
     x: "center"
     y: 440
   font:
-    name: "/System/Library/fonts/Monaco.dfont"
+    file: "/System/Library/fonts/Monaco.dfont"
     size: 48
     color: "#543"      
 - 
@@ -52,6 +52,6 @@ layers:
     x: 860
     y: "center"
   font:
-    name: "/System/Library/fonts/Monaco.dfont"
+    file: "/System/Library/fonts/Monaco.dfont"
     size: 48
     color: "#543"

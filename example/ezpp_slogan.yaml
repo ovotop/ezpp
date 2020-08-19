@@ -5,7 +5,7 @@ canvas:
 
 layers:
 -
-  type: "layout"
+  type: "import"
   filename: "ezpp_slogan_top.yaml"
   pos:
     x: 0
@@ -16,17 +16,28 @@ layers:
   alpha: 0.1
 
 - 
-  title: "bottom"
-  type: "text"
-  visible: true
-  color: "#fff"
+  type: "nested"
   pos:
     x: "center"
-    y: 440
-  font:
-    name: "/System/Library/fonts/Monaco.dfont"
-    size: 48
-    color: "#543"      
+    y: 500
+  canvas: 
+    width: 1280
+    height: 120
+    color: "#0000"
+  layers:        
+  - 
+    type: "text"
+    title: "bottom"
+    visible: true
+    color: "#fff"
+    pos:
+      x: "center"
+      y: "center"
+    font:
+      file: "/System/Library/fonts/Monaco.dfont"
+      size: 48
+      color: "#543"
+
 - 
   title: "right"
   type: "text"
@@ -36,6 +47,6 @@ layers:
     x: 860
     y: "center"
   font:
-    name: "/System/Library/fonts/Monaco.dfont"
+    file: "/System/Library/fonts/Monaco.dfont"
     size: 48
     color: "#543"

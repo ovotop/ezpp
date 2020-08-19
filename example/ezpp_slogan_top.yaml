@@ -18,6 +18,6 @@ layers:
     x: 652
     y: "center"
   font:
-    name: "/System/Library/fonts/Monaco.dfont"
+    file: "/System/Library/fonts/Monaco.dfont"
     size: 96
     color: "#fff"
