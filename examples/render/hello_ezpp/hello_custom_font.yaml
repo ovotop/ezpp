@@ -1,4 +1,4 @@
-# ezpp render -i example/render/hello_ezpp/hello_custom_font.yaml
+# ezpp render -i examples/render/hello_ezpp/hello_custom_font.yaml
 canvas:
   width: 240
   height: 80

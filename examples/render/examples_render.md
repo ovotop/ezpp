@@ -10,13 +10,13 @@ This example show basically using of ezpp render.
 
 #### Call from terminal
 ```text
-ezpp render -i example/render/hello_ezpp/hello.yaml
-ezpp render -i example/render/hello_ezpp/hello_custom_font.yaml
+ezpp render -i examples/render/hello_ezpp/hello.yaml
+ezpp render -i examples/render/hello_ezpp/hello_custom_font.yaml
 ```
 
-example/render/hello_ezpp/hello.yaml
+examples/render/hello_ezpp/hello.yaml
 ```yaml
-# ezpp render -i example/render/hello_ezpp/hello.yaml
+# ezpp render -i examples/render/hello_ezpp/hello.yaml
 canvas:
   width: 240
   height: 80
@@ -37,10 +37,10 @@ items:
 ```
 #### Output
 ```text
-FROM: example/render/hello_ezpp/hello.yaml
-TO: example/render/hello_ezpp/hello.png
-FROM: example/render/hello_ezpp/hello_custom_font.yaml
-TO: example/render/hello_ezpp/hello_custom_font.png
+FROM: examples/render/hello_ezpp/hello.yaml
+TO: examples/render/hello_ezpp/hello.png
+FROM: examples/render/hello_ezpp/hello_custom_font.yaml
+TO: examples/render/hello_ezpp/hello_custom_font.png
 ```
 
 #### Result:
@@ -57,9 +57,9 @@ This example show how to use params to reuse your *.yaml file.
 
 #### Call from terminal:
 ```text
-ezpp render -i example/render/params/params.yaml  -p '{"icon":"logo_256x256.png","title":"Hello EzPP"}' -o example/render/params/hello_ezpp.png
+ezpp render -i examples/render/params/params.yaml  -p '{"icon":"logo_256x256.png","title":"Hello EzPP"}' -o examples/render/params/hello_ezpp.png
 ```
-example/render/params/params.yaml
+examples/render/params/params.yaml
 ```yaml
 # params defines
 params: 
@@ -97,8 +97,8 @@ items:
 ```
 #### Output
 ```text
-FROM: example/render/params/params.yaml
-TO: example/render/params/hello_ezpp.png
+FROM: examples/render/params/params.yaml
+TO: examples/render/params/hello_ezpp.png
 ```
 
 #### Result:
@@ -109,9 +109,9 @@ TO: example/render/params/hello_ezpp.png
 
 You can also make a *.sh file like this.
 
-example/render/params/render_params_demo.sh:
+examples/render/params/render_params_demo.sh:
 ```bash
-cd example/render/params
+cd examples/render/params
 ezpp render -i params.yaml -p '{"icon":"logo_64.png","title":"Hello"}' -o hello.png
 ezpp render -i params.yaml -p '{"icon":"logo_64.png","title":"EzPP"}' -o ezpp.png
 ezpp render -i params.yaml -p '{"icon":"logo_64.png","title":"Hello EzPP"}' -o hello_ezpp.png
@@ -136,11 +136,11 @@ This example show how to use params to reuse your *.yaml file.
 
 #### Call from terminal:
 ```text
-ezpp render -i example/render/mask/mask.yaml 
-ezpp render -i example/render/mask/mask_antialias.yaml 
+ezpp render -i examples/render/mask/mask.yaml 
+ezpp render -i examples/render/mask/mask_antialias.yaml 
 ```
 
-example/render/mask/mask.yaml 
+examples/render/mask/mask.yaml 
 ```yaml
 canvas:
 #...
@@ -177,10 +177,10 @@ items:
 ```
 #### Output
 ```text
-FROM: example/render/mask/mask.yaml
-TO: example/render/mask/mask.png
-FROM: example/render/mask/mask_antialias.yaml
-TO: example/render/mask/mask_antialias.png
+FROM: examples/render/mask/mask.yaml
+TO: examples/render/mask/mask.png
+FROM: examples/render/mask/mask_antialias.yaml
+TO: examples/render/mask/mask_antialias.png
 ```
 
 #### Result:
@@ -199,10 +199,10 @@ This example show how to setup complex render.
 
 #### Call from terminal:
 ```text
-ezpp render -i example/render/slogan/ezpp_slogan.yaml          
+ezpp render -i examples/render/slogan/ezpp_slogan.yaml          
 ```
 
-example/render/slogan/ezpp_slogan.yaml 
+examples/render/slogan/ezpp_slogan.yaml 
 ```yaml
 #...
 items:
@@ -217,8 +217,8 @@ items:
 
 #### Output
 ```text
-FROM: example/render/slogan/ezpp_slogan.yaml
-TO: example/render/slogan/ezpp_slogan.png
+FROM: examples/render/slogan/ezpp_slogan.yaml
+TO: examples/render/slogan/ezpp_slogan.png
 ```
 
 #### Result:

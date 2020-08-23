@@ -1,7 +1,7 @@
 canvas:
   width: 1280
   height: 640 
-  color: "#f93"  # "#XXX0" or "#XXXXXX00" 代表透明
+  color: "#f93"
 
 items:
 -
@@ -29,7 +29,7 @@ items:
 
 - 
   type: "text"
-  title: "图片批处理工具·为你而生·不想安装PhotoShop的命令行达人"
+  title: "A FREE BATCH pictures utilty, may replace your Photoshop"
   pos:
     x: "center"
     y: 520
