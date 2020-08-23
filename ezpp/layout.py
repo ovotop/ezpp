@@ -39,9 +39,8 @@ def _on_args_parsed(args):
 def render_canvas_file(infile, params_map):
     data_str = readstr(infile)
     infile_dir, infile_name = os.path.split(infile)
-    yaml_cfg = yaml.load(merge_params(data_str, params_map))
-    print('yaml_cfg:', yaml_cfg)
-    print('params_map:', params_map)
+    yaml_cfg = yaml.load(merge_params(data_str, params_map),
+                         Loader=yaml.FullLoader)
     return render_canvas(yaml_cfg, infile_dir, params_map)
 
 
@@ -103,7 +102,6 @@ def paste_layer_img(img, layer, layer_img, infile_dir):
 
     if y == "center":
         y = int((h-layer_h)/2)
-    print('paste_layer_img.x,y', x, y)
     img.paste(layer_img, (x, y), mask=layer_img)
 
 
@@ -115,9 +113,6 @@ def render_text_layer(img, layer, infile_dir):
     font_path = font_filepath if font_filepath != None else os.path.join(
         infile_dir, font_filename)
     color = _.get(layer, 'font.color')
-    print("render_text_layer.color", color)
-    print("render_text_layer.font_size", font_size)
-    print("render_text_layer.font_path", font_path)
     font = ImageFont.truetype(
         font_path,
         font_size
@@ -132,7 +127,6 @@ def render_text_layer(img, layer, infile_dir):
     elif y == "center":
         text_vertical_center(title, color, font, img, h, x)
     else:
-        print("render_text_layer.xy", (x, y))
         draw = ImageDraw.Draw(img)
         draw.text((x, y), title, color, font=font)
 
@@ -158,7 +152,6 @@ def render_import_layer(img, layer, infile_dir, params_map):
 
 def render_nested_layer(img, layer, infile_dir, params_map):
     layer_img = render_canvas(layer, infile_dir, params_map)
-    print("nested.layer_img.size", layer_img.size)
     paste_layer_img(img, layer, layer_img, infile_dir)
 
 
@@ -166,7 +159,7 @@ def merge_params(data_str, params):
     if params == None:
         return data_str
 
-    tmp_yaml_cfg = yaml.load(data_str)
+    tmp_yaml_cfg = yaml.load(data_str, Loader=yaml.FullLoader)
     cfg_params = _.get(tmp_yaml_cfg, 'params')
     if cfg_params == None:
         return data_str
@@ -178,16 +171,17 @@ def merge_params(data_str, params):
 
 def default_outfile(infile):
     filename, ext = os.path.splitext(infile)
-    print("default_outfile.filename", filename)
     return f"{filename}.png"
 
 
 def layout(infile, outfile, params_map, preview):
     print("FROM:", infile)
     newfile = outfile if outfile else default_outfile(infile)
-    print("TO:", newfile)
+
     img = render_canvas_file(infile, params_map)
     if preview:
+        print("Preview Only")
         img.show()
     else:
+        print("TO:", newfile)
         img.save(newfile)
