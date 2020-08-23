@@ -8,7 +8,7 @@ filename 相对与当前yaml的路径
 import layer 引用yaml时只能用 filename
 
 ```yaml
-layers:
+items:
 -
   type: "import"
   filename: "ezpp_slogan_top.yaml"

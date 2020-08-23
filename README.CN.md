@@ -17,6 +17,7 @@ pip install ezpp
 转格式(ReFormat)|lego_mc_l.jpg(203k)|lego_mc_l.webp(109k)|
 文本变图标(Text2Icon)| "EzPP"|![Simplest call of text2icon](docs/ezpp_t_128.png)
 加阴影(Shadow)|![A clean background icon](docs/ezpp_t_128.png)|![Shadow added on clean background](docs/ezpp_t_128_shadow.png)
+布局渲染(Layout)|ezpp_slogan.yaml|![slogan](docs/ezpp_slogan.cn_256x128.png)|
 
 # 怎样用
 ## 1. 图片换色
@@ -45,7 +46,7 @@ docs/icon.png + #ff0000 -> docs/icon_0xff0000.png
 
 #### 在命令行输入: with out -o:
 ```text
-ezpp caojianfeng$ ezpp recolor -i docs/logo_256x256.png -o docs/logo_blue.png -c '#3399ff'
+$ ezpp recolor -i docs/logo_256x256.png -o docs/logo_blue.png -c '#3399ff'
 ```
 #### 输出
 ```text

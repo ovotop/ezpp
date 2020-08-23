@@ -1,0 +1,39 @@
+canvas:
+  width: 1280
+  height: 640 
+  color: "#f93"  # "#XXX0" or "#XXXXXX00" 代表透明
+
+items:
+-
+  type: "import"
+  filename: "ezpp_slogan_top.yaml"
+  pos:
+    x: 0
+    y: 0
+
+-
+  type: "shadow"
+  alpha: 0.1
+
+    
+- 
+  type: "text"
+  title: "EzPP = Easy Process Pictures"
+  pos:
+    x: "center"
+    y: 420
+  font:
+    path: "/System/Library/fonts/Monaco.dfont"
+    size: 48
+    color: "#543"
+
+- 
+  type: "text"
+  title: "命令行图片处理工具，给想要处理图片却不想安装PhotoShop的程序员"
+  pos:
+    x: "center"
+    y: 520
+  font:
+    path: "/System/Library/fonts/PingFang.ttc"
+    size: 36
+    color: "#543"

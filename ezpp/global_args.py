@@ -56,5 +56,4 @@ def get_recursive_pic_infiles(indir):
 
 def auto_outfile(infile, postfix):
     filename, ext = os.path.splitext(infile)
-    outfile = f"{filename}{postfix}{ext}"
-    return outfile
+    return f"{filename}{postfix}{ext}"

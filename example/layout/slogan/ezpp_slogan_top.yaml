@@ -3,7 +3,7 @@ canvas:
   height: 396 
   color: "#0000"  # "#XXX0" or "#XXXXXX00" 代表透明
 
-layers:
+items:
 -
   type: "image"
   filename: "logo_256x256.png"
@@ -18,6 +18,6 @@ layers:
     x: 652
     y: "center"
   font:
-    file: "/System/Library/fonts/Monaco.dfont"
+    path: "/System/Library/fonts/Monaco.dfont"
     size: 96
-    color: "#fff"
+    color: "#543"

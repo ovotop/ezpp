@@ -19,7 +19,7 @@ ReSize|![A icon before recolor](docs/logo_256x256.png)|![A icon after recolor](d
 ReFormat|lego_mc_l.jpg(203k)|lego_mc_l.webp(109k)|
 Text2Icon| "EzPP"|![Simplest call of text2icon](docs/ezpp_t_128.png)
 Shadow|![A clean background icon](docs/ezpp_t_128.png)|![Shadow added on clean background](docs/ezpp_t_128_shadow.png)
-
+布局渲染(Layout)|ezpp_slogan.yaml|![slogan](docs/ezpp_slogan_256x128.png)|
 
 # How
 ## 1. Recolor
@@ -40,14 +40,14 @@ docs/icon.png + #ff0000 -> docs/icon_0xff0000.png
 
 #### Call from terminal with out -o:
 ```text
-ezpp caojianfeng$ ezpp recolor -i docs/logo_256x256.png -o docs/logo_blue.png -c '#3399ff'
+$ezpp recolor -i docs/logo_256x256.png -o docs/logo_blue.png -c '#3399ff'
 ```
 #### Output
 ```text
 docs/logo_256x256.png + #3399ff -> docs/logo_blue.png
 ```
 
-Result:
+#### Result:
 |Before|After #recolor -c #3399ff|
 |:---:|:---:|
 |![picture before recolor](docs/logo_256x256.png)|![picture after recolor](docs/logo_blue.png)|

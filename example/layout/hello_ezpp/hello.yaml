@@ -1,0 +1,18 @@
+# ezpp layout -i example/layout/hello_ezpp/hello.yaml
+canvas:
+  width: 320
+  height: 180 
+  color: "#f93"  # "#XXX0" or "#XXXXXX00" 代表透明
+
+items:
+- 
+  type: "text"
+  title: "Hello EzPP"
+  visible: true
+  pos:
+    x: "center"
+    y: "center"
+  font:
+    path: "/System/Library/fonts/Monaco.dfont"
+    size: 32
+    color: "#543"
