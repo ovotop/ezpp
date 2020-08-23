@@ -1,10 +1,10 @@
 
-![](docs/slogan.png)
+![](docs/ezpp_slogan.cn.png)
 
 # 安装
 
 ```bash
-pip install ezpp
+pip3 install ezpp
 ```
 
 # EzPP能做什么？

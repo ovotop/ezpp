@@ -3,8 +3,8 @@ params:
   - "icon"
 
 canvas:
-  width: 960
-  height: 360 
+  width: 256
+  height: 80
   antialias_size: 1    # 1-16 antialias range,The bigger the slower
   color: "#f93"  # "#XXX0" or "#XXXXXX00" 代表透明
 
@@ -13,18 +13,18 @@ items:
   type: "image"
   filename: "__icon__"
   pos:
-    x: 48
+    x: 16
     y: "center"
 - 
   title: "__title__"
   type: "text"
   visible: true
   pos:
-    x: 320
+    x: 96
     y: "center"
   font:
     path: "/System/Library/fonts/Monaco.dfont"
-    size: 96
+    size: 24
     color: "#543"
         
 -

@@ -1,12 +1,12 @@
 
-![](docs/slogan.png)
+![](docs/ezpp_slogan.png)
 
 [中文文档](README.CN.md)
 
 # Install
 
 ```bash
-pip install ezpp
+pip3 install ezpp
 ```
 
 # What ezpp can

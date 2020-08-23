@@ -29,7 +29,8 @@ items:
 
 - 
   type: "text"
-  title: "A commandline utilty, would prosses pictures as PhotoShop"
+  #title: "A commandline utilty, would prosses pictures as PhotoShop"
+  title: "A FREE BATCH pictures utilty, may replace your Photoshop"
   pos:
     x: "center"
     y: 520

@@ -29,7 +29,7 @@ items:
 
 - 
   type: "text"
-  title: "命令行图片处理工具，给想要处理图片却不想安装PhotoShop的程序员"
+  title: "图片批处理工具·为你而生·不想安装PhotoShop的命令行达人"
   pos:
     x: "center"
     y: 520

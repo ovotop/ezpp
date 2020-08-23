@@ -1,3 +1,5 @@
-ezpp layout -i example/layout/params/params.yaml -p '{"icon":"logo_256x256.png","title":"Hello EzPP"}' -o example/layout/params/hello_ezpp.png
-ezpp layout -i example/layout/params/params.yaml -p '{"icon":"logo_256x256.png","title":"Hello"}' -o example/layout/params/hello.png
-ezpp layout -i example/layout/params/params.yaml -p '{"icon":"logo_256x256.png","title":"EzPP"}' -o example/layout/params/ezpp.png
+cd example/layout/params
+ezpp layout -i params.yaml -p '{"icon":"logo_64.png","title":"Hello"}' -o hello.png
+ezpp layout -i params.yaml -p '{"icon":"logo_64.png","title":"EzPP"}' -o ezpp.png
+ezpp layout -i params.yaml -p '{"icon":"logo_64.png","title":"Hello EzPP"}' -o hello_ezpp.png
+cd ../../../
