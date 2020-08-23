@@ -1,22 +1,22 @@
-params:
+# params defines
+params: 
   - "title"
   - "icon"
 
 canvas:
   width: 256
   height: 80
-  antialias_size: 1    # 1-16 antialias range,The bigger the slower
-  color: "#f93"  # "#XXX0" or "#XXXXXX00" 代表透明
+  color: "#f93" 
 
 items:
 -
   type: "image"
-  filename: "__icon__"
+  filename: "__icon__" # params using
   pos:
     x: 16
     y: "center"
 - 
-  title: "__title__"
+  title: "__title__" # params using
   type: "text"
   visible: true
   pos:
@@ -29,4 +29,4 @@ items:
         
 -
   type: "shadow"
-  alpha: 0.1
+  alpha: 0.1 # 0.0-1.0  shadow color is #000a

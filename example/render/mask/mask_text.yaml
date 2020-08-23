@@ -1,0 +1,19 @@
+canvas:
+  width: 204
+  height: 72 
+  antialias_size: 4 # 1,2,4,8,16 antialias range,The bigger the slower
+  color: "#0006" # "#RGB6" means alpha = 6/16
+pos:
+  x: 48
+  y: "center"
+items:      
+- 
+  type: "text"
+  title: "EzPP"
+  pos:
+    x: "center"
+    y: "center"
+  font:
+    path: "/System/Library/fonts/Monaco.dfont"
+    size: 32
+    color: "#543"
