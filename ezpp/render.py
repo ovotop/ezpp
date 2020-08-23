@@ -14,7 +14,7 @@ from ezpp.shadow import shadow_on_image
 
 def create_cmd_parser(subparsers):
     cmd_parser = subparsers.add_parser(
-        'layout', help='layout help')
+        'render', help='render help')
     cmd_parser.add_argument("-p",
                             "--params",
                             help='params map,like \"{w:960,h:540,title:"hello"}\"')
@@ -33,7 +33,7 @@ def _on_args_parsed(args):
     if not params_str:
         params_str = '{}'
     params_map = json.loads(params_str)
-    layout(infile, outfile, params_map, preview)
+    render(infile, outfile, params_map, preview)
 
 
 def render_canvas_file(infile, params_map):
@@ -174,7 +174,7 @@ def default_outfile(infile):
     return f"{filename}.png"
 
 
-def layout(infile, outfile, params_map, preview):
+def render(infile, outfile, params_map, preview):
     print("FROM:", infile)
     newfile = outfile if outfile else default_outfile(infile)
 

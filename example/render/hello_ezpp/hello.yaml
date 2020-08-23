@@ -1,4 +1,4 @@
-# ezpp layout -i example/layout/hello_ezpp/hello.yaml
+# ezpp render -i example/render/hello_ezpp/hello.yaml
 canvas:
   width: 240
   height: 80

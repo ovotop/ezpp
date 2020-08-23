@@ -14,7 +14,7 @@ from . import recolor
 from . import resize
 from . import text2icon
 from . import shadow
-from . import layout
+from . import render
 # IMPORT SUBCMD DEF HERE
 # SUB COMMONDS DEF]
 
@@ -42,7 +42,7 @@ def main():
                                     has_recursive=False,
                                     optional_outfile=False)
     global_args.add_global_argments(shadow.create_cmd_parser(subparsers))
-    global_args.add_global_argments(layout.create_cmd_parser(subparsers),
+    global_args.add_global_argments(render.create_cmd_parser(subparsers),
                                     has_recursive=False,
                                     has_overwrite=False,
                                     has_preview=True)
