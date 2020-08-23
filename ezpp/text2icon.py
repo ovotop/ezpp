@@ -41,33 +41,35 @@ def brother_path(file_name):
     return os.path.join(os.path.abspath(
         os.path.dirname(__file__)), file_name)
 
+
 DEFUALT_FONT_NAME = brother_path('text2icon/ZhenyanGB.ttf')
+
 
 def create_cmd_parser(subparsers):
     parser_recolor = subparsers.add_parser(
         'text2icon', help='Gen a 1024x1024 logo by text and color')
-    parser_recolor.add_argument("--color",
-                                "-c",
+    parser_recolor.add_argument("-c",
+                                "--color",
                                 help=using_color)
 
-    parser_recolor.add_argument("--bgcolor",
-                                "-b",
+    parser_recolor.add_argument("-b",
+                                "--bgcolor",
                                 help=using_color)
 
-    parser_recolor.add_argument("--title",
-                                "-t",
+    parser_recolor.add_argument("-t",
+                                "--title",
                                 help="text of title")
 
-    parser_recolor.add_argument("--subtitle",
-                                "-s",
+    parser_recolor.add_argument("-s",
+                                "--subtitle",
                                 help="text of subtitle")
-    
-    parser_recolor.add_argument("--font",
-                                "-F",
+
+    parser_recolor.add_argument("-F",
+                                "--font",
                                 help="font of title")
 
-    parser_recolor.add_argument("--subfont",
-                                "-f",
+    parser_recolor.add_argument("-f",
+                                "--subfont",
                                 help="font of subtitle")
 
     parser_recolor.set_defaults(on_args_parsed=_on_args_parsed)
@@ -85,6 +87,7 @@ def draw_bg(color, bgcolor, hasSubtitle):
                       CIRCLE_EDGE_Y+CIRCLE_RADIUS*2), color)
     return img
 
+
 def repeat2(str_tobe_repeat):
     if len(str_tobe_repeat) > 1:
         return str_tobe_repeat
@@ -96,8 +99,10 @@ def _on_args_parsed(args):
     i, outfile, r, o = global_args.parser_io_argments(params)
     text2icon(params, outfile)
 
+
 def font_path(font_name):
     return brother_path(font_name)
+
 
 def text2icon(params, outfile):
 
@@ -113,13 +118,15 @@ def text2icon(params, outfile):
     )
 
     title_len = len(title)
-    print('title_len',title,title_len)
+    print('title_len', title, title_len)
     if title_len > 5:
         main_title_font_size = int(FONT_MAIN_SUM/title_len)
     else:
-        main_title_font_size = int((FONT_MAIN_SUM_MIN+(title_len-1)*FONT_MAIN_SUM_STEP)/1)
+        main_title_font_size = int(
+            (FONT_MAIN_SUM_MIN+(title_len-1)*FONT_MAIN_SUM_STEP)/1)
 
-    main_title_font_size = FONT_MAIN_SUM_MIN if title_len == 1  else int(FONT_MAIN_SUM/title_len)
+    main_title_font_size = FONT_MAIN_SUM_MIN if title_len == 1 else int(
+        FONT_MAIN_SUM/title_len)
     font = ImageFont.truetype(
         font_path(font_name),
         main_title_font_size
@@ -151,12 +158,12 @@ def text2icon(params, outfile):
 
     logo_size = int(LOGO_SIZE/ANTIALIAS_SIZE)
     img = img.resize((logo_size, logo_size), Image.ANTIALIAS)
-    
-    if not outfile :
+
+    if not outfile:
         new_outfile = f'{title}_{subtitle}.png' if subtitle else f'{title}.png'
-    elif outfile[-1:]=="/":
+    elif outfile[-1:] == "/":
         new_outfile = f"{outfile}{title}.png"
     else:
-        new_outfile = outfile 
+        new_outfile = outfile
 
     img.save(new_outfile, 'PNG')
