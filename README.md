@@ -21,9 +21,7 @@ Text2Icon| "EzPP"|![Simplest call of text2icon](docs/ezpp_t_128.png)|[How to Tex
 Shadow|![A clean background icon](docs/ezpp_t_128.png)|![Shadow added on clean background](docs/ezpp_t_128_shadow.png)|[How to Shadow](docs/subcmd_06_shadow.md)
 Render|ezpp_slogan.yaml|![slogan](docs/ezpp_slogan_256x128.png)|[How to Render](examples/render/examples_render.md)
 
-# 3. How
-## 3.1. sub commands
-
+# 3. Common params
 
 ## Recursive for subcommands
 
@@ -40,8 +38,8 @@ resize -s|yes
 resize -a|no
 text2icon |no
 shadow |yes
-layout |no
------- 
+render |no
+
 
 ### Use --overwrite to override the original images
 
@@ -50,6 +48,13 @@ The following command walks through the docs for images and turns them into fros
 $ ezpp frosted -r --overwrite -i docs
 ```
 
+### Use --preview to show your results directly
+
+The following command walks through the docs for images and turns them into frosted effects, directly overwriting the original image
+```text
+$ ezpp text2icon -t "EzPP" -c "#93f" -b "#543" --preview
+```
+------ 
 # ROADMAP
 - [ ] 1. Ignore colors when recolor a pic.
 
