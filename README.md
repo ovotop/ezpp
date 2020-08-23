@@ -1,7 +1,7 @@
 
 ![](docs/slogan.png)
 
-[中文文档](读我.md)
+[中文文档](README.CN.md)
 
 # Install
 
@@ -299,6 +299,14 @@ option|function
 -b or --bgcolor |set background color 
 -F or --font |set font of the title
 -f or --subfont |set font fo the subtitle
+
+
+You can find fonts under these directories.
+```
+/System/Library/fonts
+~/Library/Fonts
+/Library/Fonts
+```
 
 #### Call from terminal:
 ```

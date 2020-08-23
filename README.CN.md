@@ -299,6 +299,13 @@ text2icon:[title:EzPP,subtitle:None,color:#ffffff,bgcolor:#3399ff]
 -F 或者 --font|指定主标题字体
 -f 或者 --subfont|指定副标题字体
 
+你可以在以下目录找到你需要的字体
+```
+/System/Library/fonts
+~/Library/Fonts
+/Library/Fonts
+```
+
 #### 在命令行输入:
 ```
 ezpp text2icon -t "EzPP" -s "ovo.top" -o playground/ezpp_cm.png -c "#543" -b "#f93" -F /System/Library/fonts/Courier.dfont -f /System/Library/fonts/Monaco.dfont
