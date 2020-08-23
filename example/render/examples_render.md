@@ -45,6 +45,8 @@ TO: example/render/params/hello_ezpp.png
 #### Power of params!
 
 You can also make a *.sh file like this.
+
+example/render/params/render_params_demo.sh:
 ```bash
 cd example/render/params
 ezpp render -i params.yaml -p '{"icon":"logo_64.png","title":"Hello"}' -o hello.png
