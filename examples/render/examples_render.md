@@ -57,7 +57,7 @@ This example show how to use params to reuse your *.yaml file.
 
 #### Call from terminal:
 ```text
-ezpp render -i examples/render/params/params.yaml  -p '{"icon":"logo_256x256.png","title":"Hello EzPP"}' -o examples/render/params/hello_ezpp.png
+ezpp render -i examples/render/params/params.yaml  -a '{"icon":"logo_256x256.png","title":"Hello EzPP"}' -o examples/render/params/hello_ezpp.png
 ```
 examples/render/params/params.yaml
 ```yaml
@@ -112,9 +112,9 @@ You can also make a *.sh file like this.
 examples/render/params/render_params_demo.sh:
 ```bash
 cd examples/render/params
-ezpp render -i params.yaml -p '{"icon":"logo_64.png","title":"Hello"}' -o hello.png
-ezpp render -i params.yaml -p '{"icon":"logo_64.png","title":"EzPP"}' -o ezpp.png
-ezpp render -i params.yaml -p '{"icon":"logo_64.png","title":"Hello EzPP"}' -o hello_ezpp.png
+ezpp render -i params.yaml -a '{"icon":"logo_64.png","title":"Hello"}' -o hello.png
+ezpp render -i params.yaml -a '{"icon":"logo_64.png","title":"EzPP"}' -o ezpp.png
+ezpp render -i params.yaml -a '{"icon":"logo_64.png","title":"Hello EzPP"}' -o hello_ezpp.png
 cd ../../../
 ```
 

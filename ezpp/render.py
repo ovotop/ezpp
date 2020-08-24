@@ -15,8 +15,8 @@ from ezpp.shadow import shadow_on_image
 def create_cmd_parser(subparsers):
     cmd_parser = subparsers.add_parser(
         'render', help='render help')
-    cmd_parser.add_argument("-p",
-                            "--params",
+    cmd_parser.add_argument("-a",
+                            "--arguments",
                             help='params map,like \"{w:960,h:540,title:"hello"}\"')
 
     cmd_parser.set_defaults(on_args_parsed=_on_args_parsed)
@@ -26,10 +26,9 @@ def create_cmd_parser(subparsers):
 
 def _on_args_parsed(args):
     params = vars(args)
-    infile, outfile, r, o = global_args.parser_io_argments(params)
+    infile, outfile, r, o, preview = global_args.parser_io_argments(params)
 
-    params_str = params['params']
-    preview = params['preview']
+    params_str = params['arguments']
     if not params_str:
         params_str = '{}'
     params_map = json.loads(params_str)
@@ -193,4 +192,4 @@ def render(infile, outfile, params_map, preview):
         img.show()
     else:
         print("TO:", newfile)
-        img.save(newfile)
+        img.save(newfile, 'PNG')

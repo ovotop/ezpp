@@ -96,15 +96,15 @@ def repeat2(str_tobe_repeat):
 
 def _on_args_parsed(args):
     params = vars(args)
-    i, outfile, r, o = global_args.parser_io_argments(params)
-    text2icon(params, outfile)
+    i, outfile, r, o, preview = global_args.parser_io_argments(params)
+    text2icon(params, outfile, preview)
 
 
 def font_path(font_name):
     return brother_path(font_name)
 
 
-def text2icon(params, outfile):
+def text2icon(params, outfile, preview):
 
     title = params['title']
     subtitle = params['subtitle']
@@ -166,4 +166,9 @@ def text2icon(params, outfile):
     else:
         new_outfile = outfile
 
-    img.save(new_outfile, 'PNG')
+    if preview:
+        print("Preview Only")
+        img.show()
+    else:
+        print("TO:", new_outfile)
+        img.save(new_outfile)
