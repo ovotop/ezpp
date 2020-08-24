@@ -6,7 +6,7 @@ canvas:
 items:
 -
   type: "image"
-  filename: "logo_256x256.png"
+  filename: "logo.png"
   pos:
     x: 361
     y: "center"
