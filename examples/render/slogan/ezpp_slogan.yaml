@@ -2,7 +2,7 @@ canvas:
   width: 1280
   height: 640 
   color: "#f93"
-
+  antialias_size: 4   # 1-16 antialias range,The bigger the slower
 items:
 -
   type: "import"
@@ -37,3 +37,13 @@ items:
     path: "/System/Library/fonts/PingFang.ttc"
     size: 36
     color: "#543"
+- 
+  type: "text"
+  title: "https://github.com/ovotop/ezpp"
+  pos:
+    x: 800
+    y: 580
+  font:
+    path: "/System/Library/fonts/Monaco.dfont"
+    size: 24
+    color: "#fec"    
