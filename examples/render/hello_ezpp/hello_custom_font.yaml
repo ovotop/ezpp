@@ -1,0 +1,18 @@
+# ezpp render -i examples/render/hello_ezpp/hello_custom_font.yaml
+canvas:
+  width: 240
+  height: 80
+  color: "#f93"  # "#RGBA" or "#RRGGBBAA"
+
+items:
+- 
+  type: "text"
+  title: "你好鸭，EzPP"
+  pos:
+    x: "center"
+    y: "center"
+  font:
+    # path: "/System/Library/fonts/Monaco.dfont"
+    filename: "ZhenyanGB.ttf"
+    size: 24
+    color: "#543"

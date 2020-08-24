@@ -1,0 +1,39 @@
+canvas:
+  width: 1280
+  height: 640 
+  color: "#f93"
+
+items:
+-
+  type: "import"
+  filename: "ezpp_slogan_top.yaml"
+  pos:
+    x: 0
+    y: 0
+
+-
+  type: "shadow"
+  alpha: 0.1
+
+    
+- 
+  type: "text"
+  title: "EzPP = Easy Process Pictures"
+  pos:
+    x: "center"
+    y: 420
+  font:
+    path: "/System/Library/fonts/Monaco.dfont"
+    size: 48
+    color: "#543"
+
+- 
+  type: "text"
+  title: "A FREE BATCH pictures utilty, may replace your Photoshop"
+  pos:
+    x: "center"
+    y: 520
+  font:
+    path: "/System/Library/fonts/PingFang.ttc"
+    size: 36
+    color: "#543"

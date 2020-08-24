@@ -25,7 +25,7 @@ def repeat2(str_tobe_repeat):
 
 def _on_args_parsed(args):
     params = vars(args)
-    infile, outfile, recursive, overwrite = global_args.parser_io_argments(
+    infile, outfile, recursive, overwrite, preview = global_args.parser_io_argments(
         params)
 
     sizeStr = params['size']
@@ -42,28 +42,30 @@ def _on_args_parsed(args):
         else:
             mode = 0
 
-        frosted(infile, outfile, recursive, overwrite, size, mode)
+        frosted(infile, outfile, recursive, overwrite, preview, size, mode)
     else:
-        frosted(infile, outfile, recursive, overwrite)
+        frosted(infile, outfile, recursive, overwrite, preview)
 
 
-def frosted(infile, outfile, recursive, overwrite, blurSize=10, mode=5):
-    if recursive == None or recursive == False:
-        return frosted_file(infile, outfile, blurSize, mode)
+def frosted(infile, outfile, recursive, overwrite, preview, blurSize=10, mode=5):
+    print('frosted', preview)
+    if recursive == None or recursive == False or preview == True:
+        return frosted_file(infile, outfile, preview, blurSize, mode)
     infiles = global_args.get_recursive_pic_infiles(infile)
     for infile_for_recursive in infiles:
         frosted_file(infile_for_recursive,
                      infile_for_recursive if overwrite else None,
+                     False,
                      blurSize,
                      mode)
 
 
-def frosted_file(infile, outfile, blurSize=10, mode=5):
+def frosted_file(infile, outfile, preview, blurSize=10, mode=5):
     new_filename = outfile
     if outfile == None:
         new_filename = global_args.auto_outfile(infile, '_frosted')
 
-    print(f"{infile} frosted(size = {blurSize}) -> {new_filename}")
+    print(f"Frome: {infile} frosted(size = {blurSize})")
 
     with open(infile, 'rb') as imgfile:
         img = Image.open(infile)
@@ -72,5 +74,9 @@ def frosted_file(infile, outfile, blurSize=10, mode=5):
     if mode > 0:
         img = img.filter(ImageFilter.ModeFilter(mode))
 
-    img.show()
-    img.save(new_filename)
+    if preview:
+        print("Preview Only")
+        img.show()
+    else:
+        print(f"To: {new_filename}")
+        img.save(new_filename)

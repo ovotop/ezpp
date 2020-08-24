@@ -1,0 +1,23 @@
+canvas:
+  width: 1280
+  height: 396 
+  color: "#0000" #transparent 
+
+items:
+-
+  type: "image"
+  filename: "logo_256x256.png"
+  pos:
+    x: 361
+    y: "center"
+- 
+  title: "EzPP"
+  type: "text"
+  visible: true
+  pos:
+    x: 652
+    y: "center"
+  font:
+    path: "/System/Library/fonts/Monaco.dfont"
+    size: 96
+    color: "#543"
