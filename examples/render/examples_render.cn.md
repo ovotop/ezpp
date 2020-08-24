@@ -103,7 +103,7 @@ TO: examples/render/params/hello_ezpp.png
 
 #### 结果:
 
-![](params/hello_ezpp.png)
+![hello ezpp](params/hello_ezpp.png)
 
 #### 参数有力量!
 
@@ -120,9 +120,9 @@ cd ../../../
 
 它将创建下列图片:
 
-![](params/hello.png)
-![](params/ezpp.png)
-![](params/hello_ezpp.png)
+![hello](params/hello.png)
+![ezpp](params/ezpp.png)
+![hello ezpp](params/hello_ezpp.png)
 
 你还可以批量处理数据并自动调用 'ezpp render ***'.
 
@@ -185,10 +185,10 @@ TO: examples/render/mask/mask_antialias.png
 
 #### 结果:
 
-![](mask/mask_text.png) bing nested to below:
+![mask layer](mask/mask_text.png) bing nested to below:
 
-![](mask/mask.png)
-![](mask/mask_antialias.png)
+![make without antialias](mask/mask.png)
+![make with antialias](mask/mask_antialias.png)
 
 ## 4. slogan
 
@@ -223,4 +223,4 @@ TO: examples/render/slogan/ezpp_slogan.png
 
 #### 结果:
 
-![](slogan/ezpp_slogan.png)
+![slogan.cn](slogan/ezpp_slogan.cn.png)

@@ -103,7 +103,7 @@ TO: examples/render/params/hello_ezpp.png
 
 #### Result:
 
-![](params/hello_ezpp.png)
+![hell ezpp](params/hello_ezpp.png)
 
 #### Power of params!
 
@@ -120,9 +120,10 @@ cd ../../../
 
 This shell will create these:
 
-![](params/hello.png)
-![](params/ezpp.png)
-![](params/hello_ezpp.png)
+![hello](params/hello.png)
+![ezpp](params/ezpp.png)
+![hello ezpp](params/hello_ezpp.png)
+
 
 Or batch processing of datas. And call 'ezpp render ***' automatically.
 
@@ -185,10 +186,11 @@ TO: examples/render/mask/mask_antialias.png
 
 #### Result:
 
-![](mask/mask_text.png) bing nested to below:
 
-![](mask/mask.png)
-![](mask/mask_antialias.png)
+![mask layer](mask/mask_text.png) bing nested to below:
+
+![make without antialias](mask/mask.png)
+![make with antialias](mask/mask_antialias.png)
 
 ## 4. slogan
 
@@ -223,4 +225,4 @@ TO: examples/render/slogan/ezpp_slogan.png
 
 #### Result:
 
-![](slogan/ezpp_slogan.png)
+![slogan](slogan/ezpp_slogan.png)
