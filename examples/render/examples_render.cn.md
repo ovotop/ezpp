@@ -1,14 +1,14 @@
-# Examples of ezpp render command
+# 渲染子命令的例子
 
-## 1. hello_ezpp
+## 1. 入门例子hello_ezpp
 
-This example show basically using of ezpp render. 
-1. How to use canvas.
+这个例子显示了使用ezpp的基本的渲染方法.
+1. 怎样使用 canvas.
 2. How to use item type "text".
 3. How to custom font by filename.
 4. How to custom font by path.
 
-#### Call from terminal
+#### 从命令行输入
 ```text
 ezpp render -i examples/render/hello_ezpp/hello.yaml
 ezpp render -i examples/render/hello_ezpp/hello_custom_font.yaml
@@ -35,7 +35,7 @@ items:
     size: 24
     color: "#543"
 ```
-#### Output
+#### 输出
 ```text
 FROM: examples/render/hello_ezpp/hello.yaml
 TO: examples/render/hello_ezpp/hello.png
@@ -43,19 +43,19 @@ FROM: examples/render/hello_ezpp/hello_custom_font.yaml
 TO: examples/render/hello_ezpp/hello_custom_font.png
 ```
 
-#### Result:
+#### 结果:
 
 ![](hello_ezpp/hello.png)
 ![](hello_ezpp/hello_custom_font.png)
 
-## 2. params
+## 2. 使用参数params
 
-This example show how to use params to reuse your *.yaml file.
-1. How to use item type "image".
-2. How to use item type  "shadow".
-3. How to use params.
+这个例子展示了如何利用参数来重用你的 *.yaml 文件。
+1. 如何使用"image"类元素.
+2. 如何使用"shadow"类元素.
+3. 如何使用参数.
 
-#### Call from terminal:
+#### 从命令行输入:
 ```text
 ezpp render -i examples/render/params/params.yaml  -a '{"icon":"logo_256x256.png","title":"Hello EzPP"}' -o examples/render/params/hello_ezpp.png
 ```
@@ -95,19 +95,19 @@ items:
   alpha: 0.1 # 0.0-1.0  shadow color is #000a
 
 ```
-#### Output
+#### 输出
 ```text
 FROM: examples/render/params/params.yaml
 TO: examples/render/params/hello_ezpp.png
 ```
 
-#### Result:
+#### 结果:
 
 ![](params/hello_ezpp.png)
 
-#### Power of params!
+#### 参数有力量!
 
-You can also make a *.sh file like this.
+你也可像这样创建一个 *.sh.
 
 examples/render/params/render_params_demo.sh:
 ```bash
@@ -118,23 +118,23 @@ ezpp render -i params.yaml -a '{"icon":"logo_64.png","title":"Hello EzPP"}' -o h
 cd ../../../
 ```
 
-This shell will create these:
+它将创建下列图片:
 
 ![](params/hello.png)
 ![](params/ezpp.png)
 ![](params/hello_ezpp.png)
 
-Or batch processing of datas. And call 'ezpp render ***' automatically.
+你还可以批量处理数据并自动调用 'ezpp render ***'.
 
-## 3. mask
-This example show how to create mask layer.
-1. How to use item type "image".
-2. How to use item type  "shadow".
-3. How to use item type  "nested".
-4. How to use canvas prop color.
-5. How to use canvas prop antialias_size.
+## 3. 遮罩例子mask
+这个例子展示了如何创建一个遮罩图层
+1. 如何使用"image"类元素.
+2. 如何使用"shadow"类元素.
+3. 如何使用"nested"类元素.
+4. 如何使用canvas的color属性
+5. 如何使用canvas的antialias_size属性
 
-#### Call from terminal:
+#### 从命令行输入:
 ```text
 ezpp render -i examples/render/mask/mask.yaml 
 ezpp render -i examples/render/mask/mask_antialias.yaml 
@@ -175,7 +175,7 @@ items:
       size: 32
       color: "#543"
 ```
-#### Output
+#### 输出
 ```text
 FROM: examples/render/mask/mask.yaml
 TO: examples/render/mask/mask.png
@@ -183,7 +183,7 @@ FROM: examples/render/mask/mask_antialias.yaml
 TO: examples/render/mask/mask_antialias.png
 ```
 
-#### Result:
+#### 结果:
 
 ![](mask/mask_text.png) bing nested to below:
 
@@ -192,12 +192,12 @@ TO: examples/render/mask/mask_antialias.png
 
 ## 4. slogan
 
-This example show how to setup complex render.
-1. How to use item type "image".
-2. How to use item type  "shadow".
-3. How to use item type "import" to reuse you .yaml file.
+这个例子显示了使用ezpp的进阶的渲染方法.
+1. 如何使用"image"类元素.
+2. 如何使用"shadow"类元素.
+3. 如何使用"import"类元素来重用你的.yaml文件.
 
-#### Call from terminal:
+#### 从命令行输入:
 ```text
 ezpp render -i examples/render/slogan/ezpp_slogan.yaml          
 ```
@@ -215,12 +215,12 @@ items:
 #...
 ```
 
-#### Output
+#### 输出
 ```text
 FROM: examples/render/slogan/ezpp_slogan.yaml
 TO: examples/render/slogan/ezpp_slogan.png
 ```
 
-#### Result:
+#### 结果:
 
 ![](slogan/ezpp_slogan.png)
