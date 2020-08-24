@@ -1,0 +1,32 @@
+# params defines
+params: 
+  - "title"
+  - "icon"
+
+canvas:
+  width: 256
+  height: 80
+  color: "#f93" 
+
+items:
+-
+  type: "image"
+  filename: "__icon__" # params using
+  pos:
+    x: 16
+    y: "center"
+- 
+  title: "__title__" # params using
+  type: "text"
+  visible: true
+  pos:
+    x: 96
+    y: "center"
+  font:
+    path: "/System/Library/fonts/Monaco.dfont"
+    size: 24
+    color: "#543"
+        
+-
+  type: "shadow"
+  alpha: 0.1 # 0.0-1.0  shadow color is #000a

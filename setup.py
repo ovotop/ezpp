@@ -17,12 +17,14 @@ import setuptools
 
 setuptools.setup(
     name="ezpp",
-    version="0.1.6",
-    keywords=["pip", "ezpp", "resize", "reformat", "recolor", "shadow", "icon","logo"],
+    version="0.2.0",
+    keywords=["pip", "ezpp", "resize", "reformat",
+              "recolor", "shadow", "icon", "logo",
+              "yaml render", "photoshop", "ps"],
+
     description="Easy to process picturse",
     # long_description=long_description,
-    long_description=
-    """
+    long_description="""
     Easy Process Picturse.
     Easy to make  and resize  icons for apps.
     Resize,recolor,frosted,shadow pictures by one command line.
@@ -33,7 +35,8 @@ setuptools.setup(
     author="JeffreyCao",
     author_email="jeffreycao1024@gmail.com",
 
-    packages=setuptools.find_packages(exclude=['docs', 'playground', 'bin']),
+    packages=setuptools.find_packages(
+        exclude=['docs', 'playground', 'bin', 'example']),
     include_package_data=True,
     package_data={
         'ezpp': ['text2icon/ZhenyanGB.ttf', 'resize_cfg/app_icon.json', 'resize_cfg/Contents.json'],

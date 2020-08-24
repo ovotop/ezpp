@@ -2,31 +2,47 @@ import os
 import glob
 
 
-def add_global_argments(sub_parser):
-    sub_parser.add_argument('-i',
-                            '--infile',
-                            help='input file or dir')
+def add_global_argments(sub_parser,
+                        without_infile=False,
+                        optional_outfile=True,
+                        has_recursive=True,
+                        has_overwrite=True,
+                        has_preview=True):
+    optional_header = '[Optional]' if optional_outfile else ''
+    infile_tailer = ' or directory' if has_recursive else ' only'
+    if not without_infile:
+        sub_parser.add_argument('-i',
+                                '--infile',
+                                help=f"input file{infile_tailer}")
 
     sub_parser.add_argument('-o',
                             '--outfile',
-                            help='Optional the output file')
+                            help=f"{optional_header} the output file")
 
-    sub_parser.add_argument('-r',
-                            '--recursive',
-                            default=False,
-                            action='store_true',
-                            help='recursive the input dir, outfiles will overwrite inputfiles. And the -o will be ignore')
+    if not has_preview and has_recursive:
+        sub_parser.add_argument('-r',
+                                '--recursive',
+                                default=False,
+                                action='store_true',
+                                help='recursive the input dir, outfiles will overwrite inputfiles. And the -o will be ignore')
+    if not has_preview and not without_infile and has_overwrite:
+        sub_parser.add_argument('--overwrite',
+                                action='store_false',
+                                help='Overwrite the infile with new file')
 
-    sub_parser.add_argument('--overwrite',
-                            action='store_false',
-                            help='Overwrite the infile with new file')
+    if has_preview:
+        sub_parser.add_argument('-p',
+                                '--preview',
+                                action='store_true',
+                                help='Show result directly with out save')
 
 
 def parser_io_argments(params):
-    infile = params['infile']
-    outfile = params['outfile']
-    recursive = params['recursive']
-    overwrite = params['overwrite']
+    infile = params['infile'] if 'infile' in params else None
+    outfile = params['outfile'] if 'outfile' in params else None
+    recursive = params['recursive'] if 'recursive' in params else None
+    overwrite = params['overwrite'] if 'overwrite' in params else None
+    preview = params['preview'] if 'preview' in params else None
     if infile and not os.path.exists(infile):
         print(f'Cant find --infile :{infile}')
         os._exit(1)
@@ -39,7 +55,7 @@ def parser_io_argments(params):
         print('"-r" is needed when --infile is a dir')
         os._exit(1)
 
-    return infile, outfile, recursive, overwrite
+    return infile, outfile, recursive, overwrite, preview
 
 
 def get_recursive_pic_infiles(indir):
@@ -55,5 +71,4 @@ def get_recursive_pic_infiles(indir):
 
 def auto_outfile(infile, postfix):
     filename, ext = os.path.splitext(infile)
-    outfile = f"{filename}{postfix}{ext}"
-    return outfile
+    return f"{filename}{postfix}{ext}"

@@ -14,6 +14,7 @@ from . import recolor
 from . import resize
 from . import text2icon
 from . import shadow
+from . import render
 # IMPORT SUBCMD DEF HERE
 # SUB COMMONDS DEF]
 
@@ -34,10 +35,18 @@ def main():
     # SUB COMMONDS ARGMENTS[
     global_args.add_global_argments(frosted.create_cmd_parser(subparsers))
     global_args.add_global_argments(recolor.create_cmd_parser(subparsers))
-    global_args.add_global_argments(resize.create_cmd_parser(subparsers))
-    global_args.add_global_argments(refmt.create_cmd_parser(subparsers))
-    global_args.add_global_argments(text2icon.create_cmd_parser(subparsers))
+    global_args.add_global_argments(resize.create_cmd_parser(subparsers),
+                                    has_preview=False)
+    global_args.add_global_argments(refmt.create_cmd_parser(subparsers),
+                                    has_preview=False)
+    global_args.add_global_argments(text2icon.create_cmd_parser(subparsers),
+                                    without_infile=True,
+                                    has_recursive=False,
+                                    optional_outfile=False)
     global_args.add_global_argments(shadow.create_cmd_parser(subparsers))
+    global_args.add_global_argments(render.create_cmd_parser(subparsers),
+                                    has_recursive=False,
+                                    has_overwrite=False)
     # ADD SUBCMD ARGMENTS HERE
     # SUB COMMONDS ARGMENTS]
 
