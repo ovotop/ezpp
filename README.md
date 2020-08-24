@@ -13,15 +13,25 @@ pip3 install ezpp
 
 What |Before|After|How to
 :---:|:---:|:---:|:---
-Frosted|![A icon before frosted]( docs/lego_mc.jpg)|![A icon after defult frosted](docs/lego_mc_frosted_default.jpg)|[How to Frosted](docs/subcmd_04_frosted.md)
-ReColor|![picture before recolor](docs/logo_256x256.png)|![picture after recolor](docs/logo_blue.png)|[How to ReColor](docs/subcmd_01_recolor.md)
-ReSize|![A icon before recolor](docs/logo_256x256.png)|![A icon after recolor](docs/logo_64.png)|[How to ReSize](docs/subcmd_02_resize.md)
-ReFormat|lego_mc_l.jpg(203k)|lego_mc_l.webp(109k)|[How to ReFormat](docs/subcmd_03_reformat.md)
-Text2Icon| "EzPP"|![Simplest call of text2icon](docs/ezpp_t_128.png)|[How to Text2Icon](docs/subcmd_05_text2icon.md)
-Shadow|![A clean background icon](docs/ezpp_t_128.png)|![Shadow added on clean background](docs/ezpp_t_128_shadow.png)|[How to Shadow](docs/subcmd_06_shadow.md)
-Render|ezpp_slogan.yaml|![slogan](docs/ezpp_slogan_256x128.png)|[How to Render](examples/render/examples_render.md)
+Frosted|![A icon before frosted]( docs/lego_mc.jpg)|![A icon after defult frosted](docs/lego_mc_frosted_default.jpg)|[How to Frosted➡️](docs/subcmd_04_frosted.md)
+ReColor|![picture before recolor](docs/logo_256x256.png)|![picture after recolor](docs/logo_blue.png)|[How to ReColor➡️](docs/subcmd_01_recolor.md)
+ReSize|![A icon before recolor](docs/logo_256x256.png)|![A icon after recolor](docs/logo_64.png)|[How to ReSize➡️](docs/subcmd_02_resize.md)
+ReFormat|lego_mc_l.jpg(203k)|lego_mc_l.webp(109k)|[How to ReFormat➡️](docs/subcmd_03_reformat.md)
+Text2Icon| "EzPP"|![Simplest call of text2icon](docs/ezpp_t_128.png)|[How to Text2Icon➡️](docs/subcmd_05_text2icon.md)
+Shadow|![A clean background icon](docs/ezpp_t_128.png)|![Shadow added on clean background](docs/ezpp_t_128_shadow.png)|[How to Shadow➡️](docs/subcmd_06_shadow.md)
+Render|ezpp_slogan.yaml|![slogan](docs/ezpp_slogan_256x128.png)|[How to Render➡️](examples/render/examples_render.md)
 
 # 3. Common params
+
+## Input file
+### Use '-i' or '--infile' provide a input file.
+
+Only text2icon sub command not support -i
+
+## Output file
+### Use '-o' or '--outfile' provide a output file.
+                            
+If you provide a '-p' or '--preview' flag . Output file will be ignored.
 
 ## Recursive for subcommands
 
@@ -69,7 +79,7 @@ https://www.cnblogs.com/ldlchina/p/4708442.html
 
 https://docs.python.org/3/library/gettext.html
 
-- [ ] 4. Control whether to  show preview after tranform picture.
+- [Done] 4. Control whether to  show preview after tranform picture.
 
 - [Done] 5. Layout support postion.
 - [ ] 6. Layout support Row and Column flex mode.
