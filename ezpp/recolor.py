@@ -123,8 +123,8 @@ def recolor_hsv_file(infile, outfile, dst_h, dst_s, dst_v, preview):
         print("TO:", new_filename)
         # RGBA for png ,And RGB for other ext
         # 如果输入文件是PNG保留RGBA格式，其他文件使用RGB格式。
-        if ext.lower == '.png':
-            img_new.save(new_filename)
+        if ext.lower() == '.png':
+            img_new.save(new_filename, 'PNG')
         else:
             img_new.convert('RGB').save(new_filename)
 
