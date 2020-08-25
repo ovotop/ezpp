@@ -13,8 +13,8 @@ pip3 install ezpp
 
 功能名称|处理前|处理后|How to
 :---:|:---:|:---:|:---
-毛玻璃(Frosted)|![A icon before frosted]( docs/lego_mc.jpg)|![A icon after defult frosted](docs/lego_mc_frosted_default.jpg)|[怎样做毛玻璃➡️](docs/subcmd_04_frosted.md)
-变色(ReColor)|![picture before recolor](docs/logo_256x256.png)|![picture after recolor](docs/logo_blue.png)|[怎样改色➡️](docs/subcmd_01_recolor.md)
+毛玻璃(Frosted)|![A icon before frosted]( docs/ezpp_slogan_256x128.png)|![A icon after defult frosted](docs/ezpp_slogan_256x128_frosted.png)|[怎样做毛玻璃➡️](docs/subcmd_04_frosted.md)
+变色(ReColor)|![picture before recolor](docs/logo_256x256.png)|![picture after recolor](docs/logo_blue_hsv_v(-0.5).png)|[怎样改色➡️](docs/subcmd_01_recolor.md)
 调整大小(ReSize)|![A icon before recolor](docs/logo_256x256.png)|![A icon after resize](docs/logo_64.png)|[怎样改大小➡️](docs/subcmd_02_resize.cn.md)
 转格式(ReFormat)|lego_mc_l.jpg(203k)|lego_mc_l.webp(109k)|[怎样改格式➡️](docs/subcmd_03_reformat.cn.md)
 文本变图标(Text2Icon)| "EzPP"|![Simplest call of text2icon](docs/ezpp_t_128.png)|[文本怎样变图标➡️](docs/subcmd_05_text2icon.cn.md)
