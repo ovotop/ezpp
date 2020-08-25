@@ -17,7 +17,7 @@ import setuptools
 
 setuptools.setup(
     name="ezpp",
-    version="0.2.0",
+    version="0.2.1",
     keywords=["pip", "ezpp", "resize", "reformat",
               "recolor", "shadow", "icon", "logo",
               "yaml render", "photoshop", "ps"],
