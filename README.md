@@ -13,13 +13,13 @@ pip3 install ezpp
 
 What |Before|After|How to
 :---:|:---:|:---:|:---
-Frosted|![A icon before frosted]( docs/ezpp_slogan_256x128.png)|![A icon after defult frosted](docs/ezpp_slogan_256x128_frosted.png)|[How to Frosted➡️](docs/subcmd_04_frosted.md)
-ReColor|![picture before recolor](docs/logo_256x256.png)|![picture after recolor](docs/logo_blue_hsv_v(-0.5).png)|[How to ReColor➡️](docs/subcmd_01_recolor.md)
-ReSize|![A icon before recolor](docs/logo_256x256.png)|![A icon after recolor](docs/logo_64.png)|[How to ReSize➡️](docs/subcmd_02_resize.md)
-ReFormat|lego_mc_l.jpg(203k)|lego_mc_l.webp(109k)|[How to ReFormat➡️](docs/subcmd_03_reformat.md)
-Text2Icon| "EzPP"|![Simplest call of text2icon](docs/ezpp_t_128.png)|[How to Text2Icon➡️](docs/subcmd_05_text2icon.md)
-Shadow|![A clean background icon](docs/ezpp_t_128.png)|![Shadow added on clean background](docs/ezpp_t_128_shadow.png)|[How to Shadow➡️](docs/subcmd_06_shadow.md)
-Render|ezpp_slogan.yaml|![slogan](docs/ezpp_slogan_256x128.png)|[How to Render➡️](examples/render/examples_render.md)
+Frosted|![A icon before frosted]( docs/ezpp_slogan_256x128.png)|![A icon after defult frosted](docs/ezpp_slogan_256x128_frosted.png)|[🔗How to Frosted](docs/subcmd_04_frosted.md)
+ReColor|![picture before recolor](docs/logo_256x256.png)|![picture after recolor](docs/logo_blue_hsv_v(-0.5).png)|[🔗How to ReColor](docs/subcmd_01_recolor.md)
+ReSize|![A icon before recolor](docs/logo_256x256.png)|![A icon after recolor](docs/logo_64.png)|[🔗How to ReSize](docs/subcmd_02_resize.md)
+ReFormat|lego_mc_l.jpg(203k)|lego_mc_l.webp(109k)|[🔗How to ReFormat](docs/subcmd_03_reformat.md)
+Text2Icon| "EzPP"|![Simplest call of text2icon](docs/ezpp_t_128.png)|[🔗How to Text2Icon➡](docs/subcmd_05_text2icon.md)
+Shadow|![A clean background icon](docs/ezpp_t_128.png)|![Shadow added on clean background](docs/ezpp_t_128_shadow.png)|[🔗How to Shadow](docs/subcmd_06_shadow.md)
+Render|ezpp_slogan.yaml|![slogan](docs/ezpp_slogan_256x128.png)|[🔗How to Render](examples/render/examples_render.md)
 
 # 3. Common params
 
