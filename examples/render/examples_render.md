@@ -180,6 +180,9 @@ items:
       color: "#543"
 ```
 #### Output
+
+You can provide a params '--silent' to close these output
+
 ```text
 FROM: examples/render/mask/mask.yaml
 TO: examples/render/mask/mask.png

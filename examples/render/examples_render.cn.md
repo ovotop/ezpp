@@ -36,6 +36,9 @@ items:
     color: "#543"
 ```
 #### 输出
+
+如果你提供一个参数'--silent'就可以关闭下面的输出
+
 ```text
 FROM: examples/render/hello_ezpp/hello.yaml
 TO: examples/render/hello_ezpp/hello.png
