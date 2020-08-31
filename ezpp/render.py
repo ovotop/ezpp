@@ -17,7 +17,10 @@ def create_cmd_parser(subparsers):
         'render', help='render help')
     cmd_parser.add_argument("-a",
                             "--arguments",
-                            help='params map,like \"{w:960,h:540,title:"hello"}\"')
+                            help='params map,like "{w:960,h:540,title:"hello"}"')
+    cmd_parser.add_argument("--silent",
+                            action='store_true',
+                            help='render silently. with out stdout')
 
     cmd_parser.set_defaults(on_args_parsed=_on_args_parsed)
 
@@ -29,10 +32,11 @@ def _on_args_parsed(args):
     infile, outfile, r, o, preview = global_args.parser_io_argments(params)
 
     params_str = params['arguments']
+    silent = params['silent']
     if not params_str:
         params_str = '{}'
     params_map = json.loads(params_str)
-    render(infile, outfile, params_map, preview)
+    render(infile, outfile, params_map, preview, silent)
 
 
 def render_canvas_file(infile, params_map, antialias_size=1):
@@ -40,7 +44,8 @@ def render_canvas_file(infile, params_map, antialias_size=1):
     infile_dir, infile_name = os.path.split(infile)
     yaml_cfg = yaml.load(merge_params(data_str, params_map),
                          Loader=yaml.FullLoader)
-    return render_canvas(yaml_cfg, infile_dir, params_map, antialias_parent=antialias_size)
+    return render_canvas(yaml_cfg, infile_dir, params_map,
+                         antialias_parent=antialias_size)
 
 
 def render_canvas(yaml_cfg, infile_dir, params_map, antialias_parent=1):
@@ -182,14 +187,18 @@ def default_outfile(infile):
     return f"{filename}.png"
 
 
-def render(infile, outfile, params_map, preview):
-    print("FROM:", infile)
+def render(infile, outfile, params_map, preview, silent):
+    if not silent:
+        print("FROM:", infile)
+
     newfile = outfile if outfile else default_outfile(infile)
 
     img = render_canvas_file(infile, params_map)
     if preview:
-        print("Preview Only")
+        if not silent:
+            print("Preview Only")
         img.show()
     else:
-        print("TO:", newfile)
+        if not silent:
+            print("TO:", newfile)
         img.save(newfile, 'PNG')
