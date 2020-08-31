@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-import argparse
+from ezpp.shadow import shadow_on_image
 import os
-import re
 from . import global_args
 import yaml
 import json
 from ezutils.files import readstr
 from pydash import _
-from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
-from ezpp.utils.text import text_horzontal_center, text_vertical_center, text_center
-from ezpp.shadow import shadow_on_image
+from PIL import Image, ImageDraw, ImageFont
+from ezpp.utils.text import text_vertical_center
+from ezpp.utils.text import text_horzontal_center
+from ezpp.utils.text import text_center
 
 
 def create_cmd_parser(subparsers):
@@ -17,7 +17,7 @@ def create_cmd_parser(subparsers):
         'render', help='render help')
     cmd_parser.add_argument("-a",
                             "--arguments",
-                            help='params map,like "{w:960,h:540,title:"hello"}"')
+                            help='params,like"{w:960,h:540,title:"hello"}"')
     cmd_parser.add_argument("--silent",
                             action='store_true',
                             help='render silently. with out stdout')
@@ -55,7 +55,7 @@ def render_canvas(yaml_cfg, infile_dir, params_map, antialias_parent=1):
     antialias_size = cfg_antialias_size * antialias_parent
     # canvas
     color = _.get(yaml_cfg, 'canvas.color')
-    if color == None:
+    if color is None:
         color = '#fff'
     img = Image.new('RGBA', (width*antialias_size,
                              height*antialias_size), color)
@@ -98,9 +98,9 @@ def render_image_item(img, item, infile_dir, antialias_size=1):
 
 def paste_item_img(img, item, layer_img, infile_dir, antialias_size=1):
     posx = _.get(item, 'pos.x')
-    x = (posx * antialias_size) if type(posx) != type("str") else posx
+    x = (posx * antialias_size) if isinstance(posx, str) else posx
     posy = _.get(item, 'pos.y')
-    y = (posy * antialias_size) if type(posy) != type("str") else posy
+    y = (posy * antialias_size) if isinstance(posy, str) else posy
     w, h = img.size
 
     layer_w, layer_h = layer_img.size
@@ -117,7 +117,7 @@ def render_text_item(img, item, infile_dir, antialias_size=1):
     font_size = _.get(item, 'font.size')
     font_filename = _.get(item, 'font.filename')
     font_filepath = _.get(item, 'font.path')
-    font_path = font_filepath if font_filepath != None else os.path.join(
+    font_path = font_filepath if font_filepath is not None else os.path.join(
         infile_dir, font_filename)
     color = _.get(item, 'font.color')
     font = ImageFont.truetype(
@@ -125,9 +125,9 @@ def render_text_item(img, item, infile_dir, antialias_size=1):
         font_size * antialias_size
     )
     posx = _.get(item, 'pos.x')
-    x = (posx * antialias_size) if type(posx) != type("str") else posx
+    x = (posx * antialias_size) if isinstance(posx, str) else posx
     posy = _.get(item, 'pos.y')
-    y = (posy * antialias_size) if type(posy) != type("str") else posy
+    y = (posy * antialias_size) if isinstance(posy, str) else posy
 
     w, h = img.size
     if x == "center" and y == "center":
@@ -169,12 +169,12 @@ def render_nested_item(img, item, infile_dir, params_map, antialias_size=1):
 
 
 def merge_params(data_str, params):
-    if params == None:
+    if params is None:
         return data_str
 
     tmp_yaml_cfg = yaml.load(data_str, Loader=yaml.FullLoader)
     cfg_params = _.get(tmp_yaml_cfg, 'params')
-    if cfg_params == None:
+    if cfg_params is None:
         return data_str
 
     for cfg_param in cfg_params:
