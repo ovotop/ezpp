@@ -97,6 +97,10 @@ items:
   alpha: 0.1 # 0.0-1.0  shadow color is #000a
 
 ```
+
+We can hide one item by set "visible: false".
+"visible" default value is true.
+
 #### Output
 ```text
 FROM: examples/render/params/params.yaml
