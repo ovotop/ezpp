@@ -1,6 +1,8 @@
 # params defines
 params: 
-  - "title"
+  -
+    name: "title"
+    default: "DEF"
   - "icon"
 
 canvas:

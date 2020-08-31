@@ -77,7 +77,13 @@ def render_canvas(yaml_cfg, infile_dir, params_map, antialias_parent=1):
 
 
 def render_item(img, item, infile_dir, params_map, antialias_size=1):
+    item_visible = _.get(item, 'visible', True)
+    print("render_item.visible", item_visible, item)
+    if not item_visible:
+        return
+
     item_type = _.get(item, 'type')
+
     if item_type == "image":
         render_image_item(img, item, infile_dir, antialias_size)
     elif item_type == "text":
@@ -178,7 +184,16 @@ def merge_params(data_str, params):
         return data_str
 
     for cfg_param in cfg_params:
-        data_str = data_str.replace(f"__{cfg_param}__", params[cfg_param])
+        if type(cfg_param) == type(''):
+            data_str = data_str.replace(f"__{cfg_param}__", params[cfg_param])
+        else:
+            name = _.get(cfg_param, 'name', None)
+            if name == None:
+                continue
+            default = _.get(cfg_param, 'default')
+            value = _.get(params, name, default)
+            data_str = data_str.replace(f"__{name}__", f"{value}")
+
     return data_str
 
 
