@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-import argparse
+from ezpp.shadow import shadow_on_image
 import os
-import re
 from . import global_args
 import yaml
 import json
 from ezutils.files import readstr
 from pydash import _
-from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
-from ezpp.utils.text import text_horzontal_center, text_vertical_center, text_center
-from ezpp.shadow import shadow_on_image
+from PIL import Image, ImageDraw, ImageFont
+from ezpp.utils.text import text_vertical_center
+from ezpp.utils.text import text_horzontal_center
+from ezpp.utils.text import text_center
 
 
 def create_cmd_parser(subparsers):
@@ -17,7 +17,10 @@ def create_cmd_parser(subparsers):
         'render', help='render help')
     cmd_parser.add_argument("-a",
                             "--arguments",
-                            help='params map,like \"{w:960,h:540,title:"hello"}\"')
+                            help='params,like"{w:960,h:540,title:"hello"}"')
+    cmd_parser.add_argument("--silent",
+                            action='store_true',
+                            help='render silently. with out stdout')
 
     cmd_parser.set_defaults(on_args_parsed=_on_args_parsed)
 
@@ -29,10 +32,11 @@ def _on_args_parsed(args):
     infile, outfile, r, o, preview = global_args.parser_io_argments(params)
 
     params_str = params['arguments']
+    silent = params['silent']
     if not params_str:
         params_str = '{}'
     params_map = json.loads(params_str)
-    render(infile, outfile, params_map, preview)
+    render(infile, outfile, params_map, preview, silent)
 
 
 def render_canvas_file(infile, params_map, antialias_size=1):
@@ -40,7 +44,8 @@ def render_canvas_file(infile, params_map, antialias_size=1):
     infile_dir, infile_name = os.path.split(infile)
     yaml_cfg = yaml.load(merge_params(data_str, params_map),
                          Loader=yaml.FullLoader)
-    return render_canvas(yaml_cfg, infile_dir, params_map, antialias_parent=antialias_size)
+    return render_canvas(yaml_cfg, infile_dir, params_map,
+                         antialias_parent=antialias_size)
 
 
 def render_canvas(yaml_cfg, infile_dir, params_map, antialias_parent=1):
@@ -50,7 +55,7 @@ def render_canvas(yaml_cfg, infile_dir, params_map, antialias_parent=1):
     antialias_size = cfg_antialias_size * antialias_parent
     # canvas
     color = _.get(yaml_cfg, 'canvas.color')
-    if color == None:
+    if color is None:
         color = '#fff'
     img = Image.new('RGBA', (width*antialias_size,
                              height*antialias_size), color)
@@ -72,7 +77,13 @@ def render_canvas(yaml_cfg, infile_dir, params_map, antialias_parent=1):
 
 
 def render_item(img, item, infile_dir, params_map, antialias_size=1):
+    item_visible = _.get(item, 'visible', True)
+    print("render_item.visible", item_visible, item)
+    if not item_visible:
+        return
+
     item_type = _.get(item, 'type')
+
     if item_type == "image":
         render_image_item(img, item, infile_dir, antialias_size)
     elif item_type == "text":
@@ -93,9 +104,9 @@ def render_image_item(img, item, infile_dir, antialias_size=1):
 
 def paste_item_img(img, item, layer_img, infile_dir, antialias_size=1):
     posx = _.get(item, 'pos.x')
-    x = (posx * antialias_size) if type(posx) != type("str") else posx
+    x = (posx * antialias_size) if isinstance(posx, str) else posx
     posy = _.get(item, 'pos.y')
-    y = (posy * antialias_size) if type(posy) != type("str") else posy
+    y = (posy * antialias_size) if isinstance(posy, str) else posy
     w, h = img.size
 
     layer_w, layer_h = layer_img.size
@@ -112,7 +123,7 @@ def render_text_item(img, item, infile_dir, antialias_size=1):
     font_size = _.get(item, 'font.size')
     font_filename = _.get(item, 'font.filename')
     font_filepath = _.get(item, 'font.path')
-    font_path = font_filepath if font_filepath != None else os.path.join(
+    font_path = font_filepath if font_filepath is not None else os.path.join(
         infile_dir, font_filename)
     color = _.get(item, 'font.color')
     font = ImageFont.truetype(
@@ -120,9 +131,9 @@ def render_text_item(img, item, infile_dir, antialias_size=1):
         font_size * antialias_size
     )
     posx = _.get(item, 'pos.x')
-    x = (posx * antialias_size) if type(posx) != type("str") else posx
+    x = (posx * antialias_size) if isinstance(posx, str) else posx
     posy = _.get(item, 'pos.y')
-    y = (posy * antialias_size) if type(posy) != type("str") else posy
+    y = (posy * antialias_size) if isinstance(posy, str) else posy
 
     w, h = img.size
     if x == "center" and y == "center":
@@ -164,16 +175,25 @@ def render_nested_item(img, item, infile_dir, params_map, antialias_size=1):
 
 
 def merge_params(data_str, params):
-    if params == None:
+    if params is None:
         return data_str
 
     tmp_yaml_cfg = yaml.load(data_str, Loader=yaml.FullLoader)
     cfg_params = _.get(tmp_yaml_cfg, 'params')
-    if cfg_params == None:
+    if cfg_params is None:
         return data_str
 
     for cfg_param in cfg_params:
-        data_str = data_str.replace(f"__{cfg_param}__", params[cfg_param])
+        if isinstance(cfg_param, str):
+            data_str = data_str.replace(f"__{cfg_param}__", params[cfg_param])
+        else:
+            name = _.get(cfg_param, 'name', None)
+            if name is None:
+                continue
+            default = _.get(cfg_param, 'default')
+            value = _.get(params, name, default)
+            data_str = data_str.replace(f"__{name}__", f"{value}")
+
     return data_str
 
 
@@ -182,14 +202,18 @@ def default_outfile(infile):
     return f"{filename}.png"
 
 
-def render(infile, outfile, params_map, preview):
-    print("FROM:", infile)
+def render(infile, outfile, params_map, preview, silent):
+    if not silent:
+        print("FROM:", infile)
+
     newfile = outfile if outfile else default_outfile(infile)
 
     img = render_canvas_file(infile, params_map)
     if preview:
-        print("Preview Only")
+        if not silent:
+            print("Preview Only")
         img.show()
     else:
-        print("TO:", newfile)
+        if not silent:
+            print("TO:", newfile)
         img.save(newfile, 'PNG')
