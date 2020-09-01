@@ -98,6 +98,9 @@ items:
   alpha: 0.1 # 0.0-1.0  shadow color is #000a
 
 ```
+
+对于单个item，我们可以使用 visible: false 来隐藏它，visible默认是true
+
 #### 输出
 ```text
 FROM: examples/render/params/params.yaml

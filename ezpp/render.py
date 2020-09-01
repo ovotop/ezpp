@@ -184,11 +184,11 @@ def merge_params(data_str, params):
         return data_str
 
     for cfg_param in cfg_params:
-        if type(cfg_param) == type(''):
+        if isinstance(cfg_param, str):
             data_str = data_str.replace(f"__{cfg_param}__", params[cfg_param])
         else:
             name = _.get(cfg_param, 'name', None)
-            if name == None:
+            if name is None:
                 continue
             default = _.get(cfg_param, 'default')
             value = _.get(params, name, default)
