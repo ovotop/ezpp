@@ -18,12 +18,22 @@ from . import render
 # IMPORT SUBCMD DEF HERE
 # SUB COMMONDS DEF]
 
+from ezpp import __version__
+
 
 def main():
     parser = argparse.ArgumentParser(
         prog="ezpp",
         usage="ezpp [-h] subcommand{recolor,resize} ...",
         description="Example: ezpp recolor -i my.png -c #00ff00"
+    )
+
+    parser.add_argument(
+        "-v",
+        "-V",
+        "--version",
+        action='version',
+        version=f"EzPP v{__version__} (https://github.com/ovotop/ezpp)"
     )
 
     subparsers = parser.add_subparsers(

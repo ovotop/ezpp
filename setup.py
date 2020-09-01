@@ -11,13 +11,13 @@
 
 # from setuptools import setup, find_packages  # 这个包没有的可以pip一下
 import setuptools
-
+from ezpp import __version__
 # with open("README.md", "r") as fh:
 #     long_description = fh.read()
 
 setuptools.setup(
     name="ezpp",
-    version="0.2.2",
+    version=__version__,
     keywords=["pip", "ezpp", "resize", "reformat",
               "recolor", "shadow", "icon", "logo",
               "yaml render", "photoshop", "ps"],
