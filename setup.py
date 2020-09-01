@@ -39,7 +39,9 @@ setuptools.setup(
         exclude=['docs', 'playground', 'bin', 'example']),
     include_package_data=True,
     package_data={
-        'ezpp': ['text2icon/ZhenyanGB.ttf', 'resize_cfg/app_icon.json', 'resize_cfg/Contents.json'],
+        'ezpp': ['text2icon/ZhenyanGB.ttf',
+                 'resize_cfg/app_icon.json',
+                 'resize_cfg/Contents.json'],
     },
     platforms="any",
     install_requires=["Pillow", "ezutils"],
