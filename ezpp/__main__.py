@@ -15,6 +15,7 @@ from . import resize
 from . import text2icon
 from . import shadow
 from . import render
+from . import listfonts
 # IMPORT SUBCMD DEF HERE
 # SUB COMMONDS DEF]
 
@@ -57,6 +58,7 @@ def main():
     global_args.add_global_argments(render.create_cmd_parser(subparsers),
                                     has_recursive=False,
                                     has_overwrite=False)
+    listfonts.create_cmd_parser(subparsers)
     # ADD SUBCMD ARGMENTS HERE
     # SUB COMMONDS ARGMENTS]
 
