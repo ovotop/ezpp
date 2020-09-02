@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-import argparse
-import os
-import re
+# import argparse
+# import os
+# import re
 from . import global_args
+
 
 def create_cmd_parser(subparsers):
     cmd_parser = subparsers.add_parser(
@@ -17,7 +18,8 @@ def create_cmd_parser(subparsers):
 
 def _on_args_parsed(args):
     params = vars(args)
-    infile, outfile, recursive, overwrite = global_args.parser_io_argments(params)
+    infile, outfile, recursive, overwrite = global_args.parser_io_argments(
+        params)
 
     yourArgumentStr = params['your_argument']
     if not yourArgumentStr:
@@ -28,13 +30,16 @@ def _on_args_parsed(args):
 
 def __SUB_CMD__`_'file(infile, outfile, overwrite, yourArgumentStr):
     new_filename = outfile
-    if outfile == None:
+    if not outfile:
         new_filename = global_args.auto_outfile(infile, "`_'__SUB_CMD__")
+    print("__SUB_CMD__")
+    print('FROM:', infile)
+    print('TO:', new_filename)
 
 
-def __SUB_CMD__`'(infile, outfile, recursive,overwrite, sizeStr=10):
+def __SUB_CMD__`'(infile, outfile, recursive, overwrite, sizeStr=10):
 
-    if recursive == None or recursive == False:
+    if recursive is None or not recursive:
         return __SUB_CMD__`_'file(infile, outfile, sizeStr)
 
     infiles = global_args.get_recursive_pic_infiles(infile)
