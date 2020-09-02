@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # import argparse
-# import os
 # import re
+import os
 from . import global_args
 
 # list fonts under system dirs and input dir
@@ -40,6 +40,10 @@ def _on_args_parsed(args):
         yourArgumentStr = 'defualt'
 
     listfonts(infile, outfile, recursive, overwrite, yourArgumentStr)
+
+
+def is_imgcat_installed():
+    return os.path.isfile('~/.iterm2/imgcat')
 
 
 def listfonts_file(infile, outfile, overwrite, yourArgumentStr):
