@@ -3,11 +3,24 @@
 # import re
 import os
 from . import global_args
-
 # list fonts under system dirs and input dir
 # /System/Library/fonts
 #
 #
+
+
+def trim_font(font_path):
+    path, filename = os.path.split(font_path)
+    filename, ext = os.path.splitext(filename)
+    return filename
+
+
+def get_font_list(indir):
+    font_exts = ['ttf', 'ttc', 'otf', 'dfont']
+    fonts = global_args.get_recursive_infiles_by_ext(indir, font_exts)
+    fonts = list(map(trim_font, fonts))
+    fonts.sort()
+    return fonts
 
 
 def create_cmd_parser(subparsers):
@@ -32,36 +45,33 @@ def create_cmd_parser(subparsers):
 
 def _on_args_parsed(args):
     params = vars(args)
-    infile, outfile, recursive, overwrite = global_args.parser_io_argments(
-        params)
 
-    yourArgumentStr = params['your_argument']
-    if not yourArgumentStr:
-        yourArgumentStr = 'defualt'
+    user = params['user']
+    if user:
+        listfonts(f"{os.environ['HOME']}/Library/fonts")
+        listfonts('/Library/fonts')
 
-    listfonts(infile, outfile, recursive, overwrite, yourArgumentStr)
+    system = params['system']
+    if system:
+        listfonts('/System/Library/fonts')
+
+    indir = params['indir']
+    if indir:
+        listfonts(indir)
 
 
 def is_imgcat_installed():
-    return os.path.isfile('~/.iterm2/imgcat')
+    filepath = f"{os.environ['HOME']}/.iterm2/imgcat"
+    return os.path.isfile(filepath)
 
 
-def listfonts_file(infile, outfile, overwrite, yourArgumentStr):
-    new_filename = outfile
-    if not outfile:
-        new_filename = global_args.auto_outfile(infile, "_listfonts")
+def listfonts(indir):
     print("listfonts")
-    print('FROM:', infile)
-    print('TO:', new_filename)
-
-
-def listfonts(infile, outfile, recursive, overwrite, sizeStr=10):
-
-    if recursive is None or not recursive:
-        return listfonts_file(infile, outfile, sizeStr)
-
-    infiles = global_args.get_recursive_pic_infiles(infile)
-    for infile_for_recursive in infiles:
-        listfonts_file(infile_for_recursive,
-                       None,
-                       sizeStr)
+    print('iterm2.imgcat:', is_imgcat_installed())
+    print('LIST:', indir)
+    fonts = get_font_list(indir)
+    count = len(fonts)
+    max_width = len(f"{count}")
+    for i in range(0, count):
+        font = fonts[i]
+        print(f"[{i:0{max_width}}/{count}]{font}")
