@@ -78,7 +78,6 @@ def render_canvas(yaml_cfg, infile_dir, params_map, antialias_parent=1):
 
 def render_item(img, item, infile_dir, params_map, antialias_size=1):
     item_visible = _.get(item, 'visible', True)
-    print("render_item.visible", item_visible, item)
     if not item_visible:
         return
 
