@@ -3,6 +3,8 @@
 # import re
 import os
 from . import global_args
+from functools import reduce
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
 # list fonts under system dirs and input dir
 # /System/Library/fonts
 #
@@ -12,14 +14,34 @@ from . import global_args
 def trim_font(font_path):
     path, filename = os.path.split(font_path)
     filename, ext = os.path.splitext(filename)
-    return filename
+    return filename, font_path
+
+
+def skip_font(fontname):
+    skip_keywords = ['Braille', 'Emoji']
+    for skip_keyword in skip_keywords:
+        if fontname.find(skip_keyword) >= 0:
+            return False
+
+    skip_names = [
+        '/System/Library/fonts/Symbol.ttf',  # 数学公式
+        '/System/Library/fonts/ZapfDingbats.ttf',  # 图标字体
+        '/System/Library/fonts/Supplemental/NISC18030.ttf',  # 股票字体
+    ]
+    for skip_name in skip_names:
+        if fontname == skip_name:
+            return False
+    print('keep fontname:', fontname)
+    return True
 
 
 def get_font_list(indir):
     font_exts = ['ttf', 'ttc', 'otf', 'dfont']
+
     fonts = global_args.get_recursive_infiles_by_ext(indir, font_exts)
+    fonts = list(filter(skip_font, fonts))
     fonts = list(map(trim_font, fonts))
-    fonts.sort()
+    fonts.sort(key=lambda array: array[0])
     return fonts
 
 
@@ -65,13 +87,61 @@ def is_imgcat_installed():
     return os.path.isfile(filepath)
 
 
+def list_max_line_length(fonts):
+    return reduce(lambda last_len, current_line: last_len if last_len > len(current_line) else len(current_line), fonts, 0)
+
+
 def listfonts(indir):
     print("listfonts")
     print('iterm2.imgcat:', is_imgcat_installed())
     print('LIST:', indir)
     fonts = get_font_list(indir)
     count = len(fonts)
-    max_width = len(f"{count}")
+    max_number_width = len(f"{count}")
+
+    titles = []
     for i in range(0, count):
-        font = fonts[i]
-        print(f"[{i:0{max_width}}/{count}]{font}")
+        fontname, fontpath = fonts[i]
+        titles.append(f"[{i:0{max_number_width}}/{count}] {fontname}")
+
+    draw_fonts(titles, fonts)
+
+
+def draw_fonts(titles, fonts):
+    LINE_HEIGHT = 68
+    FONT_SIZE = 64
+    MARGIN_SIZE = 8
+    COLOR_BG = "#F93"
+    COLOR_TEXT = "#543"
+
+    max_title_len = list_max_line_length(titles)
+    print('max_title_len', max_title_len)
+
+    count = len(fonts)
+
+    width = max_title_len * FONT_SIZE
+    height = (LINE_HEIGHT + MARGIN_SIZE) * count
+
+    print("width:", width)
+    print("height:", height)
+
+    img = Image.new('RGB', (width, height), COLOR_BG)
+    draw = ImageDraw.Draw(img)
+
+    for i in range(0, count):
+        fontname, fontpath = fonts[i]
+        title = titles[i]
+
+        print("fontpath:", fontpath)
+        print("FONT_SIZE:", FONT_SIZE)
+
+        titlefont = ImageFont.truetype(
+            fontpath,
+            FONT_SIZE
+        )
+
+        x = MARGIN_SIZE
+        y = i * (LINE_HEIGHT + MARGIN_SIZE) + MARGIN_SIZE
+        draw.text((x, y), title, COLOR_TEXT, font=titlefont)
+
+    img.show()
