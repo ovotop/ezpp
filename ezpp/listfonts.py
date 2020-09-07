@@ -2,7 +2,7 @@
 # import argparse
 # import re
 import os
-from . import global_args
+from ezpp import global_args
 from functools import reduce
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
 # list fonts under system dirs and input dir
@@ -31,7 +31,7 @@ def skip_font(fontname):
     for skip_name in skip_names:
         if fontname == skip_name:
             return False
-    print('keep fontname:', fontname)
+    # print('keep fontname:', fontname)
     return True
 
 
@@ -39,7 +39,7 @@ def get_font_list(indir):
     font_exts = ['ttf', 'ttc', 'otf', 'dfont']
 
     fonts = global_args.get_recursive_infiles_by_ext(indir, font_exts)
-    fonts = list(filter(skip_font, fonts))
+    fonts = list(filter(skip_font, fonts))[0:10]
     fonts = list(map(trim_font, fonts))
     fonts.sort(key=lambda array: array[0])
     return fonts
@@ -108,9 +108,11 @@ def listfonts(indir):
 
 
 def draw_fonts(titles, fonts):
-    LINE_HEIGHT = 68
-    FONT_SIZE = 64
-    MARGIN_SIZE = 8
+    LINE_HEIGHT = 20
+    FONT_SIZE = 16
+    TITLE_FONT = '/System/Library/fonts/Menlo.ttc'
+    TITLE_FONT_SIZE = 12
+    MARGIN_SIZE = 4
     COLOR_BG = "#F93"
     COLOR_TEXT = "#543"
 
@@ -127,21 +129,42 @@ def draw_fonts(titles, fonts):
 
     img = Image.new('RGB', (width, height), COLOR_BG)
     draw = ImageDraw.Draw(img)
+    x = MARGIN_SIZE
+    y = MARGIN_SIZE
+    for i in range(0, count):
+        fontname, fontpath = fonts[i]
+        demofont = ImageFont.truetype(fontpath, FONT_SIZE)
+        text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        demosize = demofont.getsize(text)
 
     for i in range(0, count):
         fontname, fontpath = fonts[i]
         title = titles[i]
 
-        print("fontpath:", fontpath)
-        print("FONT_SIZE:", FONT_SIZE)
+        # print("fontpath:", fontpath)
+        # print("FONT_SIZE:", FONT_SIZE)
 
         titlefont = ImageFont.truetype(
+            TITLE_FONT,
+            TITLE_FONT_SIZE
+        )
+
+        y = y + (LINE_HEIGHT + MARGIN_SIZE)
+        draw.line((0, y,  img.size[0], y), fill=128)
+        y = y + MARGIN_SIZE
+        draw.text((x, y), title, COLOR_TEXT, font=titlefont)
+
+        demofont = ImageFont.truetype(
             fontpath,
             FONT_SIZE
         )
-
-        x = MARGIN_SIZE
-        y = i * (LINE_HEIGHT + MARGIN_SIZE) + MARGIN_SIZE
-        draw.text((x, y), title, COLOR_TEXT, font=titlefont)
+        text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        demosize = demofont.getsize(text)
+        y = y + demosize[1]
+        draw.text((x, y), text, COLOR_TEXT, font=demofont)
 
     img.show()
+
+
+if __name__ == "__main__":
+    listfonts('/System/Library/fonts')
