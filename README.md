@@ -79,6 +79,11 @@ https://www.cnblogs.com/ldlchina/p/4708442.html
 
 https://docs.python.org/3/library/gettext.html
 
+[GNU gettext utilities](https://www.gnu.org/software/gettext/manual/gettext.html)
+
+[关于操作系统中英文切换的.po和.mo介绍](https://www.cnblogs.com/linux-wang/p/9001368.html)
+
+
 - [Done] 4. Control whether to  show preview after tranform picture.
 
 - [Done] 5. Layout support postion.
