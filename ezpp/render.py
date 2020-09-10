@@ -10,6 +10,8 @@ from PIL import Image, ImageDraw, ImageFont
 from ezpp.utils.text import text_vertical_center
 from ezpp.utils.text import text_horzontal_center
 from ezpp.utils.text import text_center
+from ezpp.utils.roundrect import roundrect
+from ezpp.utils.color_parser import parse_color_int
 
 
 def create_cmd_parser(subparsers):
@@ -88,6 +90,8 @@ def render_item(img, item, infile_dir, params_map, antialias_size=1):
         render_image_item(img, item, infile_dir, antialias_size)
     elif item_type == "text":
         render_text_item(img, item, infile_dir, antialias_size=antialias_size)
+    elif item_type == "rect":
+        render_rect_item(img, item, infile_dir, params_map, antialias_size)
     elif item_type == "shadow":
         render_shadow_item(img, item)
     elif item_type == "import":
@@ -116,6 +120,40 @@ def paste_item_img(img, item, layer_img, infile_dir, antialias_size=1):
     if y == "center":
         y = int((h-layer_h)/2)
     img.paste(layer_img, (x, y), mask=layer_img)
+
+
+def render_rect_item(img, item, infile_dir, params_map, antialias_size):
+    posx = _.get(item, 'pos.x')
+    x = (posx * antialias_size) if isinstance(posx, str) else posx
+    posy = _.get(item, 'pos.y')
+    y = (posy * antialias_size) if isinstance(posy, str) else posy
+    w, h = img.size
+
+    sizew = _.get(item, 'size.w')
+    width = int(sizew) * int(antialias_size)
+    sizeh = _.get(item, 'size.h')
+    height = int(sizeh) * int(antialias_size)
+
+    if x == "center":
+        x = int((w-width)/2)
+
+    if y == "center":
+        y = int((h-height)/2)
+
+    xy = [x, y, x+width, y+height]
+
+    radius = int(_.get(item, 'radius', 0))
+    border_color = _.get(item, 'border_color', None)
+    border_color_int = None if border_color is None else parse_color_int(
+        border_color)
+    fill_color = _.get(item, 'fill_color', None)
+    fill_color_int = None if fill_color is None else parse_color_int(
+        fill_color)
+    border_size = int(_.get(item, 'border_size', '1'))
+    roundrect(img, xy, radius,
+              pen_color=border_color_int,
+              brush_color=fill_color_int,
+              border_width=border_size)
 
 
 def render_text_item(img, item, infile_dir, antialias_size=1):
