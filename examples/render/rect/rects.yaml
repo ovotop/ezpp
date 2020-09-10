@@ -1,0 +1,38 @@
+canvas:
+  width: 300
+  height: 144
+  color: "#f93" 
+
+items:
+- type: "rect"
+  radius: "10"
+  fill_color: "#666"
+  pos:
+    x: 5
+    y: "center"
+  size:
+    w: "90"
+    h: "120"
+
+- type: "rect"
+  radius: "10"
+  border_color: "#FFF"
+  border_size: "2"
+  pos:
+    x: 100
+    y: "center"
+  size:
+    w: "90"
+    h: "120"
+
+- type: "rect"
+  radius: "10"
+  border_color: "#FFF"
+  fill_color: "#666"
+  border_size: "3"
+  pos:
+    x: 195
+    y: "center"
+  size:
+    w: "90"
+    h: "120"

@@ -4,7 +4,7 @@ import aggdraw
 
 
 def roundrect(img, xy, r,
-              pen_color=0xFFFFFFFF,
+              pen_color=None,
               brush_color=None,
               border_width=1):
     d = aggdraw.Draw(img)
@@ -19,7 +19,14 @@ def roundrect(img, xy, r,
 
 def roundrect_outline(d, xy, r, pen_color, border_width):
     p = aggdraw.Pen(pen_color, border_width)
-    [(x0, y0), (x1, y1)] = xy
+    if len(xy) == 2:
+        [(x0, y0), (x1, y1)] = xy
+    elif len(xy) == 4:
+        [x0, y0, x1, y1] = xy
+    else:
+        print('error args')
+        return
+
     d.line((x0+r, y0, x1-r, y0), p)
     d.line((x0+r, y1, x1-r, y1), p)
     d.line((x0, y0+r, x0, y1-r), p)
@@ -33,7 +40,13 @@ def roundrect_outline(d, xy, r, pen_color, border_width):
 def roundrect_fill(d, xy, r, brush_color):
     p = None
     b = aggdraw.Brush(brush_color)
-    [(x0, y0), (x1, y1)] = xy
+    if len(xy) == 2:
+        [(x0, y0), (x1, y1)] = xy
+    elif len(xy) == 4:
+        [x0, y0, x1, y1] = xy
+    else:
+        print('error args')
+        return
     d.rectangle((x0+r, y0, x1-r, y1), p, b)
     d.rectangle((x0, y0+r, x1, y1-r), p, b)
     d.ellipse((x0,  y0, x0+2*r, y0+2*r), p, b)
