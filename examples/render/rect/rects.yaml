@@ -1,38 +1,38 @@
 canvas:
-  width: 300
-  height: 144
+  width: 1100
+  height: 718
   color: "#f93" 
 
 items:
 - type: "rect"
-  radius: "10"
-  fill_color: "#666"
+  border_color: "#ffffffff"
+  border_size: "5"
+  radius: "50"
   pos:
-    x: 5
+    x: 50
     y: "center"
   size:
-    w: "90"
-    h: "120"
+    w: "1000"
+    h: "618"
 
 - type: "rect"
-  radius: "10"
-  border_color: "#FFF"
-  border_size: "2"
+  radius: "40"
+  fill_color: "#543"
   pos:
-    x: 100
-    y: "center"
+    x: 678
+    y: 60
   size:
-    w: "90"
-    h: "120"
+    w: "362"
+    h: "598"
 
 - type: "rect"
-  radius: "10"
-  border_color: "#FFF"
-  fill_color: "#666"
+  radius: "30"
+  border_color: "#ffffffff"
+  fill_color:  "#39f"
   border_size: "3"
   pos:
-    x: 195
-    y: "center"
+    x: 688
+    y: 432
   size:
-    w: "90"
-    h: "120"
+    w: "342"
+    h: "216"
