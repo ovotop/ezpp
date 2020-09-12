@@ -236,3 +236,65 @@ TO: examples/render/slogan/ezpp_slogan.png
 #### Result:
 
 ![slogan](slogan/ezpp_slogan.png)
+
+## 5. rect
+
+This example show how to use render item type "rect".
+#### Call from terminal:
+```text
+ezpp render -i examples/render/rect/rects.yaml          
+```
+
+examples/render/rect/rects.yaml
+```yaml
+#...
+canvas:
+  width: 1100
+  height: 718
+  color: "#f93" 
+
+items:
+- type: "rect"
+  border_color: "#ffffffff"
+  border_size: "5"
+  radius: "50"
+  pos:
+    x: 50
+    y: "center"
+  size:
+    w: "1000"
+    h: "618"
+
+- type: "rect"
+  radius: "40"
+  fill_color: "#543"
+  pos:
+    x: 678
+    y: 60
+  size:
+    w: "362"
+    h: "598"
+
+- type: "rect"
+  radius: "30"
+  border_color: "#ffffffff"
+  fill_color:  "#39f"
+  border_size: "3"
+  pos:
+    x: 688
+    y: 432
+  size:
+    w: "342"
+    h: "216"
+
+```
+
+#### Output
+```text
+FROM: examples/render/rect/rects.yaml
+TO: examples/render/rect/rects.png
+```
+
+#### Result:
+
+![rects.png](rect/rects_275x179.png)
