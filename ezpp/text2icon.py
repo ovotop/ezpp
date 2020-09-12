@@ -7,28 +7,18 @@ import colorsys
 from . import global_args
 from ezpp.utils.color_parser import *
 from ezpp.utils.text import text_horzontal_center
-# using_color = "-c The color in hex value in formate of #RRGGBB  or #RGB. For example :#00ff00 or #0f0 make a  green version of your pic"
-# is_color_re = re.compile(r'^#?([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$')
-# color3_re = re.compile(
-#     r'^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$'
-# )
-# color6_re = re.compile(
-#     r'^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$'
-# )
 
-# https://www.zcool.com.cn/article/ZNDg2Mzg4.html
-# DEFUALT_FONT_NAME = 'HappyZcool-2016.ttf'
-# DEFUALT_FONT_NAME = 'zcoolqinkehuangyouti.ttf'
-# DEFUALT_FONT_NAME = 'lianmengqiyilushuaizhengruiheiti.ttf'
 
 ANTIALIAS_SIZE = 16
 LOGO_SIZE = 1024*ANTIALIAS_SIZE
 MAIN_POS_TITLE_ONLY = 512*ANTIALIAS_SIZE
 MAIN_POS = 468*ANTIALIAS_SIZE
 SUB_POS = 1000*ANTIALIAS_SIZE
-# 副标题的背景
+
+# subtitle backgound副标题的背景
 CIRCLE_RADIUS = 1380*ANTIALIAS_SIZE
 CIRCLE_EDGE_Y = 848*ANTIALIAS_SIZE
+
 DEFAULT_COLOR = '#ffffff'
 DEFAULT_BGCOLOR = "#3399ff"
 FONT_MAIN_SUM = 960*ANTIALIAS_SIZE
@@ -42,7 +32,17 @@ def brother_path(file_name):
         os.path.dirname(__file__)), file_name)
 
 
-DEFUALT_FONT_NAME = brother_path('text2icon/ZhenyanGB.ttf')
+def get_default_fontname():
+    fonts = ['/System/Library/Fonts/PingFang.ttc',
+             '/System/Library/Fonts/Menlo.ttc']
+    for font in fonts:
+        if os.path.isfile(font):
+            return font
+    return None
+
+
+# brother_path('text2icon/ZhenyanGB.ttf')
+DEFUALT_FONT_NAME = get_default_fontname()
 
 
 def create_cmd_parser(subparsers):
@@ -127,7 +127,7 @@ def text2icon(params, outfile, preview):
 
     main_title_font_size = FONT_MAIN_SUM_MIN if title_len == 1 else int(
         FONT_MAIN_SUM/title_len)
-    font = ImageFont.truetype(
+    font = ImageFont.load_default() if font_name is None else ImageFont.truetype(
         font_path(font_name),
         main_title_font_size
     )
@@ -142,7 +142,7 @@ def text2icon(params, outfile, preview):
         LOGO_SIZE,
         (MAIN_POS if hasSubtitle else MAIN_POS_TITLE_ONLY) + main_title_font_size/2)
 
-    font_sub = ImageFont.truetype(
+    font_sub = ImageFont.load_default() if subfont_name is None else ImageFont.truetype(
         font_path(subfont_name),
         FONT_SIZE_SUB
     )
