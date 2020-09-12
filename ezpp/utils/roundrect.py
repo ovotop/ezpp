@@ -1,5 +1,7 @@
-from PIL import Image
+from PIL import Image, ImageDraw
 import aggdraw
+from ezpp.utils.color_parser import parse_color_int4
+
 # http://effbot.org/zone/pythondoc-aggdraw.htm
 
 #
@@ -9,14 +11,23 @@ def roundrect(img, xy, r,
               pen_color=None,
               brush_color=None,
               border_width=1):
-    d = aggdraw.Draw(img)
-    if brush_color is not None:
-        # print(f'brush_color: #{brush_color:x}')
-        roundrect_fill(d, xy, r, brush_color)
+    if r == 0:
+        draw = ImageDraw.Draw(img)
+        draw.rectangle(xy, fill=brush_color,
+                       outline=pen_color, width=border_width)
+        return
 
-    if pen_color is not None:
-        # print(f'pen_color: #{pen_color:x}')
-        roundrect_outline(d, xy, r, pen_color, border_width)
+    border_color_int4 = None if border_color is None else parse_color_int4(
+        border_color)
+    fill_color_int4 = None if fill_color is None else parse_color_int4(
+        fill_color)
+
+    d = aggdraw.Draw(img)
+    if brush_color_int4 is not None:
+        roundrect_fill(d, xy, r, brush_color_int4)
+
+    if pen_color_int4 is not None:
+        roundrect_outline(d, xy, r, pen_color_int4, border_width)
 
     d.flush()
 
