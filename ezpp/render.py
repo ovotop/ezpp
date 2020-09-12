@@ -11,7 +11,6 @@ from ezpp.utils.text import text_vertical_center
 from ezpp.utils.text import text_horzontal_center
 from ezpp.utils.text import text_center
 from ezpp.utils.roundrect import roundrect
-from ezpp.utils.color_parser import parse_color_int4
 
 
 def create_cmd_parser(subparsers):
@@ -143,15 +142,11 @@ def render_rect_item(img, item, infile_dir, params_map, antialias_size):
 
     radius = int(_.get(item, 'radius', 0))
     border_color = _.get(item, 'border_color', None)
-    border_color_int4 = None if border_color is None else parse_color_int4(
-        border_color)
     fill_color = _.get(item, 'fill_color', None)
-    fill_color_int4 = None if fill_color is None else parse_color_int4(
-        fill_color)
     border_size = int(_.get(item, 'border_size', '1'))
     roundrect(img, xy, radius,
-              pen_color=border_color_int4,
-              brush_color=fill_color_int4,
+              pen_color=border_color,
+              brush_color=fill_color,
               border_width=border_size)
 
 
