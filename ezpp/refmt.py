@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 
-import argparse
 import re
 import os
-import shutil
-from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
-# readlines, writelines, readstr, readjson, list_by_ext
-from ezutils.files import readjson
+from PIL import Image
 from . import global_args
 
 re_fmt = re.compile(r'^PNG|WEBP|JPG|JPEG$')

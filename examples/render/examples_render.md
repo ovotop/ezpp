@@ -63,7 +63,9 @@ examples/render/params/params.yaml
 ```yaml
 # params defines
 params: 
-  - "title"
+  -
+    name: "title"
+    default: "DEF"
   - "icon"
 
 canvas:
@@ -95,6 +97,10 @@ items:
   alpha: 0.1 # 0.0-1.0  shadow color is #000a
 
 ```
+
+We can hide one item by set "visible: false".
+"visible" default value is true.
+
 #### Output
 ```text
 FROM: examples/render/params/params.yaml
@@ -112,6 +118,7 @@ You can also make a *.sh file like this.
 examples/render/params/render_params_demo.sh:
 ```bash
 cd examples/render/params
+ezpp render -i params.yaml -a '{"icon":"logo_64.png"}' -o def.png
 ezpp render -i params.yaml -a '{"icon":"logo_64.png","title":"Hello"}' -o hello.png
 ezpp render -i params.yaml -a '{"icon":"logo_64.png","title":"EzPP"}' -o ezpp.png
 ezpp render -i params.yaml -a '{"icon":"logo_64.png","title":"Hello EzPP"}' -o hello_ezpp.png
@@ -119,7 +126,7 @@ cd ../../../
 ```
 
 This shell will create these:
-
+![def](params/def.png)
 ![hello](params/hello.png)
 ![ezpp](params/ezpp.png)
 ![hello ezpp](params/hello_ezpp.png)
@@ -177,6 +184,9 @@ items:
       color: "#543"
 ```
 #### Output
+
+You can provide a params '--silent' to close these output
+
 ```text
 FROM: examples/render/mask/mask.yaml
 TO: examples/render/mask/mask.png

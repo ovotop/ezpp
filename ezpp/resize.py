@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
-import argparse
 import re
 import os
 import shutil
-from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
+from PIL import Image
 # readlines, writelines, readstr, readjson, list_by_ext
 from ezutils.files import readjson
 from . import global_args
@@ -123,7 +122,7 @@ def _on_size_parsed(infile, outfile, size):
             new_height = int(origin_h * height)
 
         newFile = outfile
-        if outfile == None or outfile == Null:
+        if outfile is None or outfile is None:
             newFile = global_args.auto_outfile(
                 infile, f"_{new_width}x{new_height}")
 

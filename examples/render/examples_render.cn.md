@@ -36,6 +36,9 @@ items:
     color: "#543"
 ```
 #### 输出
+
+如果你提供一个参数'--silent'就可以关闭下面的输出
+
 ```text
 FROM: examples/render/hello_ezpp/hello.yaml
 TO: examples/render/hello_ezpp/hello.png
@@ -95,6 +98,9 @@ items:
   alpha: 0.1 # 0.0-1.0  shadow color is #000a
 
 ```
+
+对于单个item，我们可以使用 visible: false 来隐藏它，visible默认是true
+
 #### 输出
 ```text
 FROM: examples/render/params/params.yaml
@@ -112,6 +118,7 @@ TO: examples/render/params/hello_ezpp.png
 examples/render/params/render_params_demo.sh:
 ```bash
 cd examples/render/params
+ezpp render -i params.yaml -a '{"icon":"logo_64.png"}' -o def.png
 ezpp render -i params.yaml -a '{"icon":"logo_64.png","title":"Hello"}' -o hello.png
 ezpp render -i params.yaml -a '{"icon":"logo_64.png","title":"EzPP"}' -o ezpp.png
 ezpp render -i params.yaml -a '{"icon":"logo_64.png","title":"Hello EzPP"}' -o hello_ezpp.png
@@ -119,7 +126,7 @@ cd ../../../
 ```
 
 它将创建下列图片:
-
+![def](params/def.png)
 ![hello](params/hello.png)
 ![ezpp](params/ezpp.png)
 ![hello ezpp](params/hello_ezpp.png)
