@@ -5,6 +5,7 @@ import os
 from ezpp import global_args
 from functools import reduce
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
+from ezpp.utils.fonts import get_sample_text
 # list fonts under system dirs and input dir
 # /System/Library/fonts
 #
@@ -18,14 +19,12 @@ def trim_font(font_path):
 
 
 def skip_font(fontname):
-    skip_keywords = ['Braille', 'Emoji']
+    skip_keywords = ['Emoji']
     for skip_keyword in skip_keywords:
         if fontname.find(skip_keyword) >= 0:
             return False
 
     skip_names = [
-        '/System/Library/fonts/Symbol.ttf',  # 数学公式
-        '/System/Library/fonts/ZapfDingbats.ttf',  # 图标字体
         '/System/Library/fonts/Supplemental/NISC18030.ttf',  # 股票字体
     ]
     for skip_name in skip_names:
@@ -39,7 +38,7 @@ def get_font_list(indir):
     font_exts = ['ttf', 'ttc', 'otf', 'dfont']
 
     fonts = global_args.get_recursive_infiles_by_ext(indir, font_exts)
-    fonts = list(filter(skip_font, fonts))[0:10]
+    fonts = list(filter(skip_font, fonts))
     fonts = list(map(trim_font, fonts))
     fonts.sort(key=lambda array: array[0])
     return fonts
@@ -116,26 +115,35 @@ def draw_fonts(titles, fonts):
     COLOR_BG = "#F93"
     COLOR_TEXT = "#543"
 
-    max_title_len = list_max_line_length(titles)
-    print('max_title_len', max_title_len)
-
     count = len(fonts)
 
-    width = max_title_len * FONT_SIZE
-    height = (LINE_HEIGHT + MARGIN_SIZE) * count
-
-    print("width:", width)
-    print("height:", height)
-
-    img = Image.new('RGB', (width, height), COLOR_BG)
-    draw = ImageDraw.Draw(img)
     x = MARGIN_SIZE
     y = MARGIN_SIZE
+
+    h_total = 0
+    w_max = 0
+    titlefont = ImageFont.truetype(
+        TITLE_FONT,
+        TITLE_FONT_SIZE
+    )
+
     for i in range(0, count):
         fontname, fontpath = fonts[i]
         demofont = ImageFont.truetype(fontpath, FONT_SIZE)
-        text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        demosize = demofont.getsize(text)
+        text = get_sample_text(fontpath)
+        title = titles[i]
+        title_w, title_h = titlefont.getsize(title)
+        w_max = max(w_max, title_w)
+        demo_w, demo_h = demofont.getsize(text)
+        w_max = max(w_max, demo_w)
+        h_total = h_total + demo_h + title_h
+
+    width = w_max
+    height = MARGIN_SIZE * 2 + (MARGIN_SIZE * 3) * count + h_total
+    print("width:", width)
+    print("height:", height)
+    img = Image.new('RGB', (width, height), COLOR_BG)
+    draw = ImageDraw.Draw(img)
 
     for i in range(0, count):
         fontname, fontpath = fonts[i]
@@ -144,24 +152,24 @@ def draw_fonts(titles, fonts):
         # print("fontpath:", fontpath)
         # print("FONT_SIZE:", FONT_SIZE)
 
-        titlefont = ImageFont.truetype(
-            TITLE_FONT,
-            TITLE_FONT_SIZE
-        )
-
-        y = y + (LINE_HEIGHT + MARGIN_SIZE)
         draw.line((0, y,  img.size[0], y), fill=128)
         y = y + MARGIN_SIZE
+
         draw.text((x, y), title, COLOR_TEXT, font=titlefont)
+        title_w, title_h = titlefont.getsize(title)
+        y = y + title_h + MARGIN_SIZE
 
         demofont = ImageFont.truetype(
             fontpath,
             FONT_SIZE
         )
-        text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        demosize = demofont.getsize(text)
-        y = y + demosize[1]
+        text = get_sample_text(fontpath)
+        demo_w, demo_h = demofont.getsize(text)
+
         draw.text((x, y), text, COLOR_TEXT, font=demofont)
+        y = y + demo_h + MARGIN_SIZE
+
+    draw.line((0, y,  img.size[0], y), fill=128)
 
     img.show()
 
