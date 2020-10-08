@@ -228,21 +228,7 @@ def imgcat_font(font):
     img = Image.new('RGB', (width, height), COLOR_BG)
     draw = ImageDraw.Draw(img)
     draw.text((x, y), text, COLOR_TEXT, font=demofont)
-
-    f, tmpfile = tempfile.mkstemp(suffix=".png")
-    tmpf = open(tmpfile, "wb")
-    try:
-        img.save(tmpf)
-    finally:
-        tmpf.close()
-
-    # time.sleep(1)
-
-    imgf = open(tmpfile)
-    try:
-        imgcat(imgf)
-    finally:
-        imgf.close()
+    imgcat(img)
 
 
 if __name__ == "__main__":
