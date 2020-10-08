@@ -43,7 +43,13 @@ setuptools.setup(
                  'resize_cfg/Contents.json'],
     },
     platforms="any",
-    install_requires=["Pillow", "ezutils", "aggdraw"],
+    install_requires=[
+        "Pillow",
+        "ezutils",
+        "aggdraw",
+        "imgcat",
+        "freetype-py"
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
