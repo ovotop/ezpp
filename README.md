@@ -11,6 +11,8 @@ pip3 install ezpp
 
 # 2. What ezpp can and how
 
+## 2.1 Picture process
+
 What |Before|After|How to
 :---:|:---:|:---:|:---
 Frosted|![A icon before frosted]( docs/ezpp_slogan_256x128.png)|![A icon after defult frosted](docs/ezpp_slogan_256x128_frosted.png)|[🔗How to Frosted](docs/subcmd_04_frosted.md)
@@ -22,20 +24,27 @@ Shadow|![A clean background icon](docs/ezpp_t_128.png)|![Shadow added on clean b
 Render|ezpp_slogan.yaml|![slogan](docs/ezpp_slogan_256x128.png)|[🔗How to Render](examples/render/examples_render.md)
 
 
-## ListFonts 
+## 2.2 ListFonts 
 Display preview for font selection。
 
 ```shell
 ezpp listfonts -s
+ezpp listfonts -u
+ezpp listfonts -d ./fonts_dir
 ```
--s  system fonts 
--u  user fonts
+-s  system fonts (/System/Library/fonts) 
+
+-u  user fonts (~/Library/fonts)
+
+-d  fonts in input dir
 
 You can use -c/--imgcat for iterm2.And show preview in iterm2 directly.
 
 ```shell
+ezpp listfonts -s -c
 ezpp listfonts -s --imgcat 
 ```
+
 
 # 3. Common params
 
