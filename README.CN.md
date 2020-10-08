@@ -11,15 +11,38 @@ pip3 install ezpp
 
 # 2. EzPP能做什么？
 
+## 2.1 处理图片
 功能名称|处理前|处理后|How to
 :---:|:---:|:---:|:---
 毛玻璃(Frosted)|![A icon before frosted]( docs/ezpp_slogan_256x128.png)|![A icon after defult frosted](docs/ezpp_slogan_256x128_frosted.png)|[怎样做毛玻璃➡️](docs/subcmd_04_frosted.md)
 变色(ReColor)|![picture before recolor](docs/logo_256x256.png)|![picture after recolor](docs/logo_blue_hsv_v(-0.5).png)|[怎样改色➡️](docs/subcmd_01_recolor.md)
 调整大小(ReSize)|![A icon before recolor](docs/logo_256x256.png)|![A icon after resize](docs/logo_64.png)|[怎样改大小➡️](docs/subcmd_02_resize.cn.md)
 转格式(ReFormat)|lego_mc_l.jpg(203k)|lego_mc_l.webp(109k)|[怎样改格式➡️](docs/subcmd_03_reformat.cn.md)
-文本变图标(Text2Icon)| "EzPP"|![Simplest call of text2icon](docs/ezpp_t_128.png)|[文本怎样变图标➡️](docs/subcmd_05_text2icon.cn.md)
+文本变图标(Text2Icon)| "EzPP"|![Simplest call of text2icon](docs/ezpp_t_128.png)|[文本怎样变图标](docs/subcmd_05_text2icon.cn.md)
 加阴影(Shadow)|![A clean background icon](docs/ezpp_t_128.png)|![Shadow added on clean background](docs/ezpp_t_128_shadow.png)|[怎样加阴影➡️](docs/subcmd_06_shadow.cn.md)
 布局渲染(Layout)|ezpp_slogan.cn.yaml|![slogan](docs/ezpp_slogan.cn_256x128.png)|[怎样渲染布局](examples/render/examples_render.cn.md)
+
+## 2.2 查看字体
+预览指定目录下的字体文件。
+创建并打开一个字体文件预览图。
+
+```shell
+ezpp listfonts -s
+ezpp listfonts -u
+ezpp listfonts -d ./fonts_dir
+```
+-s  系统自带字体 (/System/Library/fonts) 
+
+-u  用户安装字体 (~/Library/fonts)
+
+-d  指定目录中的字体
+
+如果你正在使用iterm2，你可以通过“-c/--imgcat”选项，直接在iterm2 中逐一显示预览字体。
+
+```shell
+ezpp listfonts -s -c
+ezpp listfonts -s --imgcat 
+```
 
 # 3. 常用参数
 

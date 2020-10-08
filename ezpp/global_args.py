@@ -62,6 +62,10 @@ def parser_io_argments(params):
 
 def get_recursive_pic_infiles(indir):
     file_exts = ['jpeg', 'jpg', 'png', 'webp', 'JPEG', 'JPG', 'PNG', 'WEBP']
+    return get_recursive_infiles_by_ext(indir, file_exts)
+
+
+def get_recursive_infiles_by_ext(indir, file_exts):
     paths = []
     for file_ext in file_exts:
         type_filter_str = os.path.join(
