@@ -48,7 +48,9 @@ setuptools.setup(
         "ezutils",
         "aggdraw",
         "imgcat",
-        "freetype-py"
+        "freetype-py",
+        "pydash",
+        "pyaml"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
