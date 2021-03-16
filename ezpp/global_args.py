@@ -19,7 +19,7 @@ def add_global_argments(sub_parser,
                             '--outfile',
                             help=f"{optional_header} the output file")
 
-    if not has_preview and has_recursive:
+    if has_recursive:
         sub_parser.add_argument('-r',
                                 '--recursive',
                                 default=False,
@@ -27,7 +27,7 @@ def add_global_argments(sub_parser,
                                 help='recursive the input dir, '
                                 'outfiles will overwrite inputfiles. '
                                 'And the -o will be ignore')
-    if not has_preview and not without_infile and has_overwrite:
+    if has_overwrite:
         sub_parser.add_argument('--overwrite',
                                 action='store_false',
                                 help='Overwrite the infile with new file')

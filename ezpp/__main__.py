@@ -16,6 +16,7 @@ from . import text2icon
 from . import shadow
 from . import render
 from . import listfonts
+from . import pngs2gif
 # IMPORT SUBCMD DEF HERE
 # SUB COMMONDS DEF]
 
@@ -54,6 +55,8 @@ def main():
                                     without_infile=True,
                                     has_recursive=False,
                                     optional_outfile=False)
+    global_args.add_global_argments(pngs2gif.create_cmd_parser(subparsers),
+                                    has_overwrite=True)
     global_args.add_global_argments(shadow.create_cmd_parser(subparsers))
     global_args.add_global_argments(render.create_cmd_parser(subparsers),
                                     has_recursive=False,
