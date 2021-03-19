@@ -1,6 +1,8 @@
+#!/usr/bin/env python3
+
 import unittest
 
-from global_args import auto_outfile
+from ezpp.global_args import auto_outfile
 
 
 class TestGlobalArgs(unittest.TestCase):
