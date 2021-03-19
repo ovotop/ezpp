@@ -17,10 +17,10 @@ def roundrect(img, xy, r,
                        outline=pen_color, width=border_width)
         return
 
-    border_color_int4 = None if border_color is None else parse_color_int4(
-        border_color)
-    fill_color_int4 = None if fill_color is None else parse_color_int4(
-        fill_color)
+    pen_color_int4 = None if pen_color is None else parse_color_int4(
+        pen_color)
+    brush_color_int4 = None if brush_color is None else parse_color_int4(
+        brush_color)
 
     d = aggdraw.Draw(img)
     if brush_color_int4 is not None:
