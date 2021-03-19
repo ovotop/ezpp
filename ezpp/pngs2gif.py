@@ -3,7 +3,22 @@
 import os
 # import re
 from . import global_args
-from PIL import Image, ImageSequence
+from PIL import Image
+
+restore_to_background_color = 2
+
+
+def getDurationFromFilename(filename, default_duration):
+
+    d, fn2 = os.path.split(filename)
+    fn, ext = os.path.splitext(fn2)
+    cells = fn.split('_')
+    if len(cells) >= 2:
+        if(cells[1] == ''):
+            return default_duration
+        else:
+            return cells[1]
+    return default_duration
 
 
 def create_cmd_parser(subparsers):
@@ -39,29 +54,26 @@ def pngs2gif_file(infiles, outfile, overwrite, preview, duration):
     print('FROM:', infiles)
     print('preview:', preview)
     print('TO:', outfile)
-    print('duration:', duration)
+    print('default duration:', duration)
 
     images = []
     durations = []
     for infile in infiles:
         images.append(Image.open(infile))
-        durations.append(int(duration))
+        durations.append(int(getDurationFromFilename(infile, duration)))
 
     images[0].save(outfile,
                    format="GIF",
                    save_all=True,
                    append_images=images[1:],
                    duration=durations,
-                   disposal=2,
+                   disposal=restore_to_background_color,
                    background=1,
+                   version="GIF89a",
                    loop=0,
                    optimize=False,
                    transparency=0)
-    index = 0
-    for frame in images:
-        frame.save(f"frame{index}.png")
-        index += 1
-
+    print('durations:', durations)
     print("----- pngs2gif -----")
 
 
