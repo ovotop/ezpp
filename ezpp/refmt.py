@@ -81,8 +81,9 @@ def _on_fmt_parsed(infile, outfile, fmt):
         if len(out_dir) > 0 and not os.path.exists(out_dir):
             os.makedirs(out_dir)
 
-        if is_jpg(filename):
+        if is_jpg(filename_new):
             img = img.convert("RGB")
+            FMT = "JPEG"
 
         img.save(os.path.abspath(filename_new), FMT)
     return True
