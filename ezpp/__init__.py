@@ -7,7 +7,7 @@ __title__ = "ezpp"
 __summary__ = "Easy Pic Process"
 __uri__ = "https://github.com/caojianfeng/ezpp"
 
-__version__ = "0.2.8"
+__version__ = "0.2.9"
 
 __author__ = "JeffreyCao"
 __email__ = "je255reycao@stufft.io"
