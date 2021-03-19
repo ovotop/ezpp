@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter
-import argparse
-import os
-import re
+from PIL import Image, ImageFilter
 from . import global_args
 
 
@@ -11,7 +8,8 @@ def create_cmd_parser(subparsers):
         'frosted', help='frosted glass on a pic')
     parser_frosted.add_argument("-s",
                                 "--size",
-                                help="size of frosted range, default 10, recommonded [3,20]")
+                                help="size of frosted range,"
+                                " default 10, recommonded [3,20]")
     parser_frosted.set_defaults(on_args_parsed=_on_args_parsed)
 
     return parser_frosted
@@ -25,7 +23,7 @@ def repeat2(str_tobe_repeat):
 
 def _on_args_parsed(args):
     params = vars(args)
-    infile, outfile, recursive, overwrite, preview = global_args.parser_io_argments(
+    i, o, recursive, overwrite, preview = global_args.parser_io_argments(
         params)
 
     sizeStr = params['size']
@@ -42,14 +40,15 @@ def _on_args_parsed(args):
         else:
             mode = 0
 
-        frosted(infile, outfile, recursive, overwrite, preview, size, mode)
+        frosted(i, o, recursive, overwrite, preview, size, mode)
     else:
-        frosted(infile, outfile, recursive, overwrite, preview)
+        frosted(i, o, recursive, overwrite, preview)
 
 
-def frosted(infile, outfile, recursive, overwrite, preview, blurSize=10, mode=5):
+def frosted(infile, outfile, recursive, overwrite, preview,
+            blurSize=10, mode=5):
     print('frosted', preview)
-    if recursive == None or recursive == False or preview == True:
+    if recursive is None or not recursive or preview:
         return frosted_file(infile, outfile, preview, blurSize, mode)
     infiles = global_args.get_recursive_pic_infiles(infile)
     for infile_for_recursive in infiles:
@@ -62,17 +61,17 @@ def frosted(infile, outfile, recursive, overwrite, preview, blurSize=10, mode=5)
 
 def frosted_file(infile, outfile, preview, blurSize=10, mode=5):
     new_filename = outfile
-    if outfile == None:
+    if outfile is None:
         new_filename = global_args.auto_outfile(infile, '_frosted')
 
     print(f"Frome: {infile} frosted(size = {blurSize})")
 
     with open(infile, 'rb') as imgfile:
-        img = Image.open(infile)
+        img = Image.open(imgfile)
 
-    img = img.filter(ImageFilter.GaussianBlur(blurSize))
-    if mode > 0:
-        img = img.filter(ImageFilter.ModeFilter(mode))
+        img = img.filter(ImageFilter.GaussianBlur(blurSize))
+        if mode > 0:
+            img = img.filter(ImageFilter.ModeFilter(mode))
 
     if preview:
         print("Preview Only")

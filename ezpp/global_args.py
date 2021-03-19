@@ -19,13 +19,15 @@ def add_global_argments(sub_parser,
                             '--outfile',
                             help=f"{optional_header} the output file")
 
-    if not has_preview and has_recursive:
+    if has_recursive:
         sub_parser.add_argument('-r',
                                 '--recursive',
                                 default=False,
                                 action='store_true',
-                                help='recursive the input dir, outfiles will overwrite inputfiles. And the -o will be ignore')
-    if not has_preview and not without_infile and has_overwrite:
+                                help='recursive the input dir, '
+                                'outfiles will overwrite inputfiles. '
+                                'And the -o will be ignore')
+    if has_overwrite:
         sub_parser.add_argument('--overwrite',
                                 action='store_false',
                                 help='Overwrite the infile with new file')
@@ -60,6 +62,10 @@ def parser_io_argments(params):
 
 def get_recursive_pic_infiles(indir):
     file_exts = ['jpeg', 'jpg', 'png', 'webp', 'JPEG', 'JPG', 'PNG', 'WEBP']
+    return get_recursive_infiles_by_ext(indir, file_exts)
+
+
+def get_recursive_infiles_by_ext(indir, file_exts):
     paths = []
     for file_ext in file_exts:
         type_filter_str = os.path.join(

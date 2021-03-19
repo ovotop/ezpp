@@ -15,8 +15,12 @@ from . import resize
 from . import text2icon
 from . import shadow
 from . import render
+from . import listfonts
+from . import pngs2gif
 # IMPORT SUBCMD DEF HERE
 # SUB COMMONDS DEF]
+
+from ezpp import __version__
 
 
 def main():
@@ -24,6 +28,14 @@ def main():
         prog="ezpp",
         usage="ezpp [-h] subcommand{recolor,resize} ...",
         description="Example: ezpp recolor -i my.png -c #00ff00"
+    )
+
+    parser.add_argument(
+        "-v",
+        "-V",
+        "--version",
+        action='version',
+        version=f"EzPP v{__version__} (https://github.com/ovotop/ezpp)"
     )
 
     subparsers = parser.add_subparsers(
@@ -43,10 +55,13 @@ def main():
                                     without_infile=True,
                                     has_recursive=False,
                                     optional_outfile=False)
+    global_args.add_global_argments(pngs2gif.create_cmd_parser(subparsers),
+                                    has_overwrite=True)
     global_args.add_global_argments(shadow.create_cmd_parser(subparsers))
     global_args.add_global_argments(render.create_cmd_parser(subparsers),
                                     has_recursive=False,
                                     has_overwrite=False)
+    listfonts.create_cmd_parser(subparsers)
     # ADD SUBCMD ARGMENTS HERE
     # SUB COMMONDS ARGMENTS]
 

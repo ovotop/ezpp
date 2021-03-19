@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 
-import argparse
 import re
 import os
-import shutil
-from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
-# readlines, writelines, readstr, readjson, list_by_ext
-from ezutils.files import readjson
+from PIL import Image
 from . import global_args
+from ezpp.utils.filetype import is_jpg
 
 re_fmt = re.compile(r'^PNG|WEBP|JPG|JPEG$')
 
@@ -83,6 +80,9 @@ def _on_fmt_parsed(infile, outfile, fmt):
         out_dir, filename = os.path.split(filename_new)
         if len(out_dir) > 0 and not os.path.exists(out_dir):
             os.makedirs(out_dir)
+
+        if is_jpg(filename):
+            img = img.convert("RGB")
 
         img.save(os.path.abspath(filename_new), FMT)
     return True

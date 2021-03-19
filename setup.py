@@ -11,13 +11,12 @@
 
 # from setuptools import setup, find_packages  # 这个包没有的可以pip一下
 import setuptools
-
+from ezpp import __version__
 # with open("README.md", "r") as fh:
 #     long_description = fh.read()
-
 setuptools.setup(
     name="ezpp",
-    version="0.2.2",
+    version=__version__,
     keywords=["pip", "ezpp", "resize", "reformat",
               "recolor", "shadow", "icon", "logo",
               "yaml render", "photoshop", "ps"],
@@ -36,15 +35,28 @@ setuptools.setup(
     author_email="jeffreycao1024@gmail.com",
 
     packages=setuptools.find_packages(
-        exclude=['docs', 'playground', 'bin', 'example']),
+        exclude=[
+            'docs',
+            'playground',
+            'bin',
+            'examples',
+            '*/__tests__'
+        ]),
     include_package_data=True,
     package_data={
-        'ezpp': ['text2icon/ZhenyanGB.ttf',
-                 'resize_cfg/app_icon.json',
+        'ezpp': ['resize_cfg/app_icon.json',
                  'resize_cfg/Contents.json'],
     },
     platforms="any",
-    install_requires=["Pillow", "ezutils"],
+    install_requires=[
+        "Pillow",
+        "ezutils",
+        "aggdraw",
+        "imgcat",
+        "freetype-py",
+        "pydash",
+        "pyaml"
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
@@ -55,5 +67,5 @@ setuptools.setup(
         'console_scripts': [
             'ezpp = ezpp.__main__:main'
         ]
-    }
+    },
 )
