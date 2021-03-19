@@ -14,7 +14,6 @@ import setuptools
 from ezpp import __version__
 # with open("README.md", "r") as fh:
 #     long_description = fh.read()
-
 setuptools.setup(
     name="ezpp",
     version=__version__,
@@ -36,7 +35,13 @@ setuptools.setup(
     author_email="jeffreycao1024@gmail.com",
 
     packages=setuptools.find_packages(
-        exclude=['docs', 'playground', 'bin', 'example']),
+        exclude=[
+            'docs',
+            'playground',
+            'bin',
+            'examples',
+            '*/__tests__'
+        ]),
     include_package_data=True,
     package_data={
         'ezpp': ['resize_cfg/app_icon.json',
@@ -62,5 +67,9 @@ setuptools.setup(
         'console_scripts': [
             'ezpp = ezpp.__main__:main'
         ]
-    }
+    },
+    excluded=[
+        'ezpp/utils/filetype.test.py',
+        'ezpp/global_args.test.py'
+    ]
 )
