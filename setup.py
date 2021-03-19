@@ -68,8 +68,4 @@ setuptools.setup(
             'ezpp = ezpp.__main__:main'
         ]
     },
-    excluded=[
-        'ezpp/utils/filetype.test.py',
-        'ezpp/global_args.test.py'
-    ]
 )
