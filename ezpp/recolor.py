@@ -106,12 +106,12 @@ def recolor_hsv_file(infile, outfile, dst_h, dst_s, dst_v, preview):
             r, g, b, a = px[x, y]
             h, s, v = colorsys.rgb_to_hsv(r/255, g/255, b/255)
             new_s = s if r == g and g == b else (
-                deta_float(s, float(dst_s)) if dst_s != None else s
+                deta_float(s, float(dst_s)) if dst_s is not None else s
             )
             rn, gn, bn = colorsys.hsv_to_rgb(
-                float(dst_h)/float(360) if dst_h != None else h,
+                float(dst_h)/float(360) if dst_h is not None else h,
                 new_s,
-                deta_float(v, float(dst_v)) if dst_v != None else v)
+                deta_float(v, float(dst_v)) if dst_v is not None else v)
 
             px_new[x, y] = (int(255*rn), int(255*gn), int(255*bn), a)
 
@@ -130,7 +130,7 @@ def recolor_hsv_file(infile, outfile, dst_h, dst_s, dst_v, preview):
 
 
 def recolor(infile, outfile, recursive, overwrite, preview, color):
-    if recursive == None or recursive == False or preview == True:
+    if recursive is None or recursive is False or preview:
         return recolor_file(infile, outfile, preview, color)
     infiles = global_args.get_recursive_pic_infiles(infile)
     for infile_for_recursive in infiles:
@@ -169,6 +169,7 @@ def recolor_file(infile, outfile, preview, color):
 
     width = img.width
     height = img.height
+    print(f'recolor({width}x{height})')
     px = img.load()
 
     img_new = Image.new('RGBA', (width, height))
@@ -179,9 +180,11 @@ def recolor_file(infile, outfile, preview, color):
             r, g, b, a = px[x, y]
             h, s, v = colorsys.rgb_to_hsv(r/255, g/255, b/255)
             rn, gn, bn = colorsys.hsv_to_rgb(dst_h, s, v)
+            if(x == 0 and y == 0):
+                print(f"hsv,{h},{s},{v}")
             px_new[x, y] = (int(255*rn), int(255*gn), int(255*bn), a)
     if preview:
-        print("Preview Only")
+        print("Preview Only,{h},{s},{v}")
         img_new.show()
     else:
         print(f"To: {new_filename}")
