@@ -45,6 +45,7 @@ ezpp listfonts -s -c
 ezpp listfonts -s --imgcat 
 ```
 
+It support ubuntu now.
 
 # 3. Common params
 

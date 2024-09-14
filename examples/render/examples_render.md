@@ -35,6 +35,8 @@ items:
     size: 24
     color: "#543"
 ```
+
+The pos can be number or "center/end".
 #### Output
 ```text
 FROM: examples/render/hello_ezpp/hello.yaml

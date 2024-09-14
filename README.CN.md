@@ -43,7 +43,7 @@ ezpp listfonts -d ./fonts_dir
 ezpp listfonts -s -c
 ezpp listfonts -s --imgcat 
 ```
-
+除了MacOS，这个功能现在在ubuntu上也可用了。
 # 3. 常用参数
 
 ## 输入文件

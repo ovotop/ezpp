@@ -221,6 +221,7 @@ items:
     y: 0
 #...
 ```
+pos这个参数可以是数字 "center/end"
 
 #### 输出
 ```text
