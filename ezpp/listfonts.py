@@ -13,6 +13,52 @@ from imgcat import imgcat
 # /System/Library/fonts
 #
 #
+# ubuntu ~/.local/share/fonts 系统字体文件：/usr/share/fonts
+# macos ~/Library/Fonts 系统字体文件：/System/Library/Fonts
+
+
+def get_user_fonts_dir():
+    # if macos:
+    user_dirs = [
+        f"{os.environ['HOME']}/Library/Fonts",
+        f"{os.environ['HOME']}/.local/share/fonts"
+    ]
+    for user_dir in user_dirs:
+        if os.path.isdir(user_dir):
+            return user_dir
+
+    return None
+
+
+def get_system_fonts_dir():
+    sys_dirs = [
+        '/System/Library/Fonts',
+        '/Library/Fonts',
+        '/usr/share/fonts',
+        '/usr/local/share/fonts'
+    ]
+    for sys_dir in sys_dirs:
+        if os.path.isdir(sys_dir):
+            return sys_dir
+    return None
+
+
+def get_titile_font():
+    fonts = [
+        '/System/Library/fonts/Menlo.ttc',
+        '/usr/share/fonts/truetype/freefont/FreeMono.ttf'
+    ]
+
+    for font in fonts:
+        if os.path.isfile(font):
+            return font
+
+    return None
+
+
+sys_dir = get_system_fonts_dir()
+user_dir = get_user_fonts_dir()
+TITLE_FONT = get_titile_font()
 
 
 def trim_font(font_path):
@@ -41,8 +87,12 @@ def get_font_list(indir):
     font_exts = ['ttf', 'ttc', 'otf', 'dfont']
 
     fonts = global_args.get_recursive_infiles_by_ext(indir, font_exts)
+    print("font1:", fonts)
+
     fonts = list(filter(skip_font, fonts))
+    print("font2:", fonts)
     fonts = list(map(trim_font, fonts))
+    print("font3:", fonts)
     fonts.sort(key=lambda array: array[0])
     return fonts
 
@@ -53,12 +103,12 @@ def create_cmd_parser(subparsers):
     cmd_parser.add_argument("-s",
                             "--system",
                             action='store_true',
-                            help="list fonts in '/System/Library/fonts'")
+                            help=f"list fonts in '{sys_dir}'")
 
     cmd_parser.add_argument("-u",
                             "--user",
                             action='store_true',
-                            help="list fonts in '~/Library/Fonts'")
+                            help=f"list fonts in '{user_dir}'")
 
     cmd_parser.add_argument("-i",
                             "--indir",
@@ -85,11 +135,11 @@ def _on_args_parsed(args):
     imgcat = params['imgcat']
 
     if user:
-        listfonts(f"{os.environ['HOME']}/Library/fonts", index, imgcat)
+        listfonts(f"{user_dir}", index, imgcat)
 
     system = params['system']
     if system:
-        listfonts('/System/Library/fonts', index, imgcat)
+        listfonts(f"{sys_dir}", index, imgcat)
 
     indir = params['indir']
     if indir:
@@ -137,7 +187,7 @@ def listfonts(indir, index, imgcat):
 def draw_fonts(titles, fonts):
     LINE_HEIGHT = 20
     FONT_SIZE = 16
-    TITLE_FONT = '/System/Library/fonts/Menlo.ttc'
+
     TITLE_FONT_SIZE = 12
     MARGIN_SIZE = 4
     COLOR_BG = "#F93"
