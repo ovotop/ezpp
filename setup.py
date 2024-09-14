@@ -44,8 +44,8 @@ setuptools.setup(
         ]),
     include_package_data=True,
     package_data={
-        'ezpp': ['resize_cfg/app_icon.json',
-                 'resize_cfg/Contents.json'],
+        'ezpp': ['ezpp/resize_cfg/app_icon.json',
+                 'ezpp/resize_cfg/Contents.json'],
     },
     platforms="any",
     install_requires=[
