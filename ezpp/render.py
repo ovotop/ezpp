@@ -7,10 +7,9 @@ import json
 from ezutils.files import readstr
 from pydash import _
 from PIL import Image, ImageDraw, ImageFont
-from ezpp.utils.text import text_vertical_center
-from ezpp.utils.text import text_horzontal_center
-from ezpp.utils.text import text_center
+from ezpp.utils.text import text_by_pos_str
 from ezpp.utils.roundrect import roundrect
+from ezpp.utils.size_parser import parse_position
 
 
 def create_cmd_parser(subparsers):
@@ -19,6 +18,9 @@ def create_cmd_parser(subparsers):
     cmd_parser.add_argument("-a",
                             "--arguments",
                             help='params,like"{w:960,h:540,title:"hello"}"')
+    cmd_parser.add_argument("-c",
+                            "--config",
+                            help='yml config file for params')
     cmd_parser.add_argument("--silent",
                             action='store_true',
                             help='render silently. with out stdout')
@@ -31,13 +33,35 @@ def create_cmd_parser(subparsers):
 def _on_args_parsed(args):
     params = vars(args)
     infile, outfile, r, o, preview = global_args.parser_io_argments(params)
-
+    params_map = None
+    silent = False
     params_str = params['arguments']
-    silent = params['silent']
-    if not params_str:
-        params_str = '{}'
-    params_map = json.loads(params_str)
+    config_str = params['config']
+
+    if config_str:
+        params_map = read_yml_config(config_str, "params")
+        print(f"parmas1: {params_map}")
+    else:
+        params_map = json.loads(params_str)
+
+        print(f"parmas2: {params_map}")
+
+        silent = params['silent']
+        if not params_str:
+            params_str = '{}'
+        params_map = json.loads(params_str)
+        print(f"parmas3: {params_map}")
+
     render(infile, outfile, params_map, preview, silent)
+
+
+def read_yml_config(config_file, key_str):
+    if not os.path.exists(config_file):
+        return None
+
+    config_str = readstr(config_file)
+    config_map = yaml.load(config_str, Loader=yaml.FullLoader)
+    return config_map.get(key_str)
 
 
 def render_canvas_file(infile, params_map, antialias_size=1):
@@ -52,7 +76,8 @@ def render_canvas_file(infile, params_map, antialias_size=1):
 def render_canvas(yaml_cfg, infile_dir, params_map, antialias_parent=1):
     width = int(_.get(yaml_cfg, 'canvas.width'))
     height = int(_.get(yaml_cfg, 'canvas.height'))
-    cfg_antialias_size = int(_.get(yaml_cfg, 'canvas.antialias_size', '1'))
+    # int(_.get(yaml_cfg, 'canvas.antialias_size', '1'))
+    cfg_antialias_size = 1
     antialias_size = cfg_antialias_size * antialias_parent
     # canvas
     color = _.get(yaml_cfg, 'canvas.color')
@@ -112,12 +137,9 @@ def paste_item_img(img, item, layer_img, infile_dir, antialias_size=1):
     w, h = img.size
 
     layer_w, layer_h = layer_img.size
-    if x == "center":
-        x = int((w-layer_w)/2)
-
-    if y == "center":
-        y = int((h-layer_h)/2)
-    img.paste(layer_img, (x, y), mask=layer_img)
+    x_int = parse_position(w-layer_w, x)
+    y_int = parse_position(h-layer_h, y)
+    img.paste(layer_img, (x_int, y_int), mask=layer_img)
 
 
 def render_rect_item(img, item, infile_dir, params_map, antialias_size):
@@ -132,13 +154,10 @@ def render_rect_item(img, item, infile_dir, params_map, antialias_size):
     sizeh = _.get(item, 'size.h')
     height = int(sizeh) * int(antialias_size)
 
-    if x == "center":
-        x = int((w-width)/2)
+    x_int = parse_position(w-width, x)
+    y_int = parse_position(h-height, y)
 
-    if y == "center":
-        y = int((h-height)/2)
-
-    xy = [x, y, x+width, y+height]
+    xy = [x_int, y_int, x_int + width, y_int + height]
 
     radius = int(_.get(item, 'radius', 0))
     border_color = _.get(item, 'border_color', None)
@@ -162,21 +181,19 @@ def render_text_item(img, item, infile_dir, antialias_size=1):
         font_path,
         font_size * antialias_size
     )
+
     posx = _.get(item, 'pos.x')
     x = (posx * antialias_size) if isinstance(posx, str) else posx
     posy = _.get(item, 'pos.y')
     y = (posy * antialias_size) if isinstance(posy, str) else posy
 
     w, h = img.size
-    if x == "center" and y == "center":
-        text_center(title, color, font, img, w, h)
-    elif x == "center":
-        text_horzontal_center(title, color, font, img, w, y)
-    elif y == "center":
-        text_vertical_center(title, color, font, img, h, x)
-    else:
-        draw = ImageDraw.Draw(img)
-        draw.text((x, y), title, color, font=font)
+    # 文本在图片上的大小
+    layer_w, layer_h = font.getsize(title)
+    x_int = parse_position(w-layer_w, x)
+    y_int = parse_position(h-layer_h, y)
+
+    text_by_pos_str(title, color, font, img, posx, posy)
 
 
 def render_shadow_item(img, item):
@@ -217,6 +234,8 @@ def merge_params(data_str, params):
 
     for cfg_param in cfg_params:
         if isinstance(cfg_param, str):
+            print(f"params = {params} ; cfg_param = {cfg_param}")
+            print(f"replaceing __{cfg_param}__ with {params[cfg_param]}")
             data_str = data_str.replace(f"__{cfg_param}__", params[cfg_param])
         else:
             name = _.get(cfg_param, 'name', None)
@@ -224,6 +243,7 @@ def merge_params(data_str, params):
                 continue
             default = _.get(cfg_param, 'default')
             value = _.get(params, name, default)
+            print(f"replaceing __{name}__ with {value} default {default}")
             data_str = data_str.replace(f"__{name}__", f"{value}")
 
     return data_str
@@ -235,6 +255,7 @@ def default_outfile(infile):
 
 
 def render(infile, outfile, params_map, preview, silent):
+    print(f"render {params_map}")
     if not silent:
         print("FROM:", infile)
 
