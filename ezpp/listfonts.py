@@ -1,65 +1,37 @@
 #!/usr/bin/env python3
-# import argparse
-# import re
+
+# list fonts under system dirs and input dir
+
 import os
-import tempfile
-import time
 from ezpp import global_args
 from functools import reduce
-from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageColor
+from PIL import Image, ImageDraw, ImageFont
 from ezpp.utils.fonts import get_sample_text
 from imgcat import imgcat
-# list fonts under system dirs and input dir
-# /System/Library/fonts
-#
-#
-# ubuntu ~/.local/share/fonts 系统字体文件：/usr/share/fonts
-# macos ~/Library/Fonts 系统字体文件：/System/Library/Fonts
 
+import platform
 
-def get_user_fonts_dir():
-    # if macos:
-    user_dirs = [
-        f"{os.environ['HOME']}/Library/Fonts",
-        f"{os.environ['HOME']}/.local/share/fonts"
-    ]
-    for user_dir in user_dirs:
-        if os.path.isdir(user_dir):
-            return user_dir
+platform_name = platform.system()
+IS_MAC = platform_name == 'Darwin'
+IS_WIN = platform_name == 'Windows'
+IS_LINUX = platform_name == 'Linux'
 
-    return None
-
-
-def get_system_fonts_dir():
-    sys_dirs = [
-        '/System/Library/Fonts',
-        '/Library/Fonts',
-        '/usr/share/fonts',
-        '/usr/local/share/fonts'
-    ]
-    for sys_dir in sys_dirs:
-        if os.path.isdir(sys_dir):
-            return sys_dir
-    return None
-
-
-def get_titile_font():
-    fonts = [
-        '/System/Library/fonts/Menlo.ttc',
-        '/usr/share/fonts/truetype/freefont/FreeMono.ttf'
-    ]
-
-    for font in fonts:
-        if os.path.isfile(font):
-            return font
-
-    return None
-
-
-sys_dir = get_system_fonts_dir()
-user_dir = get_user_fonts_dir()
-TITLE_FONT = get_titile_font()
-
+if IS_WIN:
+    USER_FONT_DIR = f'{os.environ["USERPROFILE"]}\AppData\Local\Microsoft\Windows\Fonts'
+    SYS_FONT_DIR = 'C:\Windows\Fonts'
+    TITLE_FONT = f'{SYS_FONT_DIR}\msyh.ttc'    
+elif IS_LINUX:
+    USER_FONT_DIR = f'{os.environ["HOME"]}/.local/share/fonts'
+    SYS_FONT_DIR = '/usr/share/fonts'
+    TITLE_FONT = f'{SYS_FONT_DIR}/truetype/freefont/FreeMono.ttf'
+elif IS_MAC:
+    USER_FONT_DIR = f'{os.environ["HOME"]}/Library/Fonts'
+    SYS_FONT_DIR = '/System/Library/Fonts'
+    TITLE_FONT = f'{SYS_FONT_DIR}/Menlo.ttc'
+else:
+    USER_FONT_DIR = None
+    SYS_FONT_DIR = None
+    TITLE_FONT = None
 
 def trim_font(font_path):
     path, filename = os.path.split(font_path)
@@ -103,12 +75,12 @@ def create_cmd_parser(subparsers):
     cmd_parser.add_argument("-s",
                             "--system",
                             action='store_true',
-                            help=f"list fonts in '{sys_dir}'")
+                            help=f"list fonts in '{SYS_FONT_DIR}'")
 
     cmd_parser.add_argument("-u",
                             "--user",
                             action='store_true',
-                            help=f"list fonts in '{user_dir}'")
+                            help=f"list fonts in '{USER_FONT_DIR}'")
 
     cmd_parser.add_argument("-i",
                             "--indir",
@@ -135,11 +107,11 @@ def _on_args_parsed(args):
     imgcat = params['imgcat']
 
     if user:
-        listfonts(f"{user_dir}", index, imgcat)
+        listfonts(f"{USER_FONT_DIR}", index, imgcat)
 
     system = params['system']
     if system:
-        listfonts(f"{sys_dir}", index, imgcat)
+        listfonts(f"{SYS_FONT_DIR}", index, imgcat)
 
     indir = params['indir']
     if indir:
