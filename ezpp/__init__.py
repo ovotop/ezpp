@@ -12,7 +12,7 @@ __long_description__ = """
     """
 __uri__ = "https://github.com/ovotop/ezpp"
 
-__version__ = "0.3.2"
+__version__ = "0.3.3"
 
 __author__ = "JeffreyCao"
 __email__ = "je255reycao@outlook.com"
