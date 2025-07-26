@@ -10,6 +10,7 @@ from PIL import Image, ImageDraw, ImageFont
 from ezpp.utils.text import text_by_pos_str
 from ezpp.utils.roundrect import roundrect
 from ezpp.utils.size_parser import parse_position
+import re
 
 
 def create_cmd_parser(subparsers):
@@ -30,6 +31,22 @@ def create_cmd_parser(subparsers):
     return cmd_parser
 
 
+def convert_js_obj_to_json(js_obj_str):
+    # 正则表达式模式：匹配键（标识符）并加上双引号
+    pattern = r'([{,]\s*)([a-zA-Z_]\w*)(\s*:)'
+    # 替换：在键的两侧加上双引号
+    fixed_str = re.sub(pattern, r'\1"\2"\3', js_obj_str)
+    return fixed_str
+
+
+def parse_args(params_str):
+    new_params_str = convert_js_obj_to_json(params_str)
+    print(f"params_str: {params_str}")
+    print(f"new_params_str: {new_params_str}")
+    params_map = json.loads(new_params_str)  # 标准 JSON 作为备选
+    return params_map
+
+
 def _on_args_parsed(args):
     params = vars(args)
     infile, outfile, r, o, preview = global_args.parser_io_argments(params)
@@ -42,14 +59,12 @@ def _on_args_parsed(args):
         params_map = read_yml_config(config_str, "params")
         print(f"parmas1: {params_map}")
     else:
-        params_map = json.loads(params_str)
-
-        print(f"parmas2: {params_map}")
-
+        print(f"params_str: {params_str}")
         silent = params['silent']
         if not params_str:
             params_str = '{}'
-        params_map = json.loads(params_str)
+        # params_map = json.loads(params_str)
+        params_map = parse_args(params_str)  # 支持 JS 对象语法
         print(f"parmas3: {params_map}")
 
     render(infile, outfile, params_map, preview, silent)
@@ -189,11 +204,16 @@ def render_text_item(img, item, infile_dir, antialias_size=1):
 
     w, h = img.size
     # 文本在图片上的大小
-    layer_w, layer_h = font.getsize(title)
+    layer_w, layer_h = getsize(font, title)
     x_int = parse_position(w-layer_w, x)
     y_int = parse_position(h-layer_h, y)
+    text_by_pos_str(title, color, font, img, x_int, y_int)
 
-    text_by_pos_str(title, color, font, img, posx, posy)
+
+def getsize(font, txt):
+    """Get the size of the text."""
+    bbox = font.getbbox(txt)
+    return bbox[2] - bbox[0], bbox[3] - bbox[1]
 
 
 def render_shadow_item(img, item):

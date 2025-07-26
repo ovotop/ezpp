@@ -19,7 +19,7 @@ IS_LINUX = platform_name == 'Linux'
 if IS_WIN:
     USER_FONT_DIR = f'{os.environ["USERPROFILE"]}\AppData\Local\Microsoft\Windows\Fonts'
     SYS_FONT_DIR = 'C:\Windows\Fonts'
-    TITLE_FONT = f'{SYS_FONT_DIR}\msyh.ttc'    
+    TITLE_FONT = f'{SYS_FONT_DIR}\msyh.ttc'
 elif IS_LINUX:
     USER_FONT_DIR = f'{os.environ["HOME"]}/.local/share/fonts'
     SYS_FONT_DIR = '/usr/share/fonts'
@@ -33,10 +33,17 @@ else:
     SYS_FONT_DIR = None
     TITLE_FONT = None
 
+
 def trim_font(font_path):
     path, filename = os.path.split(font_path)
     filename, ext = os.path.splitext(filename)
     return filename, font_path
+
+
+def getsize(font, txt):
+    """Get the size of the text."""
+    bbox = font.getbbox(txt)
+    return bbox[2] - bbox[0], bbox[3] - bbox[1]
 
 
 def skip_font(fontname):
@@ -182,9 +189,9 @@ def draw_fonts(titles, fonts):
         demofont = ImageFont.truetype(fontpath, FONT_SIZE)
         text = get_sample_text(fontpath)
         title = titles[i]
-        title_w, title_h = titlefont.getsize(title)
+        title_w, title_h = getsize(titlefont, title)
         w_max = max(w_max, title_w)
-        demo_w, demo_h = demofont.getsize(text)
+        demo_w, demo_h = getsize(demofont, text)
         w_max = max(w_max, demo_w)
         h_total = h_total + demo_h + title_h
 
@@ -201,7 +208,7 @@ def draw_fonts(titles, fonts):
         y = y + MARGIN_SIZE
 
         draw.text((x, y), title, COLOR_TEXT, font=titlefont)
-        title_w, title_h = titlefont.getsize(title)
+        title_w, title_h = getsize(titlefont, title)
         y = y + title_h + MARGIN_SIZE
 
         demofont = ImageFont.truetype(
@@ -209,7 +216,7 @@ def draw_fonts(titles, fonts):
             FONT_SIZE
         )
         text = get_sample_text(fontpath)
-        demo_w, demo_h = demofont.getsize(text)
+        demo_w, demo_h = getsize(demofont, text)
 
         draw.text((x, y), text, COLOR_TEXT, font=demofont)
         y = y + demo_h + MARGIN_SIZE
@@ -243,7 +250,7 @@ def imgcat_font(font):
         FONT_SIZE
     )
     text = get_sample_text(fontpath)
-    demo_w, demo_h = demofont.getsize(text)
+    demo_w, demo_h = getsize(demofont, text)
     width = demo_w + MARGIN_SIZE * 2
     height = demo_h + MARGIN_SIZE * 2
 

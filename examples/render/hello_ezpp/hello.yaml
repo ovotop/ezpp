@@ -12,7 +12,7 @@ items:
     x: "center"
     y: "center"
   font:
-    path: "/System/Library/fonts/Monaco.dfont"
-    # filename: "ZhenyanGB.ttf"
+    # path: "/System/Library/fonts/Monaco.dfont"
+    filename: "ZhenyanGB.ttf"
     size: 24
     color: "#543"

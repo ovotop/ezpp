@@ -11,11 +11,11 @@
 
 # from setuptools import setup, find_packages  # 这个包没有的可以pip一下
 import setuptools
-from ezpp import __version__
+from ezpp import __version__, __email__, __title__, __summary__, __uri__, __author__, __license__, __long_description__
 # with open("README.md", "r") as fh:
 #     long_description = fh.read()
 setuptools.setup(
-    name="ezpp",
+    name=__title__,
     version=__version__,
     keywords=["pip", "ezpp", "resize", "reformat",
               "recolor", "shadow", "icon", "logo",
@@ -23,16 +23,12 @@ setuptools.setup(
 
     description="Easy to process picturse",
     # long_description=long_description,
-    long_description="""
-    Easy Process Picturse.
-    Easy to make  and resize  icons for apps.
-    Resize,recolor,frosted,shadow pictures by one command line.
-    """,
-    license="MIT Licence",
+    long_description=__long_description__,
+    license=__license__,
 
-    url="https://github.com/ovotop/ezpp",
-    author="JeffreyCao",
-    author_email="jeffreycao1024@gmail.com",
+    url=__uri__,
+    author=__author__,
+    author_email=__email__,
 
     packages=setuptools.find_packages(
         exclude=[
@@ -49,7 +45,7 @@ setuptools.setup(
     },
     platforms="any",
     install_requires=[
-        "Pillow",
+        "pillow",
         "ezutils",
         "aggdraw",
         "imgcat",
